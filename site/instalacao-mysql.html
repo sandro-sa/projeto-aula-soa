@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Instalar e testar MySQL 8.4 · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a class="current" aria-current="page" href="instalacao-mysql.html"><span
+                    aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a href="banco-de-dados.html"><span
+                    aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <h1>Instalar e testar MySQL 8.4</h1>
+        <p class="lead">Instalar e testar MySQL 8.4 e validar o resultado antes de avançar.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo do tutorial</h2>
+            <p>Instalar e testar MySQL 8.4 e validar o resultado antes de avançar.</p>
+           
+        </section>
+        <section>
+            <h2 id="conceitos">2. Conceitos necessários</h2>
+            
+            <p> O XAMPP no ambiente de autoria contém MariaDB</p>
+            <p>Não crie tabelas manualmente neste tutorial. Primeiro confirmaremos o servidor; depois criaremos bancos e
+                usuário; o esquema da aplicação será versionado com Flyway.</p>
+        </section>
+        <section>
+            <h2 id="problema">3. Problema que será resolvido</h2>
+            <p>Construir esta responsabilidade mantendo a separação de camadas e as dependências apresentadas.</p>
+        </section>
+        <section>
+            <h2 id="arquivos">4. Arquivos a criar ou alterar</h2>
+            <p>Caminhos relativos à pasta vazia laboratorio-restaurante-soa, e depois ao projeto que você está construindo:</p>
+            <p>Este tutorial configura ferramentas ou exercita o projeto já construído. Nenhuma classe futura é pressuposta.
+            </p>
+        </section>
+        <section>
+            <h2 id="codigo">5. Implementação passo a passo e código da etapa</h2>
+           
+<section>
+    <h3>Passo 1: Baixar o instalador do XAMPP</h3>
+    <p>
+        O XAMPP é um ambiente de desenvolvimento que reúne
+        ferramentas como Apache HTTP Server, MariaDB, PHP
+        e phpMyAdmin. Ele permite desenvolver e testar
+        aplicações web e bancos de dados localmente.
+    </p>
+
+    <ol>
+        <li>
+            Acesse o site oficial do Apache Friends:
+            <a href="https://www.apachefriends.org/pt_br/download.html"
+               target="_blank" rel="noopener noreferrer">
+                Baixar XAMPP
+            </a>.
+        </li>
+        <li>
+            Localize a seção <strong>XAMPP para Windows</strong>.
+        </li>
+        <li>
+            Escolha uma versão disponível compatível
+            com seu sistema operacional.
+        </li>
+        <li>
+            Clique em <strong>Download (64 bit)</strong>
+            para baixar o instalador executável.
+        </li>
+        <li>
+            Aguarde a conclusão do download.
+            O arquivo terá um nome semelhante a
+            <code>xampp-windows-x64-VERSAO-installer.exe</code>.
+        </li>
+    </ol>
+
+    <h3>Passo 2: Executar o instalador</h3>
+    <ol>
+        <li>
+            Acesse a pasta Downloads do Windows.
+        </li>
+        <li>
+            Localize o arquivo executável do XAMPP.
+        </li>
+        <li>
+            Clique duas vezes no arquivo para iniciar
+            a instalação.
+        </li>
+        <li>
+            Caso o Windows solicite autorização
+            para executar o programa, confirme
+            somente após verificar sua origem.
+        </li>
+        <li>
+            Na tela inicial do assistente,
+            clique em <strong>Next</strong>.
+        </li>
+        <li>
+            Se aparecer algum aviso relacionado
+            ao Controle de Conta de Usuário (UAC),
+            leia a mensagem antes de prosseguir.
+        </li>
+    </ol>
+
+    <h3>Passo 3: Selecionar os componentes</h3>
+    <p>
+        O instalador poderá apresentar uma lista
+        de componentes. Para este tutorial,
+        utilizaremos principalmente Apache,
+        MariaDB e phpMyAdmin.
+    </p>
+
+    <ol>
+        <li>
+            Mantenha selecionado
+            <strong>Apache</strong>, responsável
+            por atender requisições HTTP.
+        </li>
+        <li>
+            Mantenha selecionado
+            <strong>MySQL</strong>. No painel
+            do XAMPP, esse nome normalmente
+            identifica o MariaDB incluído
+            na distribuição.
+        </li>
+        <li>
+            Selecione <strong>PHP</strong>,
+            utilizado pelo phpMyAdmin
+            e por aplicações PHP.
+        </li>
+        <li>
+            Selecione <strong>phpMyAdmin</strong>,
+            ferramenta web para administrar
+            bancos de dados.
+        </li>
+        <li>
+            Os demais componentes são opcionais
+            e podem variar conforme a versão
+            instalada.
+        </li>
+        <li>
+            Clique em <strong>Next</strong>
+            para continuar.
+        </li>
+    </ol>
+
+    <h3>Passo 4: Escolher a pasta de instalação</h3>
+    <ol>
+        <li>
+            Na tela de destino, escolha
+            a pasta onde o XAMPP será instalado.
+        </li>
+        <li>
+            Recomenda-se utilizar:
+            <code>C:\xampp</code>
+        </li>
+        <li>
+            Evite instalar em diretórios
+            com restrições de escrita,
+            como <code>C:\Program Files</code>.
+        </li>
+        <li>
+            Clique em <strong>Next</strong>.
+        </li>
+        <li>
+            Conclua as etapas restantes
+            do assistente e clique em
+            <strong>Install</strong>
+            quando solicitado.
+        </li>
+        <li>
+            Após a instalação, clique em
+            <strong>Finish</strong>.
+        </li>
+    </ol>
+
+    <h3>Passo 5: Abrir o XAMPP Control Panel</h3>
+    <p>
+        O XAMPP Control Panel permite iniciar,
+        interromper e administrar os serviços
+        instalados.
+    </p>
+
+    <ol>
+        <li>
+            Abra o menu Iniciar do Windows.
+        </li>
+        <li>
+            Procure por <strong>XAMPP Control Panel</strong>.
+        </li>
+        <li>
+            Alternativamente, acesse a pasta
+            de instalação e execute:
+            <code>C:\xampp\xampp-control.exe</code>
+        </li>
+        <li>
+            Localize as linhas correspondentes
+            ao Apache e ao MySQL.
+        </li>
+        <li>
+            Clique em <strong>Start</strong>
+            na linha Apache.
+        </li>
+        <li>
+            Clique em <strong>Start</strong>
+            na linha MySQL.
+        </li>
+        <li>
+            Verifique se os serviços foram
+            iniciados sem mensagens de erro.
+        </li>
+    </ol>
+
+    <h3>Passo 6: Testar o servidor Apache</h3>
+    <p>
+        Com o serviço Apache iniciado,
+        abra seu navegador de internet.
+    </p>
+
+    <ol>
+        <li>
+            Digite o endereço:
+            <a href="http://localhost/"
+               target="_blank" rel="noopener noreferrer">
+                http://localhost/
+            </a>
+        </li>
+        <li>
+            Pressione Enter.
+        </li>
+        <li>
+            Se a instalação estiver funcionando,
+            a página inicial do XAMPP
+            deverá ser exibida.
+        </li>
+        <li>
+            Caso o endereço não funcione,
+            confira se o Apache foi iniciado
+            e se a porta 80 está disponível.
+        </li>
+    </ol>
+
+    <h3>Passo 7: Acessar o phpMyAdmin</h3>
+    <p>
+        O phpMyAdmin permite criar bancos,
+        tabelas, usuários e executar comandos
+        SQL através do navegador.
+    </p>
+
+    <ol>
+        <li>
+            Verifique se Apache e MySQL
+            estão iniciados.
+        </li>
+        <li>
+            No navegador, acesse:
+            <a href="http://localhost/phpmyadmin/"
+               target="_blank" rel="noopener noreferrer">
+                http://localhost/phpmyadmin/
+            </a>
+        </li>
+        <li>
+            Aguarde a abertura da interface.
+        </li>
+        <li>
+            Localize a aba <strong>SQL</strong>.
+        </li>
+        <li>
+            Utilize essa aba para executar
+            os comandos SQL dos exercícios.
+        </li>
+    </ol>
+
+   
+
+    <h3>Passo 8: Resolver problemas comuns</h3>
+
+    <h4>Apache não inicia</h4>
+    <p>
+        Verifique se a porta 80 ou 443 já está
+        sendo utilizada por outro servidor,
+        como IIS ou outra instalação do Apache.
+        Consulte os logs do XAMPP.
+    </p>
+
+    <h4>MySQL não inicia</h4>
+    <p>
+        Verifique se a porta 3306 já está
+        sendo utilizada por outra instalação
+        do MySQL ou MariaDB.
+        Não exclua arquivos da pasta de dados
+        para tentar corrigir o problema.
+    </p>
+
+    <h4>phpMyAdmin não abre</h4>
+    <p>
+        Confira se Apache e MySQL estão ativos.
+        Utilize o endereço local correto e
+        verifique os logs dos serviços.
+    </p>
+
+    <h4>Erro de acesso negado ao banco</h4>
+    <p>
+        Confirme o usuário, a senha e as
+        permissões configuradas. Para aplicações,
+        crie uma conta própria com privilégios
+        limitados, evitando utilizar root.
+    </p>
+
+    <h3>Passo 11: Encerrar os serviços</h3>
+    <ol>
+        <li>
+            Abra o XAMPP Control Panel.
+        </li>
+        <li>
+            Clique em <strong>Stop</strong>
+            na linha MySQL.
+        </li>
+        <li>
+            Clique em <strong>Stop</strong>
+            na linha Apache.
+        </li>
+        <li>
+            Aguarde a interrupção completa
+            antes de fechar o painel.
+        </li>
+    </ol>
+
+    <h3>Observações importantes</h3>
+    <p>
+        O XAMPP é destinado principalmente
+        ao desenvolvimento e aos testes locais.
+        Não deve ser publicado diretamente
+        na internet com as configurações padrão.
+    </p>
+
+    <p>
+        O phpMyAdmin deve permanecer acessível
+        somente localmente, e as contas
+        administrativas devem ser protegidas.
+    </p>
+
+    <p>
+        Nos projetos Java SOAP e REST, o XAMPP
+        pode fornecer o banco MariaDB.
+        Para executar aplicações Java WAR,
+        utilizaremos o Apache Tomcat 10.1
+        instalado separadamente.
+    </p>
+</section>
+
+        </section>
+        <section>
+            <h2 id="explicacao">6. Explicação do código e das decisões</h2>
+            <ul>
+                <li>Leia o conteúdo exibido antes de digitar; cada instrução pertence ao assunto desta tutorial.</li>
+                <li>As alterações desta página são cumulativas: preserve os arquivos criados nas etapas anteriores.</li>
+                <li>O comando de verificação usa somente os módulos já introduzidos; o build completo fica para o
+                    encerramento.</li>
+            </ul>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>A leitura de contexto explica por que uma aplicação precisa de conexão e limites de transação. Nesta
+                    trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário e GRANT vêm do roteiro
+                    MySQL, sem criar persistence.xml.</p>
+                <ul>
+                    <li data-referencia="jpa-transacao"><a href="../docs/referencias.html#leitura-jpa-transacao">[R08]
+                            Hébert Coelho — JPA Eficaz: as melhores práticas de persistência de dados em Java</a>. Cap.
+                        2, §2.4.1: controle manual da transação. <strong>Páginas 30–32 do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Por que a identidade administrativa do banco não deve ser a
+                    identidade usada pela aplicação?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </section>
+    
+      
+       
+        <section>
+           
+            </ul><button class="concluir" data-aula="instalacao-mysql" type="button" aria-pressed="false">Marcar tutorial
+                como concluída</button>
+        </section>
+       
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para ferramentas e versões: <a
+                href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="maven.html">← Instalar Maven e compreender o
+                POM</a><a href="banco-de-dados.html">Criar bancos e usuário no MySQL →</a></nav>
+    </main>
+</body>
+
+</html>

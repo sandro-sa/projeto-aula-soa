@@ -1,0 +1,214 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Implementar o repositório JDBC · Restaurante do zero</title><link rel="stylesheet" href="style.css"><script src="tutorial.js" defer></script></head><body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a><aside><span class="chip">Do zero até localhost</span><h2>Restaurante<br>SOAP + REST</h2><p>Java 17 · MySQL · Spring Initializr</p><nav aria-label="Trilha de construção"><p class="nav-grupo">Preparação do laboratório</p><a  href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a  href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a  href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK 17</a><a  href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar o JDK</a><a  href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o POM</a><a  href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a  href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a  href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a  href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a><p class="nav-grupo">Projeto e domínio</p><a  href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a  href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a  href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a  href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a  href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a  href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a  href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a  href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a  href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a  href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a><p class="nav-grupo">Regras de negócio</p><a  href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a  href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de persistência</a><a  href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de mesas</a><a  href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a  href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de produtos</a><a  href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo do pedido</a><a  href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a><p class="nav-grupo">Persistência MySQL</p><a  href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a  href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a  href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a class="current" aria-current="page" href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a  href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais externas</a><a  href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a><p class="nav-grupo">Contratos SOAP</p><a  href="contrato-xsd.html"><span aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a  href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a  href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de Categoria</a><a  href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de Produto</a><a  href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de Pedido</a><a  href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos contratos</a><p class="nav-grupo">Servidor SOAP</p><a  href="servidor.html"><span aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a  href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco no WAR</a><a  href="soap-autenticacao.html"><span aria-hidden="true">41.</span> Autenticar requisições SOAP</a><a  href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a  href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs SOAP</a><a  href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar MesaEndpoint</a><a  href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar CategoriaEndpoint</a><a  href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a  href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar PedidoEndpoint</a><a  href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da imagem QR</a><a  href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a  href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e serviços no Tomcat</a><a  href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no Tomcat localhost</a><p class="nav-grupo">Interfaces Swing</p><a  href="desktop-conexao.html"><span aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a  href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a  href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de cadastro</a><a  href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a  href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing de categorias</a><a  href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a  href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela administrativa</a><a  href="swing-pedidos.html"><span aria-hidden="true">59.</span> Construir a janela do garçom</a><a  href="testes-swing.html"><span aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a><p class="nav-grupo">Cardápio local</p><a  href="cardapio-imagem.html"><span aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a  href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML semântico</a><a  href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar o layout responsivo</a><a  href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar busca, categorias e consulta JSON</a><a  href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR em localhost</a><p class="nav-grupo">REST desde o Initializr</p><a  href="spring-initializr.html"><span aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a  href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a  href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a  href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a  href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a  href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a  href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a  href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a  href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a  href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a  href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a  href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a  href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a  href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a><p class="nav-grupo">Validação em localhost</p><a  href="testes-rest.html"><span aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a  href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a  href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a><p class="nav-grupo">Consolidação</p><a  href="comparativo.html"><span aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a  href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do laboratório</a><a  href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e estender o sistema</a></nav></aside><main id="conteudo" tabindex="-1"><span class="chip">Persistência MySQL · aula 30 de 85</span><h1>Implementar o repositório JDBC</h1><p class="lead">Criar JdbcRepositorio.java implementando a porta Repositorio.</p><p id="progresso" class="foot" aria-live="polite"></p>
+<section><h2 id="objetivo">1. O que fazer nesta etapa</h2><div class="callout"><p><strong>Criar JdbcRepositorio.java implementando a porta Repositorio.</strong></p><ol><li>Criar: <code>source/restaurante-soap/infraestrutura/src/main/java/br/edu/soa/restaurante/infraestrutura/JdbcRepositorio.java</code></li></ol><p><strong>A aula termina quando:</strong> A implementação compila com todos os métodos exigidos por Repositorio.Sessao.</p></div><p>Continue no Eclipse após <a href="infraestrutura-banco.html">Configurar conexões e Flyway</a>. Use os projetos e os arquivos que você construiu nas etapas anteriores.</p></section>
+<section><h2 id="conceitos">2. Entenda o que será feito</h2><p>A infraestrutura executa SQL parametrizado, traduz resultados para o domínio e controla commit e rollback.</p><ul><li>PreparedStatement mantém valores de entrada separados do SQL.</li><li>Observe a transação, os bloqueios FOR UPDATE e a cópia de nome/preço em inserirItem.</li><li>Erros de duplicação, referência e concorrência são classificados sem expor a mensagem SQL ao consumidor.</li></ul><details><summary>Pontos para observar no código</summary><ul><li>transacao confirma só ao final e fecha Connection por try-with-resources.</li><li>PreparedStatement separa SQL e valores de entrada.</li><li>Os mapeadores constroem entidades imutáveis; pedido consulta seus itens antes de calcular total.</li><li>inserirItem copia nome e preço do Produto validado, nunca de um valor enviado pelo cliente.</li><li>falhaSql classifica códigos MySQL e omite detalhes privados das respostas.</li></ul></details></section>
+<section><h2 id="codigo">3. Faça o passo a passo</h2><h3 id="passo-1">Passo 1: Localizar o ponto de trabalho no Eclipse</h3><p>No <em>Project Explorer</em>, selecione o projeto <code>infraestrutura</code>. Confira os arquivos que vieram da aula anterior e localize o caminho da primeira edição abaixo. Os diretórios são relativos à pasta do laboratório, já importada na IDE.</p><article class="etapa-arquivo" data-path="source/restaurante-soap/infraestrutura/src/main/java/br/edu/soa/restaurante/infraestrutura/JdbcRepositorio.java"><h3 id="passo-2">Passo 2: Criar <code>JdbcRepositorio.java</code></h3><p><strong>Caminho na pasta do laboratório:</strong> <code>source/restaurante-soap/infraestrutura/src/main/java/br/edu/soa/restaurante/infraestrutura/JdbcRepositorio.java</code>.</p><ol><li>Selecione o projeto <code>infraestrutura</code> e a pasta <code>src/main/java</code>. Se ela não aparecer, use <strong>New → Source Folder</strong> para criá-la.</li><li>No pacote <code>br.edu.soa.restaurante.infraestrutura</code>, crie o arquivo. Se o pacote ainda não existir, use <strong>New → Package</strong> com esse nome.</li><li>Selecione o pacote e use <strong>File → New → Other… → General → File</strong>. Informe <code>JdbcRepositorio.java</code> e finalize. Confira a pasta de destino <code>infraestrutura/src/main/java/br/edu/soa/restaurante/infraestrutura</code>.</li></ol><p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com <strong>Ctrl+S</strong>.</p><pre><code class="language-java">// Finalidade: Implementar a porta de persistência com SQL parametrizado e transações JDBC.
+package br.edu.soa.restaurante.infraestrutura;
+
+import br.edu.soa.restaurante.aplicacao.*;
+import br.edu.soa.restaurante.dominio.*;
+import java.sql.*;
+import java.util.*;
+import java.util.function.Function;
+import javax.sql.DataSource;
+
+/** JDBC parametrizado, uma conexão por transação, sem dependência do servidor Web. */
+public final class JdbcRepositorio implements Repositorio {
+    private static final System.Logger LOG = System.getLogger(JdbcRepositorio.class.getName());
+    private final DataSource dataSource;
+    public JdbcRepositorio(DataSource dataSource) { this.dataSource = dataSource; }
+
+    // Executa uma unidade de trabalho; a implementação administra confirmação e reversão.
+    @Override public &lt;T&gt; T transacao(Function&lt;Sessao, T&gt; trabalho) {
+        try (Connection c = dataSource.getConnection()) {
+            c.setAutoCommit(false);
+            c.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            try {
+                T resultado = trabalho.apply(new JdbcSessao(c));
+                c.commit();
+                return resultado;
+            } catch (RuntimeException | Error e) {
+                try { c.rollback(); } catch (SQLException rollback) { e.addSuppressed(rollback); }
+                throw e;
+            }
+        } catch (SQLException e) { throw falhaSql(e); }
+    }
+    // Traduz códigos de persistência para falhas da aplicação sem expor a mensagem SQL.
+    static Falha falhaSql(SQLException e) {
+        String state = Objects.toString(e.getSQLState(), &quot;&quot;);
+        int codigo = e.getErrorCode();
+        // MySQL usa SQLState 23000 para diferentes violações; o código distingue-as.
+        if (codigo == 1062 || state.equals(&quot;23505&quot;)) return Falha.conflito(&quot;DUPLICADO&quot;, &quot;Número de mesa ou pedido aberto duplicado.&quot;);
+        if (codigo == 1451 || codigo == 1452 || state.equals(&quot;23503&quot;)) return Falha.conflito(&quot;REFERENCIADO&quot;, &quot;Registro possui vínculos. Desative-o para preservar o histórico.&quot;);
+        if (codigo == 1205 || codigo == 1213 || state.startsWith(&quot;40&quot;)) return Falha.conflito(&quot;CONCORRENCIA&quot;, &quot;Operação concorrente. Atualize os dados e tente novamente.&quot;);
+        // Nunca registrar parâmetros, credenciais ou a mensagem SQL na resposta pública.
+        LOG.log(System.Logger.Level.ERROR, &quot;Falha de persistência; SQLState={0}, código={1}&quot;, state, e.getErrorCode());
+        return new Falha(&quot;PERSISTENCIA&quot;, Falha.Tipo.INTERNO, &quot;Não foi possível persistir os dados. Tente novamente ou contate a administração.&quot;);
+    }
+    private static final class JdbcSessao implements Sessao {
+        private final Connection c;
+        JdbcSessao(Connection c) { this.c = c; }
+        @FunctionalInterface interface Mapper&lt;T&gt; { T map(ResultSet r) throws SQLException; }
+        // Cria o statement e vincula os parâmetros à consulta.
+        private PreparedStatement stmt(String sql, Object... args) throws SQLException {
+            PreparedStatement p = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            for (int i=0;i&lt;args.length;i++) p.setObject(i+1,args[i]);
+            p.setQueryTimeout(10);
+            return p;
+        }
+        // Percorre o resultado e aplica o mapeador de cada linha.
+        private &lt;T&gt; List&lt;T&gt; list(String sql, Mapper&lt;T&gt; mapper, Object... args) {
+            try (PreparedStatement p = stmt(sql,args); ResultSet r = p.executeQuery()) {
+                List&lt;T&gt; values = new ArrayList&lt;&gt;();
+                while (r.next()) values.add(mapper.map(r));
+                return values;
+            } catch (SQLException e) { throw falhaSql(e); }
+        }
+        // Exige um registro no resultado da consulta.
+        private &lt;T&gt; T one(String sql, Mapper&lt;T&gt; mapper, Object... args) {
+            // Percorre o resultado e aplica o mapeador de cada linha.
+            return list(sql,mapper,args).stream().findFirst().orElseThrow(() -&gt;
+                new Falha(&quot;NAO_ENCONTRADO&quot;, Falha.Tipo.NAO_ENCONTRADO, &quot;Registro não encontrado.&quot;));
+        }
+        // Executa a inserção e recupera a chave gerada.
+        private long insert(String sql,Object... args) {
+            try (PreparedStatement p = stmt(sql,args)) {
+                p.executeUpdate();
+                try(ResultSet r = p.getGeneratedKeys()) { if(r.next()) return r.getLong(1); }
+                throw new SQLException(&quot;Chave não retornada&quot;);
+            } catch(SQLException e) { throw falhaSql(e); }
+        }
+        // Executa a atualização e confere o efeito esperado.
+        private void update(String sql,Object... args) {
+            try (PreparedStatement p = stmt(sql,args)) {
+                if (p.executeUpdate() == 0) throw new Falha(&quot;NAO_ENCONTRADO&quot;, Falha.Tipo.NAO_ENCONTRADO, &quot;Registro não encontrado.&quot;);
+            } catch(SQLException e) { throw falhaSql(e); }
+        }
+        private Mesa mesa(ResultSet r) throws SQLException { return new Mesa(r.getLong(&quot;id&quot;),r.getInt(&quot;numero&quot;),SituacaoMesa.valueOf(r.getString(&quot;situacao&quot;))); }
+        public Mesa mesa(long id,boolean lock) { return one(&quot;SELECT * FROM mesa WHERE id=?&quot;+(lock?&quot; FOR UPDATE&quot;:&quot;&quot;),this::mesa,id); }
+        public List&lt;Mesa&gt; mesas() { return list(&quot;SELECT * FROM mesa ORDER BY numero&quot;,this::mesa); }
+        // Insere ou atualiza o número da mesa por SQL parametrizado.
+        public Mesa salvarMesa(long id,int numero) {
+            if(id==0) id=insert(&quot;INSERT INTO mesa(numero) VALUES (?)&quot;,numero);
+            // Executa a atualização e confere o efeito esperado.
+            else update(&quot;UPDATE mesa SET numero=? WHERE id=?&quot;,numero,id);
+            return mesa(id,false);
+        }
+        public void ocuparMesa(long id,SituacaoMesa s) { update(&quot;UPDATE mesa SET situacao=? WHERE id=?&quot;,s.name(),id); }
+        // Exclui a mesa pelo ID; a aplicação confere sua situação antes de chamar a persistência.
+        public void excluirMesa(long id) { update(&quot;DELETE FROM mesa WHERE id=?&quot;,id); }
+        private Categoria categoria(ResultSet r) throws SQLException { return new Categoria(r.getLong(&quot;id&quot;),r.getString(&quot;nome&quot;),r.getString(&quot;descricao&quot;),r.getBoolean(&quot;ativo&quot;)); }
+        public Categoria categoria(long id) { return one(&quot;SELECT * FROM categoria WHERE id=?&quot;,this::categoria,id); }
+        public List&lt;Categoria&gt; categorias() { return list(&quot;SELECT * FROM categoria ORDER BY nome,id&quot;,this::categoria); }
+        // Insere ou atualiza os dados da categoria pelo contrato de persistência.
+        public Categoria salvarCategoria(Categoria v) {
+            long id=v.id();
+            if(id==0) id=insert(&quot;INSERT INTO categoria(nome,descricao,ativo) VALUES (?,?,?)&quot;,v.nome(),v.descricao(),v.ativo());
+            // Executa a atualização e confere o efeito esperado.
+            else update(&quot;UPDATE categoria SET nome=?,descricao=?,ativo=? WHERE id=?&quot;,v.nome(),v.descricao(),v.ativo(),id);
+            return categoria(id);
+        }
+        // Executa a exclusão; chaves estrangeiras protegem os vínculos existentes.
+        public void excluirCategoria(long id) { update(&quot;DELETE FROM categoria WHERE id=?&quot;,id); }
+        private Produto produto(ResultSet r) throws SQLException { return new Produto(r.getLong(&quot;id&quot;),r.getLong(&quot;categoria_id&quot;),r.getString(&quot;nome&quot;),r.getString(&quot;descricao&quot;),r.getString(&quot;imagem&quot;),r.getBigDecimal(&quot;preco&quot;),r.getString(&quot;porcao&quot;),r.getBoolean(&quot;disponivel&quot;)); }
+        public Produto produto(long id,boolean lock) { return one(&quot;SELECT * FROM produto WHERE id=?&quot;+(lock?&quot; FOR UPDATE&quot;:&quot;&quot;),this::produto,id); }
+        public List&lt;Produto&gt; produtos() { return list(&quot;SELECT * FROM produto ORDER BY nome,id&quot;,this::produto); }
+        // Grava os dados recebidos do produto; a validação de negócio ocorre em Restaurante.
+        public Produto salvarProduto(Produto v) {
+            long id=v.id();
+            Object[] a={v.categoriaId(),v.nome(),v.descricao(),v.imagem(),v.preco(),v.porcao(),v.disponivel()};
+            if(id==0) id=insert(&quot;INSERT INTO produto(categoria_id,nome,descricao,imagem,preco,porcao,disponivel) VALUES (?,?,?,?,?,?,?)&quot;,a);
+            else { Object[] b=Arrays.copyOf(a,8); b[7]=id; update(&quot;UPDATE produto SET categoria_id=?,nome=?,descricao=?,imagem=?,preco=?,porcao=?,disponivel=? WHERE id=?&quot;,b); }
+            return produto(id,false);
+        }
+        public void excluirProduto(long id) { update(&quot;DELETE FROM produto WHERE id=?&quot;,id); }
+        private ItemPedido item(ResultSet r) throws SQLException { return new ItemPedido(r.getLong(&quot;id&quot;),r.getLong(&quot;produto_id&quot;),r.getString(&quot;nome_produto&quot;),r.getInt(&quot;quantidade&quot;),r.getBigDecimal(&quot;preco_unitario&quot;)); }
+        private Pedido pedido(ResultSet r) throws SQLException {
+            long id=r.getLong(&quot;id&quot;);
+            return new Pedido(id,r.getLong(&quot;mesa_id&quot;),r.getObject(&quot;data_hora&quot;,java.time.LocalDateTime.class).toInstant(java.time.ZoneOffset.UTC),SituacaoPedido.valueOf(r.getString(&quot;situacao&quot;)),list(&quot;SELECT * FROM item_pedido WHERE pedido_id=? ORDER BY id&quot;,this::item,id));
+        }
+        public Pedido pedido(long id,boolean lock) { return one(&quot;SELECT * FROM pedido WHERE id=?&quot;+(lock?&quot; FOR UPDATE&quot;:&quot;&quot;),this::pedido,id); }
+        public List&lt;Pedido&gt; pedidos() { return list(&quot;SELECT * FROM pedido ORDER BY id DESC&quot;,this::pedido); }
+        public Pedido inserirPedido(long mesaId) {
+            var agoraUtc = java.time.LocalDateTime.ofInstant(java.time.Instant.now(), java.time.ZoneOffset.UTC);
+            return pedido(insert(&quot;INSERT INTO pedido(mesa_id,data_hora,situacao,mesa_aberta) VALUES (?,?,'ABERTO',?)&quot;,mesaId,agoraUtc,mesaId),false);
+        }
+        // Guarda nome e preço do produto como dados históricos da inclusão.
+        public void inserirItem(long pedidoId,Produto p,int q) {
+            insert(&quot;INSERT INTO item_pedido(pedido_id,produto_id,nome_produto,quantidade,preco_unitario) VALUES (?,?,?,?,?)&quot;,pedidoId,p.id(),p.nome(),q,p.preco());
+        }
+        public void quantidadeItem(long pedidoId,long itemId,int q) { update(&quot;UPDATE item_pedido SET quantidade=? WHERE id=? AND pedido_id=?&quot;,q,itemId,pedidoId); }
+        public void removerItem(long pedidoId,long itemId) { update(&quot;DELETE FROM item_pedido WHERE id=? AND pedido_id=?&quot;,itemId,pedidoId); }
+        public void encerrarPedido(long id,SituacaoPedido s) { update(&quot;UPDATE pedido SET situacao=?,mesa_aberta=NULL WHERE id=?&quot;,s.name(),id); }
+    }
+}
+</code></pre><p><strong>Confira:</strong> o arquivo pertence ao projeto <code>infraestrutura</code>, no caminho indicado e com o conteúdo completo desta etapa.</p></article><h3 id="passo-3">Passo 3: Verificar pelo Maven no Eclipse</h3><ol><li>Use <strong>File → Save All</strong>.</li><li>No projeto <code>restaurante-soap</code>, clique com o botão direito e escolha <strong>Run As → Maven build…</strong>. Use um nome identificável, como <code>Verificar aula 30</code>.</li><li>Confira <strong>Base directory</strong>: selecione o projeto <code>restaurante-soap</code> com <strong>Browse Workspace…</strong>. Em <strong>Goals</strong>, informe o conteúdo abaixo, sem o prefixo <code>mvn</code>.</li><li>Na aba <strong>JRE</strong>, confira o JDK 17. Clique em <strong>Apply → Run</strong> e acompanhe a aba <strong>Console</strong>.</li></ol><pre><code class="language-text">-pl infraestrutura -am compile</code></pre><p><strong>Confira:</strong> a execução deve terminar em <code>BUILD SUCCESS</code>. Esse checkpoint valida o build desta etapa; a inicialização com banco e a interação pelas telas serão conferidas nas aulas de execução.</p><h3 id="passo-4">Passo 4: Conferir a entrega na IDE</h3><ol><li>Abra os arquivos salvos nos caminhos indicados e compare com a versão desta etapa.</li><li>Leia a aba <strong>Problems</strong> e a saída da verificação. Corrija os erros relacionados aos projetos desta aula antes de avançar.</li><li>Confira o resultado esperado: A implementação compila com todos os métodos exigidos por Repositorio.Sessao.</li></ol></section>
+<section><h2 id="resultado">4. Resultado esperado</h2><p>A implementação compila com todos os métodos exigidos por Repositorio.Sessao.</p><details><summary>Estrutura de diretórios acumulada até esta aula</summary><p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta árvore.</p><pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── aplicacao/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   └── java/
+        │       │       └── br/
+        │       │           └── edu/
+        │       │               └── soa/
+        │       │                   └── restaurante/
+        │       │                       └── aplicacao/
+        │       │                           ├── Falha.java
+        │       │                           ├── Repositorio.java
+        │       │                           └── Restaurante.java
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── aplicacao/
+        │                                   └── RestauranteTest.java
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        ├── infraestrutura/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           ├── java/
+        │           │   └── br/
+        │           │       └── edu/
+        │           │           └── soa/
+        │           │               └── restaurante/
+        │           │                   └── infraestrutura/
+        │           │                       ├── Banco.java
+        │           │                       └── JdbcRepositorio.java
+        │           └── resources/
+        │               └── db/
+        │                   └── migration/
+        │                       └── V1__restaurante.sql
+        └── pom.xml</code></pre></details><details><summary>Se a verificação não der certo</summary><ul><li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>; confira o projeto, o caminho do arquivo e o pacote.</li><li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo listado já possui seu POM.</li><li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em erro de download, confira a conexão e o repositório informado.</li><li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li></ul></details></section>
+<section><h2 id="checkpoint">5. Confira e continue</h2><ul><li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li><li>A implementação compila com todos os métodos exigidos por Repositorio.Sessao.</li><li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li><li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li></ul><button class="concluir" data-aula="infraestrutura-jdbc" type="button" aria-pressed="false">Marcar aula como concluída</button><p>Depois, avance para <a href="infraestrutura-credenciais.html">Implementar credenciais externas</a>.</p></section>
+<details class="base"><summary>Fundamentação e leitura complementar</summary><div class="callout referencias-aula" aria-labelledby="fundamentacao"><h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3><p>A transação JDBC usa commit/rollback e os bloqueios são obtidos por SQL. O livro ajuda a discutir conflitos, mas @Version e LockModeType não aparecem nesta implementação. O comportamento de leitura do MySQL não é inferido das generalizações do exemplar sobre JPA.</p><ul><li data-referencia="jpa-transacao"><a href="../docs/referencias.html#leitura-jpa-transacao">[R08] Hébert Coelho — JPA Eficaz: as melhores práticas de persistência de dados em Java</a>. Cap. 2, §2.4.1: controle manual da transação. <strong>Páginas 30–32 do PDF</strong>.</li><li data-referencia="jpa-concorrencia"><a href="../docs/referencias.html#leitura-jpa-concorrencia">[R08] Hébert Coelho — JPA Eficaz: as melhores práticas de persistência de dados em Java</a>. Cap. 8, §8.4: versionamento e locks. <strong>Páginas 159–164 do PDF</strong>.</li></ul><p><strong>Confira na leitura:</strong> Quais linhas precisam ser bloqueadas para impedir duas aberturas simultâneas na mesma mesa?</p><p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.</p></div></details><nav class="links" aria-label="Aulas anterior e seguinte"><a href="infraestrutura-banco.html">← Configurar conexões e Flyway</a><a href="infraestrutura-credenciais.html">Implementar credenciais externas →</a></nav></main></body></html>

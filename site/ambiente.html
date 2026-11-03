@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Planejar o ambiente local · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a class="current" aria-current="page" href="ambiente.html"><span
+                    aria-hidden="true">02.</span> Planejar o ambiente local</a><a href="instalacao-java.html"><span
+                    aria-hidden="true">03.</span> Instalar e config. o JDK 17</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <h1>Planejar o ambiente local</h1>
+        <p class="lead">Distinguir o Java do Eclipse, o Java de compilação e o Java do servidor.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo do tutorial</h2>
+            <p>Distinguir o Java do Eclipse, o Java de compilação e o Java do servidor.</p>
+
+        </section>
+        <section>
+            <h2 id="conceitos">2. Conceitos necessários</h2>
+            <p>JDK inclui javac; JRE executa bytecode. PATH seleciona executáveis, JAVA_HOME identifica a raiz do JDK.
+            </p>
+            <p>São necessários JDK 17, Maven 3.6.3+, Eclipse Enterprise Java/Web, MySQL 8.4 LTS e Tomcat 10.1. A IDE
+                pode exigir um JDK superior para iniciar; o projeto continua com release 17. O REST gerado no Initializr
+                usa Boot 4.1.2 e servidor embutido próprio; ele não será copiado para o Tomcat 10.1.</p>
+            <p>Verifique cada ferramenta separadamente. Não tente executar o sistema inteiro antes de construí-lo. Se já
+                existir servidor na porta 3306 ou 8080, identifique-o antes de alterar configuração. XAMPP pode oferecer
+                MariaDB mesmo quando o painel mostra o nome MySQL; confirme SELECT VERSION().</p>
+            <p>Os comandos deste tutorial são apenas um diagnóstico inicial: uma ferramenta ainda não instalada pode
+                informar comando não encontrado. Instale-a no tutorial correspondente e repita a verificação; esse
+                diagnóstico não é um checkpoint de build.</p>
+        </section>
+        <section>
+            <h2 id="problema">3. Problema que será resolvido</h2>
+            <p>Evitar uma IDE funcional com projeto ou servidor configurado para uma versão incompatível.</p>
+        </section>
+        <section>
+            <h2 id="arquivos">4. Arquivos a criar ou alterar</h2>
+            <p>Caminhos relativos à pasta vazia do aluno, e depois ao projeto que você está construindo:</p>
+            <p>Este tutorial configura ferramentas ou exercita o projeto já construído. Nenhuma classe futura é
+                pressuposta.
+            </p>
+        </section>
+      
+            <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros
+                </a>. Complementos oficiais para ferramentas e versões: <a
+                    href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                    href="https://start.spring.io/">Spring Initializr</a> · <a
+                    href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                    href="https://springdoc.org/">springdoc</a> · <a
+                    href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                    href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                    href="https://maven.apache.org/guides/">Maven</a>.</p>
+            <nav class="links" aria-label="Aulas anterior e seguinte"><a href="index.html">← Do zero até localhost</a><a
+                    href="instalacao-java.html">Instalar e configurar o JDK 17 →</a></nav>
+    </main>
+</body>
+
+</html>

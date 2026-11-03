@@ -1,0 +1,246 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Escrever o HTML semântico · Restaurante do zero</title><link rel="stylesheet" href="style.css"><script src="tutorial.js" defer></script></head><body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a><aside><span class="chip">Do zero até localhost</span><h2>Restaurante<br>SOAP + REST</h2><p>Java 17 · MySQL · Spring Initializr</p><nav aria-label="Trilha de construção"><p class="nav-grupo">Preparação do laboratório</p><a  href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a  href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a  href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK 17</a><a  href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar o JDK</a><a  href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o POM</a><a  href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a  href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a  href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a  href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a><p class="nav-grupo">Projeto e domínio</p><a  href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a  href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a  href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a  href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a  href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a  href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a  href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a  href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a  href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a  href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a><p class="nav-grupo">Regras de negócio</p><a  href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a  href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de persistência</a><a  href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de mesas</a><a  href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a  href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de produtos</a><a  href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo do pedido</a><a  href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a><p class="nav-grupo">Persistência MySQL</p><a  href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a  href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a  href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a  href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a  href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais externas</a><a  href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a><p class="nav-grupo">Contratos SOAP</p><a  href="contrato-xsd.html"><span aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a  href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a  href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de Categoria</a><a  href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de Produto</a><a  href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de Pedido</a><a  href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos contratos</a><p class="nav-grupo">Servidor SOAP</p><a  href="servidor.html"><span aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a  href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco no WAR</a><a  href="soap-autenticacao.html"><span aria-hidden="true">41.</span> Autenticar requisições SOAP</a><a  href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a  href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs SOAP</a><a  href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar MesaEndpoint</a><a  href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar CategoriaEndpoint</a><a  href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a  href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar PedidoEndpoint</a><a  href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da imagem QR</a><a  href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a  href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e serviços no Tomcat</a><a  href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no Tomcat localhost</a><p class="nav-grupo">Interfaces Swing</p><a  href="desktop-conexao.html"><span aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a  href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a  href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de cadastro</a><a  href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a  href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing de categorias</a><a  href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a  href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela administrativa</a><a  href="swing-pedidos.html"><span aria-hidden="true">59.</span> Construir a janela do garçom</a><a  href="testes-swing.html"><span aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a><p class="nav-grupo">Cardápio local</p><a  href="cardapio-imagem.html"><span aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a class="current" aria-current="page" href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML semântico</a><a  href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar o layout responsivo</a><a  href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar busca, categorias e consulta JSON</a><a  href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR em localhost</a><p class="nav-grupo">REST desde o Initializr</p><a  href="spring-initializr.html"><span aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a  href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a  href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a  href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a  href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a  href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a  href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a  href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a  href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a  href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a  href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a  href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a  href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a  href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a><p class="nav-grupo">Validação em localhost</p><a  href="testes-rest.html"><span aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a  href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a  href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a><p class="nav-grupo">Consolidação</p><a  href="comparativo.html"><span aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a  href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do laboratório</a><a  href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e estender o sistema</a></nav></aside><main id="conteudo" tabindex="-1"><span class="chip">Cardápio local · aula 62 de 85</span><h1>Escrever o HTML semântico</h1><p class="lead">Criar o HTML do cardápio e atualizar o POM do servidor para empacotá-lo.</p><p id="progresso" class="foot" aria-live="polite"></p>
+<section><h2 id="objetivo">1. O que fazer nesta etapa</h2><div class="callout"><p><strong>Criar o HTML do cardápio e atualizar o POM do servidor para empacotá-lo.</strong></p><ol><li>Criar: <code>cardapio-web/index.html</code></li><li>Atualizar: <code>source/restaurante-soap/servidor/pom.xml</code></li></ol><p><strong>A aula termina quando:</strong> O WAR contém o cardápio e a página publicada apresenta a estrutura HTML.</p></div><p>Continue no Eclipse após <a href="cardapio-imagem.html">Criar o recurso visual do cardápio</a>. Use os projetos e os arquivos que você construiu nas etapas anteriores.</p></section>
+<section><h2 id="conceitos">2. Entenda o que será feito</h2><p>A página organiza os controles, os resultados e os pontos que o CSS e o JavaScript usarão depois.</p><ul><li>Nesta etapa, a busca ainda não consulta a API; o JavaScript virá na aula 64.</li><li>Confira labels, IDs e o caminho do recurso visual.</li></ul><details><summary>Pontos para observar no código</summary><ul><li>lang e viewport preparam idioma e celular.</li><li>Labels, títulos e link de salto ajudam acessibilidade.</li><li>Os IDs serão usados pelo JavaScript escrito em outra aula; ainda não existe fetch.</li></ul></details></section>
+<section><h2 id="codigo">3. Faça o passo a passo</h2><h3 id="passo-1">Passo 1: Localizar o ponto de trabalho no Eclipse</h3><p>No <em>Project Explorer</em>, selecione o projeto <code>laboratorio-restaurante</code>. Confira os arquivos que vieram da aula anterior e localize o caminho da primeira edição abaixo. Os diretórios são relativos à pasta do laboratório, já importada na IDE.</p><article class="etapa-arquivo" data-path="cardapio-web/index.html"><h3 id="passo-2">Passo 2: Criar <code>index.html</code></h3><p><strong>Caminho na pasta do laboratório:</strong> <code>cardapio-web/index.html</code>.</p><ol><li>No projeto <code>laboratorio-restaurante</code>, selecione a pasta <code>cardapio-web</code>. Para preparar o caminho, use <strong>New → Folder</strong> a partir da raiz e informe as pastas que faltarem.</li><li>Use <strong>File → New → Other… → General → File</strong>, informe <code>index.html</code> e confira o diretório de destino.</li><li>Abra o arquivo no editor de texto/código do Eclipse e salve em UTF-8. Para XML e POM, selecione a aba de fonte do editor quando houver uma visão de formulário.</li></ol><p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com <strong>Ctrl+S</strong>.</p><pre><code class="language-xml">&lt;!doctype html&gt;
+&lt;!-- Finalidade: Criar o HTML do cardápio e atualizar o POM do servidor para empacotá-lo. --&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;meta name=&quot;theme-color&quot; content=&quot;#244539&quot;&gt;&lt;title&gt;Casa da Mesa • Cardápio&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;a class=&quot;skip&quot; href=&quot;#produtos&quot;&gt;Ir para os pratos&lt;/a&gt;
+&lt;header&gt;&lt;a class=&quot;marca&quot; href=&quot;#titulo&quot; aria-label=&quot;Casa da Mesa, início&quot;&gt;&lt;span class=&quot;selo&quot; aria-hidden=&quot;true&quot;&gt;CM&lt;/span&gt;&lt;span&gt;CASA DA MESA&lt;small&gt;COZINHA FEITA PARA COMPARTILHAR&lt;/small&gt;&lt;/span&gt;&lt;/a&gt;&lt;span id=&quot;mesa&quot; class=&quot;mesa&quot;&gt;Bem-vindo&lt;/span&gt;&lt;/header&gt;
+&lt;main&gt;
+&lt;section class=&quot;abertura&quot; aria-labelledby=&quot;titulo&quot;&gt;&lt;div&gt;&lt;p class=&quot;eyebrow&quot;&gt;À MESA, COM CALMA&lt;/p&gt;&lt;h1 id=&quot;titulo&quot;&gt;Boas conversas.&lt;br&gt;Sabores de casa.&lt;/h1&gt;&lt;p&gt;Escolha o que combina com o seu momento.&lt;br&gt;Para fazer seu pedido, chame nosso garçom.&lt;/p&gt;&lt;a class=&quot;atalho&quot; href=&quot;#menu&quot;&gt;Explore o cardápio &lt;span aria-hidden=&quot;true&quot;&gt;↓&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;&lt;img src=&quot;assets/carbonara.svg&quot; alt=&quot;Ilustração de um prato de espaguete com ervas&quot; width=&quot;480&quot; height=&quot;380&quot;&gt;&lt;/section&gt;
+&lt;section id=&quot;menu&quot; aria-labelledby=&quot;cardapio-titulo&quot;&gt;&lt;div class=&quot;barra&quot;&gt;&lt;div&gt;&lt;p class=&quot;eyebrow&quot;&gt;DA NOSSA COZINHA&lt;/p&gt;&lt;h2 id=&quot;cardapio-titulo&quot;&gt;O que vai ser hoje?&lt;/h2&gt;&lt;/div&gt;&lt;label class=&quot;pesquisa&quot;&gt;&lt;span&gt;Buscar no cardápio&lt;/span&gt;&lt;input id=&quot;busca&quot; type=&quot;search&quot; placeholder=&quot;Nome ou ingrediente…&quot; maxlength=&quot;160&quot;&gt;&lt;/label&gt;&lt;/div&gt;&lt;nav id=&quot;categorias&quot; aria-label=&quot;Categorias do cardápio&quot;&gt;&lt;/nav&gt;&lt;p id=&quot;status&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;Buscando os sabores de hoje…&lt;/p&gt;&lt;button id=&quot;tentar&quot; type=&quot;button&quot; hidden&gt;Tentar novamente&lt;/button&gt;&lt;div id=&quot;produtos&quot; class=&quot;grade&quot; tabindex=&quot;-1&quot;&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;&lt;strong&gt;Casa da Mesa&lt;/strong&gt;&lt;p&gt;Comida boa, do primeiro ao último encontro.&lt;/p&gt;&lt;p&gt;Preços em reais. Informe alergias e restrições alimentares ao garçom.&lt;/p&gt;&lt;a id=&quot;qr&quot; href=&quot;../api/public/qr?mesa=1&quot; hidden&gt;Ver QR Code desta mesa&lt;/a&gt;&lt;/footer&gt;
+&lt;/body&gt;&lt;/html&gt;
+</code></pre><p><strong>Confira:</strong> o arquivo está no projeto agregador, no caminho indicado e com o conteúdo completo desta etapa.</p></article><article class="etapa-arquivo" data-path="source/restaurante-soap/servidor/pom.xml"><h3 id="passo-3">Passo 3: Atualizar <code>pom.xml</code></h3><p><strong>Caminho na pasta do laboratório:</strong> <code>source/restaurante-soap/servidor/pom.xml</code>.</p><p>No <em>Project Explorer</em>, abra <code>pom.xml</code> do projeto <code>servidor</code>. Compare a mudança indicada e salve a versão completa desta etapa, preservando as operações que ela já contém.</p><p><strong>Acréscimos desta etapa:</strong> <code>desktop</code>. Confira também escopos, versões e recursos no arquivo completo.</p><p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com <strong>Ctrl+S</strong>.</p><details><summary>Abrir a versão completa de source/restaurante-soap/servidor/pom.xml para conferir e salvar</summary><pre><code class="language-xml">&lt;!-- Finalidade: Configurar o módulo e suas dependências. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;!-- Versão do formato do documento POM, não do Maven instalado. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;!-- Herda a configuração do POM identificado por estas coordenadas. --&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+    &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;/parent&gt;
+  &lt;artifactId&gt;servidor&lt;/artifactId&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+      &lt;artifactId&gt;contrato&lt;/artifactId&gt;
+      &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+      &lt;artifactId&gt;infraestrutura&lt;/artifactId&gt;
+      &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+      &lt;!-- Runtime Metro utilizado por serviços e clientes SOAP. --&gt;
+      &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+      &lt;!-- API Servlet oferecida pelo Tomcat na implantação. --&gt;
+      &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+      &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+      &lt;!-- Banco em memória usado pelos testes; não equivale a validar MySQL Server. --&gt;
+      &lt;artifactId&gt;h2&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+      &lt;!-- API e suporte dos testes JUnit. --&gt;
+      &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+      &lt;artifactId&gt;tomcat-embed-core&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+      &lt;artifactId&gt;desktop&lt;/artifactId&gt;
+      &lt;version&gt;${project.version}&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;!-- Configura as ferramentas e recursos do build. --&gt;
+  &lt;build&gt;
+    &lt;finalName&gt;restaurante&lt;/finalName&gt;
+    &lt;resources&gt;
+      &lt;resource&gt;
+        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+      &lt;/resource&gt;
+    &lt;/resources&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;!-- Empacota os recursos e classes da aplicação web em WAR. --&gt;
+        &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webResources&gt;
+            &lt;resource&gt;
+              &lt;directory&gt;../../../cardapio-web&lt;/directory&gt;
+              &lt;targetPath&gt;cardapio&lt;/targetPath&gt;
+            &lt;/resource&gt;
+            &lt;resource&gt;
+              &lt;directory&gt;../contrato/src/main/resources/wsdl&lt;/directory&gt;
+              &lt;targetPath&gt;WEB-INF/wsdl&lt;/targetPath&gt;
+            &lt;/resource&gt;
+          &lt;/webResources&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre></details><details><summary>Conferir as versões e propriedades deste POM</summary><p>Os números abaixo são os adotados nesta etapa do laboratório. <code>modelVersion</code> descreve o formato do POM; <code>version</code> identifica um artefato; propriedades com nome próprio alimentam as bibliotecas e ferramentas. As explicações básicas estão na <a href="estrutura.html#passo-3">aula 12</a>.</p><table><thead><tr><th scope="col">Campo</th><th scope="col">Valor desta etapa</th></tr></thead><tbody><tr><td><code>version</code></td><td><code>2.0.0</code></td></tr><tr><td><code>version</code></td><td><code>${project.version}</code></td></tr></tbody></table><p><code>dependencyManagement</code> define versões; <code>dependencies</code> declara o uso. <code>pluginManagement</code> define padrões para os plugins acionados pelo ciclo ou pela configuração. <code>provided</code> é fornecido pelo container; <code>test</code> fica restrito aos testes; <code>runtime</code> atende à execução.</p></details><p><strong>Confira:</strong> o arquivo pertence ao projeto <code>servidor</code>, no caminho indicado e com o conteúdo completo desta etapa.</p></article><p>Após salvar os POMs, selecione os projetos envolvidos e use <strong>Maven → Update Project… → OK</strong>. O Eclipse atualiza dependências, fontes e recursos.</p><h3 id="passo-4">Passo 4: Verificar pelo Maven no Eclipse</h3><ol><li>Use <strong>File → Save All</strong>.</li><li>No projeto <code>restaurante-soap</code>, clique com o botão direito e escolha <strong>Run As → Maven build…</strong>. Use um nome identificável, como <code>Verificar aula 62</code>.</li><li>Confira <strong>Base directory</strong>: selecione o projeto <code>restaurante-soap</code> com <strong>Browse Workspace…</strong>. Em <strong>Goals</strong>, informe o conteúdo abaixo, sem o prefixo <code>mvn</code>.</li><li>Na aba <strong>JRE</strong>, confira o JDK 17. Clique em <strong>Apply → Run</strong> e acompanhe a aba <strong>Console</strong>.</li></ol><pre><code class="language-text">-pl servidor -am package</code></pre><p><strong>Confira:</strong> a execução deve terminar em <code>BUILD SUCCESS</code>. Esse checkpoint valida o build desta etapa; a inicialização com banco e a interação pelas telas serão conferidas nas aulas de execução.</p><h3 id="passo-5">Passo 5: Republicar e conferir no navegador</h3><ol><li>Na aba Servers, pare a instância Tomcat do laboratório antes de republicar.</li><li>No projeto servidor, use <strong>Maven → Update Project…</strong> e confira os recursos configurados no POM. O cardápio deve ser incluído no caminho <code>/cardapio</code>.</li><li>Na aba Servers, publique novamente o módulo servidor e inicie o Tomcat. Se os recursos não forem atualizados, confira a montagem em <strong>Properties → Deployment Assembly</strong>.</li><li>No navegador, abra a URL abaixo e confira o resultado específico desta aula.</li></ol><pre><code class="language-text">http://localhost:8080/restaurante/cardapio/index.html?mesa=2</code></pre><h3 id="passo-6">Passo 6: Conferir a entrega na IDE</h3><ol><li>Abra os arquivos salvos nos caminhos indicados e compare com a versão desta etapa.</li><li>Leia a aba <strong>Problems</strong> e a saída da verificação. Corrija os erros relacionados aos projetos desta aula antes de avançar.</li><li>Confira o resultado esperado: O WAR contém o cardápio e a página publicada apresenta a estrutura HTML.</li></ol></section>
+<section><h2 id="resultado">4. Resultado esperado</h2><p>O WAR contém o cardápio e a página publicada apresenta a estrutura HTML.</p><details><summary>Estrutura de diretórios acumulada até esta aula</summary><p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta árvore.</p><pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── cardapio-web/
+│   ├── assets/
+│   │   └── carbonara.svg
+│   └── index.html
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   ├── camadas.md
+│   └── registro-laboratorio.md
+├── pom.xml
+├── scripts/
+│   ├── configurar-sessao.ps1
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── aplicacao/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   └── java/
+        │       │       └── br/
+        │       │           └── edu/
+        │       │               └── soa/
+        │       │                   └── restaurante/
+        │       │                       └── aplicacao/
+        │       │                           ├── Falha.java
+        │       │                           ├── Repositorio.java
+        │       │                           └── Restaurante.java
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── aplicacao/
+        │                                   └── RestauranteTest.java
+        ├── contrato/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── resources/
+        │               └── wsdl/
+        │                   ├── CategoriaService.wsdl
+        │                   ├── MesaService.wsdl
+        │                   ├── PedidoService.wsdl
+        │                   ├── ProdutoService.wsdl
+        │                   └── restaurante.xsd
+        ├── desktop/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               ├── CadastroPanel.java
+        │                               ├── ConexaoSoap.java
+        │                               ├── Janela.java
+        │                               ├── PainelCategorias.java
+        │                               ├── PainelMesas.java
+        │                               ├── PainelProdutos.java
+        │                               ├── TelaPedidos.java
+        │                               └── TelaProdutos.java
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        ├── infraestrutura/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   ├── java/
+        │       │   │   └── br/
+        │       │   │       └── edu/
+        │       │   │           └── soa/
+        │       │   │               └── restaurante/
+        │       │   │                   └── infraestrutura/
+        │       │   │                       ├── Banco.java
+        │       │   │                       ├── Credenciais.java
+        │       │   │                       ├── JdbcRepositorio.java
+        │       │   │                       └── QrCode.java
+        │       │   └── resources/
+        │       │       └── db/
+        │       │           └── migration/
+        │       │               └── V1__restaurante.sql
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── infraestrutura/
+        │                                   ├── ErrosMySqlTest.java
+        │                                   ├── MySqlLocalTest.java
+        │                                   └── RestauranteBancoTest.java
+        ├── pom.xml
+        └── servidor/
+            ├── pom.xml
+            └── src/
+                └── main/
+                    ├── java/
+                    │   └── br/
+                    │       └── edu/
+                    │           └── soa/
+                    │               └── restaurante/
+                    │                   ├── Acesso.java
+                    │                   ├── AutenticacaoFilter.java
+                    │                   ├── CardapioServlet.java
+                    │                   ├── CategoriaEndpoint.java
+                    │                   ├── Contexto.java
+                    │                   ├── MesaEndpoint.java
+                    │                   ├── PedidoEndpoint.java
+                    │                   ├── ProdutoEndpoint.java
+                    │                   └── SoapDtos.java
+                    └── webapp/
+                        └── WEB-INF/
+                            ├── sun-jaxws.xml
+                            └── web.xml</code></pre></details><details><summary>Se a verificação não der certo</summary><ul><li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>; confira o projeto, o caminho do arquivo e o pacote.</li><li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo listado já possui seu POM.</li><li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em erro de download, confira a conexão e o repositório informado.</li><li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li></ul></details></section>
+<section><h2 id="checkpoint">5. Confira e continue</h2><ul><li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li><li>O WAR contém o cardápio e a página publicada apresenta a estrutura HTML.</li><li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li><li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li></ul><button class="concluir" data-aula="cardapio-html" type="button" aria-pressed="false">Marcar aula como concluída</button><p>Depois, avance para <a href="cardapio-css.html">Implementar o layout responsivo</a>.</p></section>
+<details class="base"><summary>Fundamentação e leitura complementar</summary><div class="callout referencias-aula" aria-labelledby="fundamentacao"><h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3><p>A apresentação prepara os pontos em que dados e mensagens serão exibidos; ela não calcula a conta. O princípio de feedback do livro de JSF é aplicado ao HTML sem adotar componentes JSF ou renderização por ManagedBeans.</p><ul><li data-referencia="clean-camadas"><a href="../docs/referencias.html#leitura-clean-camadas">[R03] Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de software</a>. Cap. 22: regra de dependência e adaptadores. <strong>Páginas 273–282 do PDF</strong>.</li><li data-referencia="jsf-feedback"><a href="../docs/referencias.html#leitura-jsf-feedback">[R09] Hébert Coelho — JSF Eficaz: as melhores práticas para o desenvolvedor web Java</a>. Cap. 28, §28.1–28.3: feedback e ações assíncronas. <strong>Páginas 171–173 do PDF</strong>.</li></ul><p><strong>Confira na leitura:</strong> Em que elemento o usuário saberá se os produtos ainda estão carregando?</p><p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.</p></div></details><nav class="links" aria-label="Aulas anterior e seguinte"><a href="cardapio-imagem.html">← Criar o recurso visual do cardápio</a><a href="cardapio-css.html">Implementar o layout responsivo →</a></nav></main></body></html>

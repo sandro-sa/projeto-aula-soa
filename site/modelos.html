@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Conferir os relacionamentos do domínio · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a
+                href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a
+                href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a class="current"
+                aria-current="page" href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos
+                do domínio</a>
+            <p class="nav-grupo">Regras de negócio</p>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Projeto e domínio · aula 19 de 85</span>
+        <h1>Conferir os relacionamentos do domínio</h1>
+        <p class="lead">Criar diagramas/entidades.md e conferir as relações entre os tipos do domínio.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+            <div class="callout">
+                <p><strong>Criar diagramas/entidades.md e conferir as relações entre os tipos do domínio.</strong></p>
+                <ol>
+                    <li>Criar: <code>diagramas/entidades.md</code></li>
+                </ol>
+                <p><strong>A aula termina quando:</strong> O diagrama está salvo e suas relações correspondem aos cinco
+                    tipos já escritos.</p>
+            </div>
+            <p>Continue no Eclipse após <a href="modelo-pedido.html">Implementar Pedido</a>. Use os projetos e os
+                arquivos que você construiu nas etapas anteriores.</p>
+        </section>
+        <section>
+            <h2 id="conceitos">2. Entenda o que será feito</h2>
+            <p>Categoria agrupa produtos; uma mesa tem pedidos ao longo do tempo; cada pedido reúne itens que preservam
+                nome e preço da inclusão.</p>
+            <ul>
+                <li>Total e subtotal são calculados; não são valores escolhidos pelo cliente.</li>
+                <li>O teste Maven desta etapa percorre o ciclo do domínio; ainda não criamos testes JUnit nesse módulo.
+                </li>
+            </ul>
+            <details>
+                <summary>Pontos para observar no código</summary>
+                <ul>
+                    <li>O construtor compacto de Pedido copia itens e impede mutação externa.</li>
+                    <li>subtotal() não recebe preço do cliente; usa o preço unitário armazenado no item.</li>
+                    <li>total() percorre os itens e soma com BigDecimal.add.</li>
+                    <li>Enums restringem estados e tornam transições legíveis.</li>
+                </ul>
+            </details>
+        </section>
+        <section>
+            <h2 id="codigo">3. Faça o passo a passo</h2>
+            <h3 id="passo-1">Passo 1: Localizar o ponto de trabalho no Eclipse</h3>
+            <p>No <em>Project Explorer</em>, selecione o projeto <code>laboratorio-restaurante</code>. Confira os
+                arquivos que vieram da aula anterior e localize o caminho da primeira edição abaixo. Os diretórios são
+                relativos à pasta do laboratório, já importada na IDE.</p>
+            <article class="etapa-arquivo" data-path="diagramas/entidades.md">
+
+
+                <h3 id="passo-2">Passo 2: Criar o arquivo <code>entidades.md</code></h3>
+
+                <p>
+                    <strong>Caminho na pasta do laboratório:</strong>
+                    <code>diagramas/entidades.md</code>.
+                </p>
+
+                <p>
+                    Nesta etapa, vamos criar um documento Markdown para representar
+                    as entidades do sistema de restaurante e seus relacionamentos.
+                    Utilizaremos a linguagem <strong>Mermaid</strong>, que permite
+                    criar diagramas por meio de código textual.
+                </p>
+
+                <h4>2.1. Criar a pasta diagramas</h4>
+
+                <ol>
+                    <li>
+                        No Eclipse, localize o projeto
+                        <code>laboratorio-restaurante</code>
+                        na janela <strong>Project Explorer</strong>.
+                    </li>
+                    <li>
+                        Clique com o botão direito na raiz do projeto.
+                    </li>
+                    <li>
+                        Selecione <strong>New → Folder</strong>.
+                    </li>
+                    <li>
+                        Informe o nome <code>diagramas</code>,
+                        caso a pasta ainda não exista.
+                    </li>
+                    <li>
+                        Clique em <strong>Finish</strong>.
+                    </li>
+                </ol>
+
+                <h4>2.2. Criar o arquivo Markdown</h4>
+
+                <ol>
+                    <li>
+                        Clique com o botão direito sobre a pasta
+                        <code>diagramas</code>.
+                    </li>
+                    <li>
+                        Selecione
+                        <strong>New → Other… → General → File</strong>.
+                    </li>
+                    <li>
+                        Clique em <strong>Next</strong>.
+                    </li>
+                    <li>
+                        Informe o nome <code>entidades.md</code>.
+                    </li>
+                    <li>
+                        Confira se o arquivo será criado dentro da
+                        pasta <code>diagramas</code>.
+                    </li>
+                    <li>
+                        Clique em <strong>Finish</strong>.
+                    </li>
+                </ol>
+
+                <h4>2.3. Entender a estrutura do arquivo</h4>
+
+                <p>
+                    O arquivo <code>.md</code> utiliza a linguagem
+                    <strong>Markdown</strong>, que permite escrever
+                    documentação técnica com títulos, listas,
+                    tabelas, explicações e blocos de código.
+                </p>
+
+                <p>
+                    Para incorporar um diagrama Mermaid ao Markdown,
+                    precisamos delimitar o código utilizando
+                    <code>```mermaid</code> no início e
+                    <code>```</code> no final.
+                </p>
+
+                <p>O documento deverá conter:</p>
+
+                <ul>
+                    <li>O título do modelo de entidades.</li>
+                    <li>Uma explicação sobre a finalidade do diagrama.</li>
+                    <li>O código Mermaid com os relacionamentos.</li>
+                    <li>A descrição das entidades do restaurante.</li>
+                    <li>
+                        A explicação das chaves primárias (PK),
+                        estrangeiras (FK) e únicas (UK).
+                    </li>
+                </ul>
+
+                <h4>2.4. Inserir o conteúdo</h4>
+
+                <ol>
+                    <li>
+                        Abra o arquivo <code>entidades.md</code>
+                        no editor de texto do Eclipse.
+                    </li>
+                    <li>
+                        Copie o conteúdo Markdown apresentado a seguir
+                        nesta aula.
+                    </li>
+                    <li>
+                        Confira se o diagrama começa com
+                        <code>```mermaid</code> e termina com
+                        <code>```</code>.
+                    </li>
+                    <li>
+                        Salve utilizando <strong>Ctrl+S</strong>.
+                    </li>
+                </ol>
+
+                <h4>2.5. Visualizar o diagrama</h4>
+
+                <p>
+                    O Eclipse permite editar arquivos Markdown, mas a
+                    visualização gráfica de Mermaid depende de um
+                    visualizador ou plugin compatível.
+                </p>
+
+                <ol>
+                    <li>
+                        Verifique se o Eclipse possui um editor Markdown
+                        com suporte à visualização de Mermaid.
+                    </li>
+                    <li>
+                        Caso exista, abra a visualização prévia
+                        (<em>Preview</em>) do documento.
+                    </li>
+                    <li>
+                        Caso contrário, visualize o arquivo no GitHub
+                        ou utilize outro visualizador Mermaid.
+                    </li>
+                    <li>
+                        Confira os relacionamentos entre
+                        <code>Mesa</code>, <code>Pedido</code>,
+                        <code>Categoria</code>, <code>Produto</code>
+                        e <code>ItemPedido</code>.
+                    </li>
+                </ol>
+
+                <p>
+                    <strong>Importante:</strong>
+                    o arquivo <code>entidades.md</code> serve para
+                    documentar a estrutura do domínio.
+                    Ele não cria automaticamente tabelas no MySQL
+                    nem modifica as classes Java.
+                </p>
+
+                <p>
+                    <strong>Resultado esperado:</strong>
+                    o arquivo <code>diagramas/entidades.md</code>
+                    está salvo em UTF-8 e contém o diagrama Mermaid,
+                    acompanhado de explicações sobre as entidades
+                    e seus relacionamentos.
+                </p>
+
+
+                <pre><code class="language-text">
+# Modelo de Entidades — Restaurante
+
+## Objetivo
+
+Apresentar os relacionamentos entre as entidades
+do sistema de restaurante SOAP e REST.
+
+## Diagrama de entidades
+
+```mermaid
+erDiagram
+    MESA ||--o{ PEDIDO : recebe
+    CATEGORIA ||--o{ PRODUTO : classifica
+    PEDIDO ||--o{ ITEM_PEDIDO : contem
+    PRODUTO ||--o{ ITEM_PEDIDO : referencia
+
+    MESA {
+        bigint id PK
+        int numero UK
+        string situacao
+    }
+
+    CATEGORIA {
+        bigint id PK
+        string nome
+        string descricao
+        boolean ativo
+    }
+
+    PRODUTO {
+        bigint id PK
+        bigint categoria_id FK
+        string nome
+        decimal preco
+    }
+
+    PEDIDO {
+        bigint id PK
+        bigint mesa_id FK
+        timestamp data_hora
+        string situacao
+    }
+
+    ITEM_PEDIDO {
+        bigint id PK
+        bigint pedido_id FK
+        bigint produto_id FK
+        int quantidade
+        decimal preco_unitario
+    }
+```
+
+## Explicação dos relacionamentos
+
+### Mesa e Pedido
+Uma mesa pode receber vários pedidos ao longo do tempo.
+
+### Categoria e Produto
+Uma categoria pode classificar vários produtos.
+
+### Pedido e ItemPedido
+Um pedido pode conter vários itens.
+
+### Produto e ItemPedido
+Um produto pode aparecer em vários itens de pedidos.
+
+## Conceitos importantes
+
+- PK: chave primária.
+- FK: chave estrangeira.
+- UK: chave única.
+- 1:N: relacionamento de um para muitos.
+
+</code></pre>
+                <p><strong>Confira:</strong> o arquivo está no projeto agregador, no caminho indicado e com o conteúdo
+                    completo desta etapa.</p>
+            </article>
+
+            <h3 id="passo-3">Passo 3: Verificar o projeto pelo Maven no Eclipse</h3>
+
+            <p>
+                Nesta etapa, vamos verificar se as classes Java do módulo
+                <code>dominio</code> continuam compilando corretamente
+                após a documentação do modelo de entidades.
+            </p>
+
+            <p>
+                <strong>Importante:</strong> o Maven verifica o projeto Java,
+                mas não valida automaticamente o conteúdo do arquivo
+                <code>entidades.md</code>. A conferência do diagrama
+                será realizada no próximo passo.
+            </p>
+
+            <h4>3.1. Salvar os arquivos</h4>
+
+            <ol>
+                <li>
+                    No Eclipse, selecione
+                    <strong>File → Save All</strong>.
+                </li>
+                <li>
+                    Confira se o arquivo
+                    <code>diagramas/entidades.md</code>
+                    está salvo.
+                </li>
+                <li>
+                    Verifique se as classes Java das aulas anteriores
+                    estão presentes no módulo <code>dominio</code>.
+                </li>
+            </ol>
+
+            <h4>3.2. Executar a verificação Maven</h4>
+
+            <ol>
+                <li>
+                    Na janela <strong>Project Explorer</strong>,
+                    localize o projeto <code>dominio</code>.
+                </li>
+                <li>
+                    Clique com o botão direito sobre o projeto.
+                </li>
+                <li>
+                    Selecione
+                    <strong>Run As → Maven build…</strong>.
+                </li>
+                <li>
+                    No campo <strong>Name</strong>, informe
+                    <code>Verificar aula 19</code>.
+                </li>
+                <li>
+                    Em <strong>Base directory</strong>,
+                    clique em <strong>Browse Workspace…</strong>
+                    e selecione o projeto <code>dominio</code>.
+                </li>
+                <li>
+                    No campo <strong>Goals</strong>,
+                    informe o comando apresentado abaixo,
+                    sem o prefixo <code>mvn</code>.
+                </li>
+                <li>
+                    Na aba <strong>JRE</strong>, confira se
+                    o ambiente utiliza o <strong>JDK 17</strong>.
+                </li>
+                <li>
+                    Clique em <strong>Apply → Run</strong>.
+                </li>
+            </ol>
+
+            <p><strong>Goal do Maven:</strong></p>
+
+            <pre><code class="language-text">test</code></pre>
+
+            <p>
+                Esse goal executa as fases necessárias do ciclo de vida
+                do Maven até a fase de testes, incluindo a compilação
+                das classes Java e dos testes.
+            </p>
+
+            <h4>3.3. Interpretar o resultado</h4>
+
+            <p>
+                Na janela <strong>Console</strong>, observe
+                as mensagens apresentadas pelo Maven.
+            </p>
+
+            <p>
+                Se a execução terminar corretamente,
+                deverá aparecer a mensagem:
+            </p>
+
+            <pre><code class="language-text">[INFO] BUILD SUCCESS</code></pre>
+
+            <p>
+                Se houver algum problema de compilação,
+                dependência ou teste, poderá aparecer:
+            </p>
+
+            <pre><code class="language-text">[INFO] BUILD FAILURE</code></pre>
+
+            <p>
+                <strong>Atenção:</strong> a mensagem
+                <code>BUILD SUCCESS</code> confirma a conclusão
+                da execução Maven, mas não garante que existam
+                testes automatizados nem que o diagrama Mermaid
+                esteja correto.
+            </p>
+
+            <p>
+                Caso existam testes JUnit configurados, consulte
+                os relatórios em
+                <code>target/surefire-reports</code>
+                e verifique quantos testes foram executados,
+                aprovados, ignorados ou apresentaram falhas.
+            </p>
+
+            <h3 id="passo-4">Passo 4: Conferir o arquivo Markdown e o diagrama</h3>
+
+            <p>
+                Agora vamos validar a documentação criada na aula,
+                comparando o diagrama Mermaid com as classes Java
+                implementadas anteriormente.
+            </p>
+
+            <h4>4.1. Verificar o arquivo no Eclipse</h4>
+
+            <ol>
+                <li>
+                    No <strong>Project Explorer</strong>,
+                    localize a pasta <code>diagramas</code>.
+                </li>
+                <li>
+                    Abra o arquivo <code>entidades.md</code>.
+                </li>
+                <li>
+                    Confira se o documento possui título,
+                    explicações e o bloco Mermaid.
+                </li>
+                <li>
+                    Verifique se o bloco começa com
+                    <code>```mermaid</code>
+                    e termina com <code>```</code>.
+                </li>
+                <li>
+                    Salve o documento utilizando
+                    <strong>Ctrl+S</strong>.
+                </li>
+            </ol>
+
+            <h4>4.2. Visualizar o diagrama</h4>
+
+            <p>
+                Utilize um editor Markdown com suporte a Mermaid
+                ou visualize o documento no GitHub.
+            </p>
+
+            <p>
+                Se o Eclipse não possuir um plugin compatível,
+                também é possível utilizar o
+                <a href="https://mermaid.live/" target="_blank" rel="noopener noreferrer">
+                    Mermaid Live Editor
+                </a>.
+            </p>
+
+            <ol>
+                <li>
+                    Abra o Mermaid Live Editor.
+                </li>
+                <li>
+                    Copie apenas o conteúdo Mermaid do arquivo
+                    <code>entidades.md</code>, sem os delimitadores
+                    de bloco Markdown.
+                </li>
+                <li>
+                    Cole o código no editor.
+                </li>
+                <li>
+                    Confira se o diagrama é renderizado
+                    sem erros de sintaxe.
+                </li>
+            </ol>
+
+            <h4>4.3. Conferir os relacionamentos</h4>
+
+            <p>
+                Compare as entidades do diagrama com as classes
+                Java desenvolvidas nas aulas anteriores.
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Mesa → Pedido:</strong>
+                    uma mesa pode receber vários pedidos ao longo
+                    do tempo.
+                </li>
+                <li>
+                    <strong>Categoria → Produto:</strong>
+                    uma categoria pode classificar vários produtos.
+                </li>
+                <li>
+                    <strong>Pedido → ItemPedido:</strong>
+                    um pedido pode conter vários itens.
+                </li>
+                <li>
+                    <strong>Produto → ItemPedido:</strong>
+                    um produto pode aparecer em diferentes pedidos.
+                </li>
+            </ul>
+
+            <p>
+                Confira também se as chaves primárias (PK),
+                estrangeiras (FK) e únicas (UK) estão
+                representadas corretamente.
+            </p>
+
+            <h4>4.4. Conferir possíveis problemas</h4>
+
+            <ol>
+                <li>
+                    Abra a aba <strong>Problems</strong>
+                    do Eclipse.
+                </li>
+                <li>
+                    Verifique se existem erros nas classes Java
+                    ou na configuração Maven.
+                </li>
+                <li>
+                    Confira se o código Mermaid pode ser renderizado
+                    sem erros de sintaxe.
+                </li>
+                <li>
+                    Compare os nomes e relacionamentos do diagrama
+                    com o modelo do domínio.
+                </li>
+                <li>
+                    Corrija eventuais inconsistências antes
+                    de avançar para a próxima aula.
+                </li>
+            </ol>
+
+            <h4>4.5. Resultado esperado</h4>
+
+            <p>
+                Ao concluir esta etapa, o aluno deverá ter:
+            </p>
+
+            <ul>
+                <li>
+                    O arquivo <code>diagramas/entidades.md</code>
+                    criado e salvo corretamente.
+                </li>
+                <li>
+                    Um diagrama Mermaid que pode ser renderizado
+                    sem erros.
+                </li>
+                <li>
+                    Os cinco tipos do domínio representados
+                    com seus relacionamentos.
+                </li>
+                <li>
+                    O módulo Java <code>dominio</code>
+                    verificado pelo Maven.
+                </li>
+                <li>
+                    A documentação compatível com as classes Java
+                    implementadas nas aulas anteriores.
+                </li>
+            </ul>
+
+            <p>
+                <strong>Conclusão da aula:</strong>
+                o modelo de entidades está documentado em Markdown,
+                o diagrama Mermaid representa os relacionamentos
+                do restaurante e o módulo de domínio foi verificado
+                pelo Maven.
+            </p>
+
+        </section>
+        <section>
+            <h2 id="resultado">4. Resultado esperado</h2>
+            <p>O diagrama está salvo e suas relações correspondem aos cinco tipos já escritos.</p>
+            <details>
+                <summary>Estrutura de diretórios acumulada até esta aula</summary>
+                <p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na
+                    raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta
+                    árvore.</p>
+                <pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        └── pom.xml</code></pre>
+            </details>
+            <details>
+                <summary>Se a verificação não der certo</summary>
+                <ul>
+                    <li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>;
+                        confira o projeto, o caminho do arquivo e o pacote.</li>
+                    <li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo
+                        listado já possui seu POM.</li>
+                    <li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em
+                        erro de download, confira a conexão e o repositório informado.</li>
+                    <li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato
+                        e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li>
+                </ul>
+            </details>
+        </section>
+        <section>
+            <h2 id="checkpoint">5. Confira e continue</h2>
+            <ul>
+                <li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li>
+                <li>O diagrama está salvo e suas relações correspondem aos cinco tipos já escritos.</li>
+                <li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li>
+                <li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li>
+            </ul><button class="concluir" data-aula="modelos" type="button" aria-pressed="false">Marcar aula como
+                concluída</button>
+            <p>Depois, avance para <a href="aplicacao-falhas.html">Criar a aplicação e seus erros</a>.</p>
+        </section>
+        <details class="base">
+            <summary>Fundamentação e leitura complementar</summary>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>Coelho relaciona associações de objetos com chaves estrangeiras. Use a comparação para conferir
+                    categoria/produto e pedido/item no diagrama; o laboratório guarda IDs e usa JDBC, sem anotações de
+                    relacionamento JPA.</p>
+                <ul>
+                    <li data-referencia="jpa-relacoes"><a href="../docs/referencias.html#leitura-jpa-relacoes">[R08]
+                            Hébert Coelho — JPA Eficaz: as melhores práticas de persistência de dados em Java</a>. Cap.
+                        4, §4.1: objetos, associações e chave estrangeira. <strong>Páginas 74–77 do PDF</strong>.</li>
+                    <li data-referencia="clean-negocio"><a href="../docs/referencias.html#leitura-clean-negocio">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 20: entidades, casos de uso e modelos de dados. <strong>Páginas 260–266
+                            do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Qual tabela deverá guardar a chave estrangeira em cada
+                    associação do restaurante?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </details>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="modelo-pedido.html">← Implementar
+                Pedido</a><a href="aplicacao-falhas.html">Criar a aplicação e seus erros →</a></nav>
+    </main>
+</body>
+
+</html>

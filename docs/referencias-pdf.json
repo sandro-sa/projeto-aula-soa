@@ -1,0 +1,378 @@
+{
+  "consultadoEm": "2026-11-01",
+  "pastaOriginal": "D:/Fatec/SOA",
+  "paginacao": "Número da página no arquivo PDF, contado a partir da capa como página 1; não é a numeração impressa.",
+  "livros": [
+    {
+      "id": "soa",
+      "codigo": "R01",
+      "titulo": "SOA aplicado: integrando com web services e além",
+      "autores": [
+        "Alexandre Saudate"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Principal",
+      "nota": "Fundamenta serviços, contratos, SOAP, WSDL/XSD, faults e contract-first. Os exemplos antigos de JAX-WS e servidores são adaptados para Metro/Jakarta e Tomcat 10.1.",
+      "ano": null,
+      "arquivo": "SOA Aplicado - Integrando com web services e além - Autor (Casa do Código).pdf",
+      "paginas": 286,
+      "sha256": "1b8cefa9f2cd48bc30a05289766a19497896cbf94fc462621c33889d060c18de"
+    },
+    {
+      "id": "rest",
+      "codigo": "R02",
+      "titulo": "REST: construa APIs inteligentes de maneira simples",
+      "autores": [
+        "Alexandre Saudate"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Principal",
+      "nota": "Fundamenta recursos, métodos, representações, status e hipermídia. O exemplar tem 107 páginas e termina na bibliografia após o capítulo de Servlets. Spring Boot, Initializr e OpenAPI são complementos do tutorial, não conteúdos atribuídos ao livro.",
+      "ano": null,
+      "arquivo": "REST - Construa API's inteligentes de maneira simples - Autor (Casa do Código).pdf",
+      "paginas": 107,
+      "sha256": "b6fbe6a7269ef5d46f584d2798e7e64a79129a5cc1fd19e01da4e6e6f3d2a8f3"
+    },
+    {
+      "id": "clean",
+      "codigo": "R03",
+      "titulo": "Arquitetura Limpa: o guia do artesão para estrutura e design de software",
+      "autores": [
+        "Robert C. Martin"
+      ],
+      "editora": "Alta Books",
+      "ano": 2019,
+      "uso": "Principal",
+      "nota": "Fundamenta a regra de dependência, entidades, casos de uso, adaptadores e testabilidade. A edição digital tem paginação refluída; as referências usam as 489 páginas do PDF. A ficha menciona edição brasileira de 2019 e também copyright 2020.",
+      "arquivo": "Arquitetura Limpa - O Guia do Artesão para Estrutura e Design de Software - Autor (Robert C. Martin).pdf",
+      "paginas": 489,
+      "sha256": "80522beebde04d4866b1ae08d18abba6c6db749e456216f93f6bc48b0ecd01f1"
+    },
+    {
+      "id": "java",
+      "codigo": "R04",
+      "titulo": "Java para iniciantes",
+      "autores": [
+        "Herbert Schildt"
+      ],
+      "editora": "Bookman",
+      "ano": 2015,
+      "edicao": "6. edição",
+      "uso": "Apoio",
+      "nota": "Exemplar digitalizado, sem camada de texto extraível. Capa, ficha, sumário e páginas citadas foram conferidos visualmente. Apoia compilação, execução, componentes Swing e criação da janela na EDT; o alvo do projeto permanece Java 17.",
+      "arquivo": "Java para iniciantes.pdf",
+      "paginas": 703,
+      "sha256": "f3cfd3e99110f3354847af0d3856c7c218f5234e531dfd13dadbb16cdbe3d891"
+    },
+    {
+      "id": "java8",
+      "codigo": "R05",
+      "titulo": "Java 8 Prático: lambdas, streams e os novos recursos da linguagem",
+      "autores": [
+        "Paulo Silveira",
+        "Rodrigo Turini"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Apoio",
+      "nota": "Apoia interfaces funcionais, listeners, streams, BigDecimal e java.time. O texto corresponde a Java 8; records, List.copyOf e Stream.toList do projeto atual não são atribuídos ao livro.",
+      "ano": null,
+      "arquivo": "Java 8 Pratico Lambdas Streams e os Novos Recursos da Linguagem - Casa do Codigo.pdf",
+      "paginas": 137,
+      "sha256": "0c4db398b1bfa51f2a984f06fb48ab4d7c74c5958728162ffc1d3ed0807242b8"
+    },
+    {
+      "id": "oca",
+      "codigo": "R06",
+      "titulo": "Java SE 7 Programmer I: o guia para sua certificação Oracle Certified Associate",
+      "autores": [
+        "Guilherme Silveira",
+        "Mário Amaral"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Apoio",
+      "nota": "Apoia pacotes, classes, abstrações e exceções. As limitações de interfaces discutidas para Java 7 não substituem os recursos posteriores da linguagem.",
+      "ano": null,
+      "arquivo": "Java SE 7 Programmer I O guia para sua certificação Oracle Certified Associate - Casa do Codigo.pdf",
+      "paginas": 397,
+      "sha256": "24da6d1e3b521305d3f85ffae2f12fdf941bbb40ea65e0b5c65719d5b5a41d4b"
+    },
+    {
+      "id": "javafx",
+      "codigo": "R07",
+      "titulo": "JavaFX: interfaces com qualidade para aplicações desktop",
+      "autores": [
+        "Bruno Oliveira"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Comparação",
+      "nota": "O capítulo 8 permite comparar Swing e JavaFX; o capítulo 11 discute trabalho em segundo plano. O projeto usa SwingWorker e EDT, sem adotar JavaFX Task, Platform.runLater ou dependências JavaFX.",
+      "ano": null,
+      "arquivo": "JavaFX - Interfaces com qualidade para aplicacoes desktop.pdf",
+      "paginas": 134,
+      "sha256": "66f42ccebc92a55be5ac996dcd53b7872396e94d4383f2e73042a0f11c0733ea"
+    },
+    {
+      "id": "jpa",
+      "codigo": "R08",
+      "titulo": "JPA Eficaz: as melhores práticas de persistência de dados em Java",
+      "autores": [
+        "Hébert Coelho"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Comparação",
+      "nota": "Apoia a discussão de transações, relacionamentos e concorrência. A implementação permanece JDBC/Flyway/MySQL, sem EntityManager, JPA, Hibernate ou anotações ORM. Não se presume um isolamento padrão do MySQL a partir dos exemplos de JPA.",
+      "ano": null,
+      "arquivo": "JPA Eficaz - As melhores praticas de persistencia de dados em Java - Casa do Codigo.pdf",
+      "paginas": 166,
+      "sha256": "10f989f6efd0efdb078ea3c12b9d2f9b688b41d3c4347a201ef4bca7fab72142"
+    },
+    {
+      "id": "jsf",
+      "codigo": "R09",
+      "titulo": "JSF Eficaz: as melhores práticas para o desenvolvedor web Java",
+      "autores": [
+        "Hébert Coelho"
+      ],
+      "editora": "Casa do Código",
+      "uso": "Comparação",
+      "nota": "As seções de feedback e requisições assíncronas apoiam o comportamento da interface. O cardápio é HTML/CSS/JavaScript com fetch; não utiliza JSF, Facelets, ManagedBeans nem PrimeFaces.",
+      "ano": null,
+      "arquivo": "JSF Eficaz - As melhores práticas para o desenvolvedor web Java - Casa do Codigo.pdf",
+      "paginas": 202,
+      "sha256": "26eac2c56a57e5e0b6e868b57e19bebc5f2c166d1689b946a5db15bc2531be7b"
+    }
+  ],
+  "leituras": [
+    {
+      "id": "soa-fundamentos",
+      "livro": "soa",
+      "trecho": "Cap. 1, §1.7–1.8: serviços e orientação a serviços",
+      "de": 27,
+      "ate": 29
+    },
+    {
+      "id": "soa-xml",
+      "livro": "soa",
+      "trecho": "Cap. 2, §2.1–2.4: namespaces, SOAP e tipos XML",
+      "de": 30,
+      "ate": 35
+    },
+    {
+      "id": "soa-wsdl",
+      "livro": "soa",
+      "trecho": "Cap. 2, §2.5–2.9: message, portType, binding e service",
+      "de": 37,
+      "ate": 42
+    },
+    {
+      "id": "soa-fault",
+      "livro": "soa",
+      "trecho": "Cap. 3, §3.2–3.4: exceções, Fault e detail",
+      "de": 60,
+      "ate": 65
+    },
+    {
+      "id": "soa-http-basic",
+      "livro": "soa",
+      "trecho": "Cap. 6, §6.3: autenticação e autorização HTTP",
+      "de": 152,
+      "ate": 153
+    },
+    {
+      "id": "soa-canonico",
+      "livro": "soa",
+      "trecho": "Cap. 7, §7.1–7.2: integração e modelo canônico",
+      "de": 200,
+      "ate": 203
+    },
+    {
+      "id": "soa-contract-first",
+      "livro": "soa",
+      "trecho": "Cap. 7, §7.3: desenvolvimento contract-first",
+      "de": 208,
+      "ate": 211
+    },
+    {
+      "id": "rest-http",
+      "livro": "rest",
+      "trecho": "Cap. 2, §2.2: métodos e idempotência",
+      "de": 21,
+      "ate": 23
+    },
+    {
+      "id": "rest-media",
+      "livro": "rest",
+      "trecho": "Cap. 2, §2.4–2.5: cabeçalhos e media types",
+      "de": 25,
+      "ate": 28
+    },
+    {
+      "id": "rest-status",
+      "livro": "rest",
+      "trecho": "Cap. 2, §2.6: códigos de status",
+      "de": 29,
+      "ate": 32
+    },
+    {
+      "id": "rest-recursos",
+      "livro": "rest",
+      "trecho": "Cap. 3, §3.1–3.3: recursos, métodos e representações",
+      "de": 35,
+      "ate": 38
+    },
+    {
+      "id": "rest-hateoas",
+      "livro": "rest",
+      "trecho": "Cap. 3, §3.4–3.5: status e hipermídia",
+      "de": 40,
+      "ate": 43
+    },
+    {
+      "id": "clean-srp",
+      "livro": "clean",
+      "trecho": "Cap. 7: princípio da responsabilidade única",
+      "de": 113,
+      "ate": 119
+    },
+    {
+      "id": "clean-dip",
+      "livro": "clean",
+      "trecho": "Cap. 11: princípio da inversão de dependência",
+      "de": 139,
+      "ate": 144
+    },
+    {
+      "id": "clean-negocio",
+      "livro": "clean",
+      "trecho": "Cap. 20: entidades, casos de uso e modelos de dados",
+      "de": 260,
+      "ate": 266
+    },
+    {
+      "id": "clean-camadas",
+      "livro": "clean",
+      "trecho": "Cap. 22: regra de dependência e adaptadores",
+      "de": 273,
+      "ate": 282
+    },
+    {
+      "id": "clean-testes",
+      "livro": "clean",
+      "trecho": "Cap. 28: o limite teste e testabilidade",
+      "de": 323,
+      "ate": 327
+    },
+    {
+      "id": "java-compilacao",
+      "livro": "java",
+      "trecho": "Cap. 1: compilação, PATH, classe e main (leitura visual)",
+      "de": 34,
+      "ate": 36
+    },
+    {
+      "id": "java-swing",
+      "livro": "java",
+      "trecho": "Cap. 16: componentes e contêineres (leitura visual)",
+      "de": 550,
+      "ate": 552
+    },
+    {
+      "id": "java-edt",
+      "livro": "java",
+      "trecho": "Cap. 16: primeiro programa Swing e invokeLater (leitura visual)",
+      "de": 554,
+      "ate": 556
+    },
+    {
+      "id": "java8-funcoes",
+      "livro": "java8",
+      "trecho": "Cap. 3, §3.1–3.2: interfaces funcionais e listeners",
+      "de": 20,
+      "ate": 23
+    },
+    {
+      "id": "java8-streams",
+      "livro": "java8",
+      "trecho": "Cap. 7, §7.4–7.6: collect, toList e map",
+      "de": 57,
+      "ate": 59
+    },
+    {
+      "id": "java8-datas",
+      "livro": "java8",
+      "trecho": "Cap. 10, §10.2: java.time e imutabilidade",
+      "de": 93,
+      "ate": 96
+    },
+    {
+      "id": "java8-dinheiro",
+      "livro": "java8",
+      "trecho": "Cap. 11, §11.2–11.3: soma de BigDecimal por redução",
+      "de": 110,
+      "ate": 112
+    },
+    {
+      "id": "oca-pacotes",
+      "livro": "oca",
+      "trecho": "Cap. 3, §3.2: estrutura da classe e pacotes",
+      "de": 18,
+      "ate": 20
+    },
+    {
+      "id": "oca-abstracao",
+      "livro": "oca",
+      "trecho": "Cap. 9, §9.6: classes abstratas e interfaces",
+      "de": 326,
+      "ate": 329
+    },
+    {
+      "id": "oca-excecoes",
+      "livro": "oca",
+      "trecho": "Cap. 10, §10.1–10.2: checked, runtime e tratamento",
+      "de": 336,
+      "ate": 339
+    },
+    {
+      "id": "javafx-comparacao",
+      "livro": "javafx",
+      "trecho": "Cap. 8, §8.1: comparação com Swing",
+      "de": 72,
+      "ate": 74
+    },
+    {
+      "id": "javafx-concorrencia",
+      "livro": "javafx",
+      "trecho": "Cap. 11, §11.1–11.2: threads e tarefas",
+      "de": 118,
+      "ate": 120
+    },
+    {
+      "id": "jpa-transacao",
+      "livro": "jpa",
+      "trecho": "Cap. 2, §2.4.1: controle manual da transação",
+      "de": 30,
+      "ate": 32
+    },
+    {
+      "id": "jpa-relacoes",
+      "livro": "jpa",
+      "trecho": "Cap. 4, §4.1: objetos, associações e chave estrangeira",
+      "de": 74,
+      "ate": 77
+    },
+    {
+      "id": "jpa-concorrencia",
+      "livro": "jpa",
+      "trecho": "Cap. 8, §8.4: versionamento e locks",
+      "de": 159,
+      "ate": 164
+    },
+    {
+      "id": "jsf-feedback",
+      "livro": "jsf",
+      "trecho": "Cap. 28, §28.1–28.3: feedback e ações assíncronas",
+      "de": 171,
+      "ate": 173
+    }
+  ]
+}

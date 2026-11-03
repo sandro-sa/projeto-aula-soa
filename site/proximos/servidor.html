@@ -1,0 +1,275 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Criar o módulo WAR do servidor · Restaurante do zero</title><link rel="stylesheet" href="style.css"><script src="tutorial.js" defer></script></head><body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a><aside><span class="chip">Do zero até localhost</span><h2>Restaurante<br>SOAP + REST</h2><p>Java 17 · MySQL · Spring Initializr</p><nav aria-label="Trilha de construção"><p class="nav-grupo">Preparação do laboratório</p><a  href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a  href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a  href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK 17</a><a  href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar o JDK</a><a  href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o POM</a><a  href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a  href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a  href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a  href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a><p class="nav-grupo">Projeto e domínio</p><a  href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a  href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a  href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a  href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a  href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a  href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a  href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a  href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a  href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a  href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a><p class="nav-grupo">Regras de negócio</p><a  href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a  href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de persistência</a><a  href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de mesas</a><a  href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a  href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de produtos</a><a  href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo do pedido</a><a  href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a><p class="nav-grupo">Persistência MySQL</p><a  href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a  href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a  href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a  href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a  href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais externas</a><a  href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a><p class="nav-grupo">Contratos SOAP</p><a  href="contrato-xsd.html"><span aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a  href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a  href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de Categoria</a><a  href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de Produto</a><a  href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de Pedido</a><a  href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos contratos</a><p class="nav-grupo">Servidor SOAP</p><a class="current" aria-current="page" href="servidor.html"><span aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a  href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco no WAR</a><a  href="soap-autenticacao.html"><span aria-hidden="true">41.</span> Autenticar requisições SOAP</a><a  href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a  href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs SOAP</a><a  href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar MesaEndpoint</a><a  href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar CategoriaEndpoint</a><a  href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a  href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar PedidoEndpoint</a><a  href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da imagem QR</a><a  href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a  href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e serviços no Tomcat</a><a  href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no Tomcat localhost</a><p class="nav-grupo">Interfaces Swing</p><a  href="desktop-conexao.html"><span aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a  href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a  href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de cadastro</a><a  href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a  href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing de categorias</a><a  href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a  href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela administrativa</a><a  href="swing-pedidos.html"><span aria-hidden="true">59.</span> Construir a janela do garçom</a><a  href="testes-swing.html"><span aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a><p class="nav-grupo">Cardápio local</p><a  href="cardapio-imagem.html"><span aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a  href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML semântico</a><a  href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar o layout responsivo</a><a  href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar busca, categorias e consulta JSON</a><a  href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR em localhost</a><p class="nav-grupo">REST desde o Initializr</p><a  href="spring-initializr.html"><span aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a  href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a  href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a  href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a  href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a  href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a  href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a  href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a  href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a  href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a  href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a  href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a  href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a  href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a><p class="nav-grupo">Validação em localhost</p><a  href="testes-rest.html"><span aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a  href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a  href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a><p class="nav-grupo">Consolidação</p><a  href="comparativo.html"><span aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a  href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do laboratório</a><a  href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e estender o sistema</a></nav></aside><main id="conteudo" tabindex="-1"><span class="chip">Servidor SOAP · aula 39 de 85</span><h1>Criar o módulo WAR do servidor</h1><p class="lead">Criar o módulo servidor com empacotamento WAR e dependências do núcleo e do contrato.</p><p id="progresso" class="foot" aria-live="polite"></p>
+<section><h2 id="objetivo">1. O que fazer nesta etapa</h2><div class="callout"><p><strong>Criar o módulo servidor com empacotamento WAR e dependências do núcleo e do contrato.</strong></p><ol><li>Criar: <code>source/restaurante-soap/servidor/pom.xml</code></li><li>Atualizar: <code>source/restaurante-soap/pom.xml</code></li></ol><p><strong>A aula termina quando:</strong> O módulo servidor e seu POM compilam com os módulos que já existem.</p></div><p>Continue no Eclipse após <a href="contrato.html">Gerar Java a partir dos contratos</a>. Use os projetos e os arquivos que você construiu nas etapas anteriores.</p></section>
+<section><h2 id="conceitos">2. Entenda o que será feito</h2><p>O WAR reúne o runtime SOAP e a integração com Servlet para publicação no Tomcat.</p><ul><li>A API Servlet tem escopo provided porque será oferecida pelo Tomcat.</li><li>Os endpoints e descritores serão acrescentados nas próximas aulas.</li></ul><details><summary>Pontos para observar no código</summary><ul><li>contextInitialized compõe o grafo; contextDestroyed remove referências ao encerrar a aplicação.</li><li>Acesso.executar recebe Supplier, devolve o resultado e concentra a tradução segura de exceções.</li><li>@Resource injeta o contexto da chamada, que permite verificar o papel do usuário.</li><li>@WebService aponta para a interface gerada e para serviço/porta definidos no WSDL.</li></ul></details></section>
+<section><h2 id="codigo">3. Faça o passo a passo</h2><h3 id="passo-1">Passo 1: Preparar o novo módulo na IDE</h3><div class="callout"><p><strong>Primeiro, crie o módulo servidor no Eclipse:</strong></p><ol><li>Selecione <code>restaurante-soap</code> e use <strong>File → New → Other… → Maven → Maven Module</strong>.</li><li>Marque <strong>Create a simple project</strong>, informe <strong>Module Name</strong> <code>servidor</code> e confira <strong>Parent Project</strong> <code>restaurante-soap</code>.</li><li>Confira Group Id <code>br.edu.soa</code>, Artifact Id <code>servidor</code>, versão <code>2.0.0</code> e Packaging <code>war</code>. Finalize e confira a pasta <code>source/restaurante-soap/servidor</code>.</li><li>O assistente registra o módulo; compare os POMs abaixo e mantenha uma única entrada por módulo.</li></ol><p>Se o módulo já existir, abra o projeto existente e revise os arquivos.</p></div><article class="etapa-arquivo" data-path="source/restaurante-soap/servidor/pom.xml"><h3 id="passo-2">Passo 2: Criar <code>pom.xml</code></h3><p><strong>Caminho na pasta do laboratório:</strong> <code>source/restaurante-soap/servidor/pom.xml</code>.</p><ol><li>No projeto <code>servidor</code>, selecione a raiz do projeto.</li><li>Use <strong>File → New → Other… → General → File</strong>, informe <code>pom.xml</code> e confira o diretório de destino.</li><li>Abra o arquivo no editor de texto/código do Eclipse e salve em UTF-8. Para XML e POM, selecione a aba de fonte do editor quando houver uma visão de formulário.</li></ol><p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com <strong>Ctrl+S</strong>.</p><pre><code class="language-xml">&lt;!-- Finalidade: Configurar o módulo e suas dependências. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;!-- Versão do formato do documento POM, não do Maven instalado. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;!-- Herda a configuração do POM identificado por estas coordenadas. --&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+    &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;/parent&gt;
+  &lt;artifactId&gt;servidor&lt;/artifactId&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+      &lt;artifactId&gt;contrato&lt;/artifactId&gt;
+      &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+      &lt;artifactId&gt;infraestrutura&lt;/artifactId&gt;
+      &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+      &lt;!-- Runtime Metro utilizado por serviços e clientes SOAP. --&gt;
+      &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+      &lt;!-- API Servlet oferecida pelo Tomcat na implantação. --&gt;
+      &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+      &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+      &lt;!-- Banco em memória usado pelos testes; não equivale a validar MySQL Server. --&gt;
+      &lt;artifactId&gt;h2&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+      &lt;!-- API e suporte dos testes JUnit. --&gt;
+      &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+      &lt;artifactId&gt;tomcat-embed-core&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  &lt;!-- Configura as ferramentas e recursos do build. --&gt;
+  &lt;build&gt;
+    &lt;finalName&gt;restaurante&lt;/finalName&gt;
+    &lt;resources&gt;
+      &lt;resource&gt;
+        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+      &lt;/resource&gt;
+    &lt;/resources&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;!-- Empacota os recursos e classes da aplicação web em WAR. --&gt;
+        &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webResources&gt;
+            &lt;resource&gt;
+              &lt;directory&gt;../contrato/src/main/resources/wsdl&lt;/directory&gt;
+              &lt;targetPath&gt;WEB-INF/wsdl&lt;/targetPath&gt;
+            &lt;/resource&gt;
+          &lt;/webResources&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre><details><summary>Conferir as versões e propriedades deste POM</summary><p>Os números abaixo são os adotados nesta etapa do laboratório. <code>modelVersion</code> descreve o formato do POM; <code>version</code> identifica um artefato; propriedades com nome próprio alimentam as bibliotecas e ferramentas. As explicações básicas estão na <a href="estrutura.html#passo-3">aula 12</a>.</p><table><thead><tr><th scope="col">Campo</th><th scope="col">Valor desta etapa</th></tr></thead><tbody><tr><td><code>version</code></td><td><code>2.0.0</code></td></tr><tr><td><code>version</code></td><td><code>${project.version}</code></td></tr></tbody></table><p><code>dependencyManagement</code> define versões; <code>dependencies</code> declara o uso. <code>pluginManagement</code> define padrões para os plugins acionados pelo ciclo ou pela configuração. <code>provided</code> é fornecido pelo container; <code>test</code> fica restrito aos testes; <code>runtime</code> atende à execução.</p></details><p><strong>Confira:</strong> o arquivo pertence ao projeto <code>servidor</code>, no caminho indicado e com o conteúdo completo desta etapa.</p></article><article class="etapa-arquivo" data-path="source/restaurante-soap/pom.xml"><h3 id="passo-3">Passo 3: Atualizar <code>pom.xml</code></h3><p><strong>Caminho na pasta do laboratório:</strong> <code>source/restaurante-soap/pom.xml</code>.</p><p>No <em>Project Explorer</em>, abra <code>pom.xml</code> do projeto <code>restaurante-soap</code>. Compare a mudança indicada e salve a versão completa desta etapa, preservando as operações que ela já contém.</p><p><strong>Acréscimos desta etapa:</strong> <code>servidor</code>. Confira também escopos, versões e recursos no arquivo completo.</p><p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com <strong>Ctrl+S</strong>.</p><details><summary>Abrir a versão completa de source/restaurante-soap/pom.xml para conferir e salvar</summary><pre><code class="language-xml">&lt;!-- Finalidade: Configurar o módulo e suas dependências. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;&gt;
+  &lt;!-- Versão do formato do documento POM, não do Maven instalado. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+  &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  &lt;!-- Lista os módulos que já foram criados nesta etapa. --&gt;
+  &lt;modules&gt;
+    &lt;module&gt;dominio&lt;/module&gt;
+    &lt;module&gt;aplicacao&lt;/module&gt;
+    &lt;module&gt;infraestrutura&lt;/module&gt;
+    &lt;module&gt;contrato&lt;/module&gt;
+    &lt;module&gt;servidor&lt;/module&gt;
+  &lt;/modules&gt;
+  &lt;!-- Centraliza valores reutilizados no restante do POM. --&gt;
+  &lt;properties&gt;
+    &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+    &lt;maven.compiler.parameters&gt;true&lt;/maven.compiler.parameters&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;metro.version&gt;4.0.5&lt;/metro.version&gt;
+    &lt;spring-boot.version&gt;3.5.16&lt;/spring-boot.version&gt;
+  &lt;/properties&gt;
+  &lt;!-- Define versões padrão sem incluir automaticamente bibliotecas no módulo. --&gt;
+  &lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;!-- BOM: lista de versões gerenciadas; o módulo declara as dependências que realmente usa. --&gt;
+        &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+        &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;!-- Runtime Metro utilizado por serviços e clientes SOAP. --&gt;
+        &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+        &lt;version&gt;${metro.version}&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.xml.ws&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.xml.ws-api&lt;/artifactId&gt;
+        &lt;version&gt;4.0.2&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.jws&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.jws-api&lt;/artifactId&gt;
+        &lt;version&gt;3.0.0&lt;/version&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/dependencyManagement&gt;
+  &lt;!-- Configura as ferramentas e recursos do build. --&gt;
+  &lt;build&gt;
+    &lt;!-- Centraliza versões e opções dos plugins usados pelo build. --&gt;
+    &lt;pluginManagement&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Ferramenta de compilação; usa o alvo Java definido no POM. --&gt;
+          &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.14.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Executa os testes automatizados durante a fase test. --&gt;
+          &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.5.3&lt;/version&gt;
+          &lt;configuration&gt;
+            &lt;useModulePath&gt;false&lt;/useModulePath&gt;
+          &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Empacota os recursos e classes da aplicação web em WAR. --&gt;
+          &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.4.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+          &lt;!-- Permite executar uma classe main por um goal Maven. --&gt;
+          &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.5.0&lt;/version&gt;
+        &lt;/plugin&gt;
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;!-- Executa os testes automatizados durante a fase test. --&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre></details><details><summary>Conferir as versões e propriedades deste POM</summary><p>Os números abaixo são os adotados nesta etapa do laboratório. <code>modelVersion</code> descreve o formato do POM; <code>version</code> identifica um artefato; propriedades com nome próprio alimentam as bibliotecas e ferramentas. As explicações básicas estão na <a href="estrutura.html#passo-3">aula 12</a>.</p><table><thead><tr><th scope="col">Campo</th><th scope="col">Valor desta etapa</th></tr></thead><tbody><tr><td><code>version</code></td><td><code>2.0.0</code></td></tr><tr><td><code>maven.compiler.release</code></td><td><code>17</code></td></tr><tr><td><code>metro.version</code></td><td><code>4.0.5</code></td></tr><tr><td><code>spring-boot.version</code></td><td><code>3.5.16</code></td></tr><tr><td><code>version</code></td><td><code>${spring-boot.version}</code></td></tr><tr><td><code>version</code></td><td><code>${metro.version}</code></td></tr><tr><td><code>version</code></td><td><code>4.0.2</code></td></tr><tr><td><code>version</code></td><td><code>3.0.0</code></td></tr><tr><td><code>version</code></td><td><code>3.14.0</code></td></tr><tr><td><code>version</code></td><td><code>3.5.3</code></td></tr><tr><td><code>version</code></td><td><code>3.4.0</code></td></tr><tr><td><code>version</code></td><td><code>3.5.0</code></td></tr></tbody></table><p><code>dependencyManagement</code> define versões; <code>dependencies</code> declara o uso. <code>pluginManagement</code> define padrões para os plugins acionados pelo ciclo ou pela configuração. <code>provided</code> é fornecido pelo container; <code>test</code> fica restrito aos testes; <code>runtime</code> atende à execução.</p></details><p><strong>Confira:</strong> o arquivo pertence ao projeto <code>restaurante-soap</code>, no caminho indicado e com o conteúdo completo desta etapa.</p></article><p>Após salvar os POMs, selecione os projetos envolvidos e use <strong>Maven → Update Project… → OK</strong>. O Eclipse atualiza dependências, fontes e recursos.</p><h3 id="passo-4">Passo 4: Verificar pelo Maven no Eclipse</h3><ol><li>Use <strong>File → Save All</strong>.</li><li>No projeto <code>restaurante-soap</code>, clique com o botão direito e escolha <strong>Run As → Maven build…</strong>. Use um nome identificável, como <code>Verificar aula 39</code>.</li><li>Confira <strong>Base directory</strong>: selecione o projeto <code>restaurante-soap</code> com <strong>Browse Workspace…</strong>. Em <strong>Goals</strong>, informe o conteúdo abaixo, sem o prefixo <code>mvn</code>.</li><li>Na aba <strong>JRE</strong>, confira o JDK 17. Clique em <strong>Apply → Run</strong> e acompanhe a aba <strong>Console</strong>.</li></ol><pre><code class="language-text">-pl servidor -am compile</code></pre><p><strong>Confira:</strong> a execução deve terminar em <code>BUILD SUCCESS</code>. Esse checkpoint valida o build desta etapa; a inicialização com banco e a interação pelas telas serão conferidas nas aulas de execução.</p><h3 id="passo-5">Passo 5: Conferir a entrega na IDE</h3><ol><li>Abra os arquivos salvos nos caminhos indicados e compare com a versão desta etapa.</li><li>Leia a aba <strong>Problems</strong> e a saída da verificação. Corrija os erros relacionados aos projetos desta aula antes de avançar.</li><li>Confira o resultado esperado: O módulo servidor e seu POM compilam com os módulos que já existem.</li></ol></section>
+<section><h2 id="resultado">4. Resultado esperado</h2><p>O módulo servidor e seu POM compilam com os módulos que já existem.</p><details><summary>Estrutura de diretórios acumulada até esta aula</summary><p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta árvore.</p><pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── aplicacao/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   └── java/
+        │       │       └── br/
+        │       │           └── edu/
+        │       │               └── soa/
+        │       │                   └── restaurante/
+        │       │                       └── aplicacao/
+        │       │                           ├── Falha.java
+        │       │                           ├── Repositorio.java
+        │       │                           └── Restaurante.java
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── aplicacao/
+        │                                   └── RestauranteTest.java
+        ├── contrato/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── resources/
+        │               └── wsdl/
+        │                   ├── CategoriaService.wsdl
+        │                   ├── MesaService.wsdl
+        │                   ├── PedidoService.wsdl
+        │                   ├── ProdutoService.wsdl
+        │                   └── restaurante.xsd
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        ├── infraestrutura/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   ├── java/
+        │       │   │   └── br/
+        │       │   │       └── edu/
+        │       │   │           └── soa/
+        │       │   │               └── restaurante/
+        │       │   │                   └── infraestrutura/
+        │       │   │                       ├── Banco.java
+        │       │   │                       ├── Credenciais.java
+        │       │   │                       └── JdbcRepositorio.java
+        │       │   └── resources/
+        │       │       └── db/
+        │       │           └── migration/
+        │       │               └── V1__restaurante.sql
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── infraestrutura/
+        │                                   ├── ErrosMySqlTest.java
+        │                                   ├── MySqlLocalTest.java
+        │                                   └── RestauranteBancoTest.java
+        ├── pom.xml
+        └── servidor/
+            └── pom.xml</code></pre></details><details><summary>Se a verificação não der certo</summary><ul><li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>; confira o projeto, o caminho do arquivo e o pacote.</li><li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo listado já possui seu POM.</li><li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em erro de download, confira a conexão e o repositório informado.</li><li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li></ul></details></section>
+<section><h2 id="checkpoint">5. Confira e continue</h2><ul><li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li><li>O módulo servidor e seu POM compilam com os módulos que já existem.</li><li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li><li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li></ul><button class="concluir" data-aula="servidor" type="button" aria-pressed="false">Marcar aula como concluída</button><p>Depois, avance para <a href="soap-contexto.html">Compor aplicação e banco no WAR</a>.</p></section>
+<details class="base"><summary>Fundamentação e leitura complementar</summary><div class="callout referencias-aula" aria-labelledby="fundamentacao"><h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3><p>O WAR e seus descritores compõem a borda SOAP. Eles conectam contexto, classes e contrato, mantendo regras no núcleo. A configuração concreta é Metro/Jakarta/Tomcat deste tutorial, não uma reprodução do servidor antigo do livro.</p><ul><li data-referencia="clean-camadas"><a href="../docs/referencias.html#leitura-clean-camadas">[R03] Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de software</a>. Cap. 22: regra de dependência e adaptadores. <strong>Páginas 273–282 do PDF</strong>.</li><li data-referencia="soa-wsdl"><a href="../docs/referencias.html#leitura-soa-wsdl">[R01] Alexandre Saudate — SOA aplicado: integrando com web services e além</a>. Cap. 2, §2.5–2.9: message, portType, binding e service. <strong>Páginas 37–42 do PDF</strong>.</li></ul><p><strong>Confira na leitura:</strong> Qual ligação está faltando quando o WAR sobe, mas o WSDL retorna 404?</p><p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.</p></div></details><nav class="links" aria-label="Aulas anterior e seguinte"><a href="contrato.html">← Gerar Java a partir dos contratos</a><a href="soap-contexto.html">Compor aplicação e banco no WAR →</a></nav></main></body></html>

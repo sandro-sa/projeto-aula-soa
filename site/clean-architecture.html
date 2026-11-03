@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Definir camadas e dependências · Restaurante do zero</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+        <aside><span class="chip">Do zero até localhost</span>
+                <h2>Restaurante<br>SOAP + REST</h2>
+                <p>Java 17 · MySQL · Spring Initializr</p>
+                <nav aria-label="Trilha de construção">
+                        <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span
+                                        aria-hidden="true">01.</span> Do zero até localhost</a><a
+                                href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a
+                                href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o
+                                JDK 17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar
+                                Eclipse e registrar o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span>
+                                Instalar Maven e compreender o POM</a><a href="instalacao-mysql.html"><span
+                                        aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a
+                                href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat
+                                10.1</a><a href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar
+                                Tomcat no Eclipse</a>
+                        <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span
+                                        aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a class="current"
+                                aria-current="page" href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                                Definir camadas e dependências</a><a href="estrutura.html"><span
+                                        aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a>
+                </nav>
+        </aside>
+        <main id="conteudo" tabindex="-1">
+              
+                <h1>Definir camadas e dependências</h1>
+                <p class="lead">Registrar onde ficarão as classes e as regras do restaurante.</p>
+                <p id="progresso" class="foot" aria-live="polite"></p>
+
+                <section>
+                        <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+                        <div class="callout">
+                                <p><strong>Sua tarefa é criar um único arquivo: <code>docs/camadas.md</code>.</strong></p>
+                                <p>Nele, você vai registrar a organização do código que construiremos nas próximas aulas. O conteúdo está pronto no passo 3: leia, copie e salve.</p>
+                                <p><strong>A aula termina quando esse arquivo estiver salvo e você conseguir explicar onde fica cada responsabilidade.</strong> A criação dos projetos Maven começa na <a href="estrutura.html">aula 12</a>.</p>
+                        </div>
+                </section>
+
+                <section>
+                        <h2 id="conceitos">2. Entenda o que será registrado</h2>
+                        <p>Na <a href="arquitetura-soa.html">aula anterior</a>, desenhamos as partes do sistema. Agora vamos definir como organizar o código dentro do servidor:</p>
+                        <table>
+                                <caption>Quatro responsabilidades do restaurante</caption>
+                                <thead><tr><th scope="col">Parte</th><th scope="col">Responsabilidade</th><th scope="col">Exemplo</th></tr></thead>
+                                <tbody>
+                                        <tr><td>Domínio</td><td>Representar os dados e os cálculos do negócio.</td><td>Mesa, Pedido e cálculo do subtotal de um item.</td></tr>
+                                        <tr><td>Aplicação</td><td>Executar as operações e verificar as regras.</td><td>Recusar a abertura de pedido para mesa ocupada.</td></tr>
+                                        <tr><td>Infraestrutura</td><td>Consultar e gravar os dados no banco.</td><td>Executar SQL com JDBC.</td></tr>
+                                        <tr><td>Entradas SOAP e REST</td><td>Receber solicitações e chamar a aplicação.</td><td>Receber o identificador da mesa para abrir um pedido.</td></tr>
+                                </tbody>
+                        </table>
+                        <p><strong>Ideia principal:</strong> a regra de mesa ocupada fica na aplicação. Assim, SOAP e REST podem usar a mesma regra.</p>
+                </section>
+
+                <section>
+                        <h2 id="codigo">3. Faça o passo a passo</h2>
+
+                        <h3 id="passo-1">Passo 1: Abrir o terminal na pasta do laboratório</h3>
+                        <ol>
+                                <li>No Explorador de Arquivos, abra a sua pasta <code>laboratorio-restaurante-soa</code>.</li>
+                                <li>Clique na barra de endereço, digite <code>powershell</code> e pressione <strong>Enter</strong>.</li>
+                                <li>No terminal que abrir, execute:</li>
+                        </ol>
+                        <pre><code class="language-powershell">Get-Location</code></pre>
+                        <p><strong>Confira:</strong> o caminho exibido deve terminar na pasta do seu laboratório. É nessa pasta que vamos criar o documento.</p>
+
+                        <h3 id="passo-2">Passo 2: Preparar as pastas e abrir o arquivo</h3>
+                        <p>Na raiz do laboratório, mantenha <code>diagramas</code> para o desenho da aula 10 e <code>docs</code> para o documento desta aula. No mesmo PowerShell, execute:</p>
+                        <pre><code class="language-powershell">New-Item -ItemType Directory -Path '.\diagramas' -Force
+New-Item -ItemType Directory -Path '.\docs' -Force
+notepad '.\docs\camadas.md'</code></pre>
+                        <p>As duas primeiras linhas garantem as pastas <code>diagramas</code> e <code>docs</code>; <code>-Force</code> reaproveita as pastas existentes. A terceira abre <code>camadas.md</code> no Bloco de Notas. Se aparecer uma pergunta para criar o arquivo, escolha <strong>Sim</strong>.</p>
+                        <p>Se o arquivo já tiver anotações suas, revise-as antes de substituir o conteúdo.</p>
+
+                        <h3 id="passo-3">Passo 3: Copiar o conteúdo e salvar</h3>
+                        <p>Leia o texto abaixo e copie-o para o Bloco de Notas. Este é o conteúdo do arquivo <code>camadas.md</code>:</p>
+                        <pre><code class="language-markdown"># Camadas do restaurante
+
+## Domínio
+Representa Mesa, Categoria, Produto, Pedido e ItemPedido.
+Contém cálculos como o subtotal de um item.
+Não conhece banco de dados, SOAP ou REST.
+
+## Aplicação
+Coordena as operações na classe Restaurante.
+Exemplo de regra: mesa ocupada não pode abrir outro pedido.
+Usa a interface Repositorio para consultar e gravar dados.
+
+## Infraestrutura
+Implementa Repositorio na classe JdbcRepositorio.
+Executa SQL e controla as conexões com o banco.
+
+## Entradas SOAP e REST
+Recebem solicitações, chamam Restaurante e devolvem respostas.
+A regra de negócio fica na aplicação.
+
+## Dependências do núcleo
+A seta significa: uma parte conhece tipos da outra.
+
+aplicacao -> dominio
+infraestrutura -> aplicacao e dominio
+
+A interface Repositorio fica na aplicação.
+A implementação JdbcRepositorio fica na infraestrutura.
+A aplicação usa a interface sem depender da implementação JDBC.
+
+## Exemplo: abrir pedido
+1. SOAP ou REST recebe a solicitação com o identificador da mesa.
+2. A aplicação consulta a mesa pela interface Repositorio.
+3. Se a mesa estiver ocupada, a aplicação recusa a operação.
+4. Se estiver livre, cria o pedido e ocupa a mesa na mesma transação.
+5. SOAP ou REST devolve o resultado ao cliente.
+
+As consultas e gravações desses passos são executadas
+pela infraestrutura, por meio da interface Repositorio.</code></pre>
+                        <p>Pressione <strong>Ctrl+S</strong>. Se aparecer a janela de salvamento, confira o nome <code>camadas.md</code>, a pasta <code>docs</code> e a codificação <strong>UTF-8</strong>.</p>
+
+                        <h3 id="passo-4">Passo 4: Conferir o que foi salvo</h3>
+                        <p>Volte ao PowerShell e execute:</p>
+                        <pre><code class="language-powershell">Get-Content -LiteralPath '.\docs\camadas.md' -Encoding UTF8</code></pre>
+                        <p><strong>Deu certo quando:</strong> o terminal mostrar o texto que você acabou de salvar, começando por <code># Camadas do restaurante</code>.</p>
+                        <p>Se aparecer “arquivo não encontrado”, confira se salvou em <code>docs</code> e se o nome ficou <code>camadas.md</code>, sem <code>.txt</code> no final.</p>
+                </section>
+
+                <section>
+                        <h2 id="resultado">4. Resultado esperado</h2>
+                        <p>Ao terminar a aula 11, a estrutura deve incluir o diagrama da aula 10 e o novo documento:</p>
+                        <pre><code class="language-text">laboratorio-restaurante-soa/
+├── diagramas/
+│   └── componentes.md
+└── docs/
+    └── camadas.md</code></pre>
+                        <p><code>diagramas/componentes.md</code> vem da <a href="arquitetura-soa.html">aula 10</a>; <code>docs/camadas.md</code> é criado nesta aula. Se o diagrama ainda não existir, retome a aula 10 para preencher o arquivo.</p>
+                        <p>Os nomes de classes registrados no documento orientam a implementação das próximas aulas.</p>
+                </section>
+
+                <section>
+                        <h2 id="checkpoint">5. Confira e continue</h2>
+                        <ul>
+                                <li>A pasta <code>diagramas</code> contém <code>componentes.md</code>, da aula 10.</li>
+                                <li>Criei e salvei <code>docs/camadas.md</code>.</li>
+                                <li>O comando do passo 4 mostrou o conteúdo salvo.</li>
+                                <li>Entendi que a aplicação verifica as regras e a infraestrutura executa o acesso ao banco.</li>
+                        </ul>
+                        <p><strong>Conferência rápida:</strong> onde deve ficar a regra “mesa ocupada não pode abrir outro pedido”? Na aplicação, para ser usada tanto por SOAP quanto por REST.</p>
+                        <button class="concluir" data-aula="clean-architecture" type="button" aria-pressed="false">Marcar aula como concluída</button>
+                        <p>Depois, avance para <a href="estrutura.html">Criar os primeiros POMs do zero</a>.</p>
+                </section>
+
+                <details class="base">
+                        <summary>Leitura complementar sobre as decisões de arquitetura</summary>
+                        <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                                <p>Aplique a regra de dependência aos imports: domínio não conhece JDBC, Metro ou
+                                        Spring; aplicação depende da porta Repositorio. O laboratório agrupa casos de
+                                        uso em Restaurante e devolve entidades aos adaptadores internos; não reproduz
+                                        todas as portas de entrada, saída e apresentadores do diagrama do livro.</p>
+                                <ul>
+                                        <li data-referencia="clean-dip"><a
+                                                        href="../docs/referencias.html#leitura-clean-dip">[R03] Robert
+                                                        C. Martin — Arquitetura Limpa: o guia do artesão para estrutura
+                                                        e design de software</a>. Cap. 11: princípio da inversão de
+                                                dependência. <strong>Páginas 139–144 do PDF</strong>.</li>
+                                        <li data-referencia="clean-camadas"><a
+                                                        href="../docs/referencias.html#leitura-clean-camadas">[R03]
+                                                        Robert C. Martin — Arquitetura Limpa: o guia do artesão para
+                                                        estrutura e design de software</a>. Cap. 22: regra de
+                                                dependência e adaptadores. <strong>Páginas 273–282 do PDF</strong>.</li>
+                                        <li data-referencia="clean-srp"><a
+                                                        href="../docs/referencias.html#leitura-clean-srp">[R03] Robert
+                                                        C. Martin — Arquitetura Limpa: o guia do artesão para estrutura
+                                                        e design de software</a>. Cap. 7: princípio da responsabilidade
+                                                única. <strong>Páginas 113–119 do PDF</strong>.</li>
+                                </ul>
+                                <p><strong>Confira na leitura:</strong> Se o banco mudar, quais classes deverão mudar e
+                                        quais regras devem permanecer iguais?</p>
+                                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                                                href="../docs/referencias.html#criterios">Critérios, adaptações e
+                                                atualização dos exemplos</a>.</p>
+                        </div>
+                </details>
+                <nav class="links" aria-label="Aulas anterior e seguinte"><a href="arquitetura-soa.html">← Desenhar as
+                                fronteiras SOA</a><a href="estrutura.html">Criar os primeiros POMs do zero →</a></nav>
+        </main>
+</body>
+
+</html>

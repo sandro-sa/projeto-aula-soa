@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Criar o módulo domínio e seus estados · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a
+                href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a class="current" aria-current="page" href="dominio-estados.html"><span
+                    aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a
+                href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a>
+          
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+       
+        <h1>Criar o módulo domínio e seus estados</h1>
+        <p class="lead">Criar o módulo domínio, seus enums e a compilação Maven dentro do Eclipse.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+
+        <section>
+            <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+            <div class="callout">
+                <p><strong>A partir desta aula, o trabalho será feito no Eclipse.</strong> Sua tarefa é criar o módulo
+                    domínio, seus dois enums e conferir o POM pai:</p>
+                <ol>
+                    <li>Criar o módulo Maven <code>dominio</code> dentro de <code>restaurante-soap</code>, com seu
+                        <code>pom.xml</code>.</li>
+                    <li>Conferir a entrada <code>dominio</code> no bloco <code>modules</code> de
+                        <code>source/restaurante-soap/pom.xml</code>.</li>
+                    <li>Criar <code>SituacaoMesa.java</code> e <code>SituacaoPedido.java</code> no pacote
+                        <code>br.edu.soa.restaurante.dominio</code>.</li>
+                </ol>
+                <p><strong>A aula termina quando a aba Console mostrar <code>BUILD SUCCESS</code> e o projeto
+                        <code>dominio</code> apresentar os dois enums.</strong></p>
+            </div>
+            <p>Abra o workspace usado na <a href="estrutura.html">aula 12</a>. No <em>Project Explorer</em>, os projetos
+                <code>laboratorio-restaurante</code> e <code>restaurante-soap</code> já devem estar importados. Os
+                arquivos continuam fisicamente na sua pasta <code>laboratorio-restaurante-soa</code>.</p>
+        </section>
+
+        <section>
+            <h2 id="conceitos">2. Entenda o que será criado</h2>
+            <p>O módulo <code>dominio</code> vai guardar os tipos do negócio. Começaremos com dois
+                <strong>enums</strong>: tipos Java que definem uma lista de valores possíveis.</p>
+            <table>
+                <caption>Estados usados no restaurante</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Enum</th>
+                        <th scope="col">Valores</th>
+                        <th scope="col">Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SituacaoMesa</code></td>
+                        <td><code>LIVRE</code>, <code>OCUPADA</code></td>
+                        <td>Indica se a mesa pode receber um pedido ou já possui um pedido aberto.</td>
+                    </tr>
+                    <tr>
+                        <td><code>SituacaoPedido</code></td>
+                        <td><code>ABERTO</code>, <code>FECHADO</code>, <code>CANCELADO</code></td>
+                        <td>Indica se o pedido está em andamento, foi encerrado ou cancelado.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Usar um enum permite ao compilador conferir esses valores, em vez de depender de textos digitados
+                livremente. Nesta aula, vamos definir os estados; as regras para abrir, fechar e cancelar pedidos serão
+                implementadas na aplicação.</p>
+            <p><strong>POM pai e POM filho:</strong> o bloco <code>parent</code> faz o domínio herdar Java 17,
+                codificação e configurações de build de <code>restaurante-soap</code>. Já o <code>modules</code> do pai
+                inclui o domínio na execução do Maven. São relações diferentes. Consulte a <a
+                    href="https://maven.apache.org/pom.html">referência dos POMs</a> ou a <a
+                    href="https://docs.oracle.com/javase/specs/jls/se17/html/jls-8.html#jls-8.9">definição de enum em
+                    Java 17</a>.</p>
+        </section>
+
+        <section>
+            <h2 id="codigo">3. Faça o passo a passo</h2>
+
+            <h3 id="passo-1">Passo 1: Criar o módulo Maven no Eclipse</h3>
+            <ol>
+                <li>No <em>Project Explorer</em>, selecione <strong><code>restaurante-soap</code></strong>, o projeto
+                    criado na aula 12.</li>
+                <li>Acesse <strong>File → New → Other… → Maven → Maven Module → Next</strong>.</li>
+                <li>Marque <strong>Create a simple project (skip archetype selection)</strong>.</li>
+                <li>Em <strong>Module Name</strong>, informe <code>dominio</code>.</li>
+                <li>Em <strong>Parent Project</strong>, confira <code>restaurante-soap</code>. Use
+                    <strong>Browse…</strong> para selecioná-lo se necessário.</li>
+                <li>Clique em <strong>Next</strong> e confira as informações abaixo. Depois, clique em
+                    <strong>Finish</strong>.</li>
+            </ol>
+            <table>
+                <caption>Dados do módulo</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Campo</th>
+                        <th scope="col">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Group Id</td>
+                        <td><code>br.edu.soa</code></td>
+                    </tr>
+                    <tr>
+                        <td>Artifact Id</td>
+                        <td><code>dominio</code></td>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td><code>2.0.0</code>, a versão do pai; no POM do próximo passo, ela será herdada.</td>
+                    </tr>
+                    <tr>
+                        <td>Packaging</td>
+                        <td><code>jar</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Confira:</strong> o projeto <code>dominio</code> deve aparecer no Eclipse, e sua pasta deve ficar
+                em <code>source/restaurante-soap/dominio</code>, dentro do projeto pai. O assistente cria a estrutura
+                inicial e registra o módulo; vamos conferir o conteúdo dos POMs nos próximos passos.</p>
+            <p>Se você já criou o módulo seguindo a versão anterior do roteiro, continue no projeto existente. Se a
+                pasta ainda não estiver importada, use <strong>File → Import… → Maven → Existing Maven Projects</strong>
+                e selecione <code>source/restaurante-soap/dominio</code>.</p>
+
+            <article class="etapa-arquivo" data-path="source/restaurante-soap/dominio/pom.xml">
+                <h3 id="passo-2">Passo 2: Conferir o POM do módulo domínio</h3>
+                <p>No projeto <code>dominio</code>, dê dois cliques em <code>pom.xml</code>. Se o editor abrir uma visão
+                    de formulário, selecione a aba <strong>pom.xml</strong> para editar o XML.</p>
+                <p>Substitua o conteúdo gerado pelo bloco completo abaixo, incluindo os comentários, e salve com
+                    <strong>Ctrl+S</strong>:</p>
+                <pre><code class="language-xml">&lt;!-- Identifica o documento como um POM Maven; o esquema auxilia o editor. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;!-- Formato do POM, como na aula 12. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;!-- Herda a configuração do POM source/restaurante-soap/pom.xml. --&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+    &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+    &lt;!-- Deve corresponder à versão declarada no POM pai. --&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;/parent&gt;
+
+  &lt;!-- Nome deste módulo. groupId e version são herdados do pai. --&gt;
+  &lt;artifactId&gt;dominio&lt;/artifactId&gt;
+  &lt;!-- Na fase package, o artefato deste módulo será um arquivo JAR. --&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+
+  &lt;!-- Vazio: o domínio usa apenas Java, sem bibliotecas externas. --&gt;
+  &lt;dependencies&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+                <p><strong>Confira:</strong> <code>parent</code> aponta para <code>restaurante-soap</code>, versão
+                    <code>2.0.0</code>. Por padrão, o Maven procura esse pai em <code>../pom.xml</code>, uma pasta
+                    acima. O módulo se chama <code>dominio</code> e suas dependências ficam vazias.</p>
+            </article>
+
+            <article class="etapa-arquivo" data-path="source/restaurante-soap/pom.xml">
+                <h3 id="passo-3">Passo 3: Registrar o domínio no POM pai</h3>
+                <p>No projeto <code>restaurante-soap</code>, abra <code>pom.xml</code> e selecione a aba de edição XML.
+                </p>
+                <p>O assistente de módulo acrescenta a entrada ao bloco <code>modules</code>. Confira se ela aparece uma
+                    única vez; se ainda estiver faltando, acrescente-a. O bloco deve ficar assim:</p>
+                <pre><code class="language-xml">&lt;modules&gt;
+    &lt;module&gt;dominio&lt;/module&gt;
+&lt;/modules&gt;</code></pre>
+                <p>Salve e mantenha as propriedades, as versões e os plugins da aula 12. No POM da raiz do laboratório,
+                    a lista continua apontando para <code>source/restaurante-soap</code>.</p>
+                <p>Depois, selecione os projetos <code>restaurante-soap</code> e <code>dominio</code> no <em>Project
+                        Explorer</em>, clique com o botão direito e use <strong>Maven → Update Project… → OK</strong>
+                    para atualizar a configuração.</p>
+                <p><strong>Confira:</strong> o bloco alterado pertence ao POM
+                    <code>source/restaurante-soap/pom.xml</code>. O caminho <code>dominio</code> é relativo a ele.</p>
+                <details>
+                    <summary>Conferir o POM pai completo após a alteração</summary>
+                    <p>Esta é a versão completa esperada, com os comentários da <a href="estrutura.html#passo-3">aula
+                            12</a>. Use-a para comparar com seu arquivo:</p>
+                    <pre><code class="language-xml">&lt;!-- project é a raiz do XML; xmlns identifica o formato de POM do Maven. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;&gt;
+  &lt;!-- Versão do formato do POM. Não é a versão do Maven instalado. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;!-- Identifica o grupo da instituição/projeto nas coordenadas Maven. --&gt;
+  &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+  &lt;!-- Nome do POM pai que os futuros módulos SOAP vão herdar. --&gt;
+  &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+  &lt;!-- Versão adotada para os artefatos do restaurante neste material. --&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;!-- Este projeto organiza/configura outros projetos; não produz JAR ou WAR. --&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  &lt;!-- Nesta etapa, o build inclui apenas o módulo dominio. --&gt;
+  &lt;modules&gt;
+    &lt;module&gt;dominio&lt;/module&gt;
+  &lt;/modules&gt;
+  &lt;!-- Valores reutilizáveis. A escrita ${nome} consulta uma propriedade. --&gt;
+  &lt;properties&gt;
+    &lt;!-- Compila fontes e APIs para Java 17. Não instala nem seleciona o JDK. --&gt;
+    &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+    &lt;!-- Preserva nomes de parâmetros no bytecode para uso por reflexão. --&gt;
+    &lt;maven.compiler.parameters&gt;true&lt;/maven.compiler.parameters&gt;
+    &lt;!-- Padroniza a codificação dos arquivos-fonte, inclusive os acentos. --&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;!-- Versão fixada da implementação SOAP Metro, usada em jaxws-rt. --&gt;
+    &lt;metro.version&gt;4.0.5&lt;/metro.version&gt;
+    &lt;!-- Versão do catálogo de dependências (BOM) usado pelo projeto SOAP. --&gt;
+    &lt;spring-boot.version&gt;3.5.16&lt;/spring-boot.version&gt;
+  &lt;/properties&gt;
+  &lt;!-- Define versões padrão. Cada módulo ainda declara as dependências que usa. --&gt;
+  &lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;!-- BOM: catálogo que alinha versões do driver MySQL, Flyway e JUnit. --&gt;
+        &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+        &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+        &lt;!-- Importamos um documento POM de configuração. --&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+        &lt;!-- Incorpora o catálogo do BOM ao dependencyManagement deste projeto. --&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;!-- Implementação Metro que executa serviços e clientes SOAP. --&gt;
+        &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+        &lt;version&gt;${metro.version}&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.xml.ws&lt;/groupId&gt;
+        &lt;!-- API Jakarta XML Web Services: tipos como Service e Endpoint. --&gt;
+        &lt;artifactId&gt;jakarta.xml.ws-api&lt;/artifactId&gt;
+        &lt;version&gt;4.0.2&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.jws&lt;/groupId&gt;
+        &lt;!-- API de anotações como WebService, WebMethod e WebParam. --&gt;
+        &lt;artifactId&gt;jakarta.jws-api&lt;/artifactId&gt;
+        &lt;version&gt;3.0.0&lt;/version&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/dependencyManagement&gt;
+  &lt;!-- Configuração das ferramentas de compilação, testes e empacotamento. --&gt;
+  &lt;build&gt;
+    &lt;!-- Centraliza versões/opções de plugins usados pelos módulos; não agenda tarefas. --&gt;
+    &lt;pluginManagement&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Compila o Java; lê maven.compiler.release e maven.compiler.parameters. --&gt;
+          &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.14.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Executa os testes unitários na fase test dos módulos com esse ciclo. --&gt;
+          &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.5.3&lt;/version&gt;
+          &lt;!-- Opções específicas do plugin Surefire. --&gt;
+          &lt;configuration&gt;
+            &lt;!-- Usa classpath nos testes, conforme a organização sem JPMS deste laboratório. --&gt;
+            &lt;useModulePath&gt;false&lt;/useModulePath&gt;
+          &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Empacota a aplicação web em WAR para implantação no Tomcat. --&gt;
+          &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.4.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+          &lt;!-- Permite chamar uma classe main com exec:java, por exemplo a tela Swing. --&gt;
+          &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.5.0&lt;/version&gt;
+        &lt;/plugin&gt;
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;!-- Declara plugins herdáveis; o Surefire usa a versão/opções definidas acima. --&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;!-- Executa os testes unitários na fase test dos módulos com esse ciclo. --&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+                </details>
+            </article>
+
+            <article class="etapa-arquivo"
+                data-path="source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/SituacaoMesa.java">
+                <h3 id="passo-4">Passo 4: Criar <code>SituacaoMesa.java</code></h3>
+                <p>Primeiro, crie o pacote Java no módulo <code>dominio</code>:</p>
+                <ol>
+                    <li>Expanda <code>dominio</code> e selecione <code>src/main/java</code>. Se a pasta não aparecer,
+                        clique com o botão direito no projeto, escolha <strong>New → Source Folder</strong> e informe
+                        <code>src/main/java</code>.</li>
+                    <li>Clique com o botão direito em <code>src/main/java</code> e escolha <strong>New →
+                            Package</strong>.</li>
+                    <li>Em <strong>Name</strong>, digite <code>br.edu.soa.restaurante.dominio</code>. Mantenha
+                        <strong>Create package-info.java</strong> desmarcado e clique em <strong>Finish</strong>.</li>
+                </ol>
+                <p>Agora, crie o enum nesse pacote:</p>
+                <ol>
+                    <li>Selecione <code>br.edu.soa.restaurante.dominio</code> e acesse <strong>File → New → Other… →
+                            Java → Enum</strong>.</li>
+                    <li>Confira <strong>Source folder</strong>: <code>dominio/src/main/java</code>, e
+                        <strong>Package</strong>: <code>br.edu.soa.restaurante.dominio</code>.</li>
+                    <li>Em <strong>Name</strong>, informe <code>SituacaoMesa</code>, mantenha o modificador
+                        <strong>public</strong> e clique em <strong>Finish</strong>.</li>
+                </ol>
+                <p>Substitua o conteúdo gerado pelo código completo abaixo e salve com <strong>Ctrl+S</strong>:</p>
+                <pre><code class="language-java">// O pacote corresponde à pasta br/edu/soa/restaurante/dominio.
+package br.edu.soa.restaurante.dominio;
+
+// Enum: define os valores possíveis para a situação de uma mesa.
+public enum SituacaoMesa {
+    // A mesa pode receber um novo pedido.
+    LIVRE,
+    // A mesa possui um pedido aberto.
+    OCUPADA
+}
+</code></pre>
+                <p><strong>Confira:</strong> o nome do arquivo é <code>SituacaoMesa.java</code>, com as mesmas
+                    maiúsculas do enum. A declaração <code>package</code> é <code>br.edu.soa.restaurante.dominio</code>.
+                </p>
+                <p>Referências dos assistentes: <a
+                        href="https://help.eclipse.org/latest/topic/org.eclipse.jdt.doc.user/reference/ref-wizard-package.htm">New
+                        Java Package</a> e <a
+                        href="https://help.eclipse.org/latest/topic/org.eclipse.jdt.doc.user/reference/ref-wizard-enum.htm">New
+                        Java Enum</a>.</p>
+            </article>
+
+            <article class="etapa-arquivo"
+                data-path="source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/SituacaoPedido.java">
+                <h3 id="passo-5">Passo 5: Criar <code>SituacaoPedido.java</code></h3>
+                <ol>
+                    <li>Selecione novamente o pacote <code>br.edu.soa.restaurante.dominio</code> no projeto
+                        <code>dominio</code>.</li>
+                    <li>Acesse <strong>File → New → Other… → Java → Enum</strong>.</li>
+                    <li>Em <strong>Name</strong>, informe <code>SituacaoPedido</code>, confira o mesmo pacote e mantenha
+                        <strong>public</strong>.</li>
+                    <li>Clique em <strong>Finish</strong>. Substitua o conteúdo gerado pelo código abaixo e salve com
+                        <strong>Ctrl+S</strong>.</li>
+                </ol>
+                <pre><code class="language-java">package br.edu.soa.restaurante.dominio;
+
+// Enum: define os valores possíveis para a situação de um pedido.
+public enum SituacaoPedido {
+    // O pedido ainda pode receber alterações.
+    ABERTO,
+    // A conta foi encerrada.
+    FECHADO,
+    // O pedido foi cancelado.
+    CANCELADO
+}
+</code></pre>
+                <p><strong>Confira:</strong> os dois arquivos têm o mesmo pacote. <code>public</code> permite que os
+                    outros módulos usem esses tipos; <code>enum</code> define os nomes válidos. Os comentários explicam
+                    os estados, mas não executam mudanças no pedido.</p>
+            </article>
+
+            <h3 id="passo-6">Passo 6: Compilar pelo Eclipse</h3>
+            <ol>
+                <li>Use <strong>File → Save All</strong> para salvar os arquivos abertos.</li>
+                <li>No <em>Project Explorer</em>, clique com o botão direito em <code>dominio</code> e escolha
+                    <strong>Run As → Maven build…</strong>.</li>
+                <li>Em <strong>Name</strong>, informe <code>Compilar dominio</code>.</li>
+                <li>Confira <strong>Base directory</strong>: deve ser a pasta
+                    <code>source/restaurante-soap/dominio</code>. Use <strong>Browse Workspace…</strong> e selecione o
+                    projeto <code>dominio</code> se precisar corrigir.</li>
+                <li>Em <strong>Goals</strong>, digite apenas o conteúdo abaixo. Na aba <strong>JRE</strong>, selecione o
+                    JDK 17 registrado nas aulas anteriores.</li>
+            </ol>
+            <pre><code class="language-text">compile</code></pre>
+            <p>Clique em <strong>Apply</strong> e depois em <strong>Run</strong>. Acompanhe a execução na aba
+                <strong>Console</strong>.</p>
+            <p><strong>Deu certo quando:</strong> a compilação de <code>dominio</code> terminar com
+                <code>BUILD SUCCESS</code>. O campo <strong>Goals</strong> recebe a fase do Maven, sem o prefixo
+                <code>mvn</code>.</p>
+            <p><code>compile</code> transforma os fontes <code>.java</code> em <code>.class</code>. O Maven gera
+                <code>SituacaoMesa.class</code> e <code>SituacaoPedido.class</code> em
+                <code>source/restaurante-soap/dominio/target/classes/br/edu/soa/restaurante/dominio</code>.</p>
+
+            <h3 id="passo-7">Passo 7: Conferir o projeto na IDE</h3>
+            <ol>
+                <li>No <em>Project Explorer</em>, expanda
+                    <code>dominio → src/main/java → br.edu.soa.restaurante.dominio</code>.</li>
+                <li>Confira os arquivos <code>SituacaoMesa.java</code> e <code>SituacaoPedido.java</code>. Abra cada um
+                    e compare o pacote e os valores com esta aula.</li>
+                <li>Na aba <strong>Problems</strong>, confira se há erros referentes ao projeto <code>dominio</code>. Se
+                    a aba não estiver visível, use <strong>Window → Show View → Problems</strong>.</li>
+            </ol>
+            <p><strong>Confira:</strong> os dois enums estão no mesmo pacote, o projeto está sem erros de compilação e a
+                aba <strong>Console</strong> registrou <code>BUILD SUCCESS</code>.</p>
+        </section>
+
+        <section>
+            <h2 id="resultado">4. Resultado esperado</h2>
+            <p>A estrutura do laboratório passa a incluir o módulo domínio. As pastas e os arquivos das aulas anteriores
+                continuam nos mesmos lugares:</p>
+            <pre><code class="language-text">laboratorio-restaurante-soa/
+├── diagramas/
+│   └── componentes.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── pom.xml
+        └── dominio/
+            ├── pom.xml
+            └── src/main/java/br/edu/soa/restaurante/dominio/
+                ├── SituacaoMesa.java
+                └── SituacaoPedido.java</code></pre>
+            <p>Após a compilação, haverá também a pasta <code>target</code> dentro de <code>dominio</code>, com os
+                arquivos gerados.</p>
+            <details>
+                <summary>Se a criação ou a compilação no Eclipse não der certo</summary>
+                <ul>
+                    <li><strong>O Maven não encontra <code>dominio</code>:</strong> confira a linha
+                        <code>&lt;module&gt;dominio&lt;/module&gt;</code> no POM SOAP e a existência de
+                        <code>dominio/pom.xml</code>.</li>
+                    <li><strong>O POM pai não é encontrado:</strong> confira <code>groupId</code>,
+                        <code>artifactId</code> e versão em <code>parent</code>. Eles devem corresponder ao POM de
+                        <code>restaurante-soap</code>.</li>
+                    <li><strong>Erro de nome ou pacote:</strong> confira as maiúsculas de <code>SituacaoMesa</code> e
+                        <code>SituacaoPedido</code> e a linha <code>package br.edu.soa.restaurante.dominio;</code>.</li>
+                    <li><strong><code>src/main/java</code> não aparece:</strong> use <strong>Maven → Update
+                            Project…</strong>. Se necessário, crie a pasta com <strong>New → Source Folder</strong> no
+                        projeto <code>dominio</code>.</li>
+                    <li><strong>Falha ao resolver a propriedade de versão do Boot:</strong> preserve
+                        <code>&lt;spring-boot.version&gt;3.5.16&lt;/spring-boot.version&gt;</code> no POM pai. O nome
+                        deve coincidir com <code>&#36;{spring-boot.version}</code>.</li>
+                    <li><strong>O build usa a pasta errada:</strong> na configuração <em>Maven build</em>, confira se
+                        <strong>Base directory</strong> aponta para <code>dominio</code> e se <strong>Goals</strong>
+                        contém apenas <code>compile</code>.</li>
+                    <li><strong>Java 17 não foi reconhecido:</strong> confira o JDK na aba <strong>JRE</strong> da
+                        configuração de execução e em <strong>Window → Preferences → Java → Installed JREs</strong>.
+                    </li>
+                </ul>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="checkpoint">5. Confira e continue</h2>
+            <ul>
+                <li>Criei o POM de <code>dominio</code> com o pai <code>restaurante-soap</code>.</li>
+                <li>Registrei apenas <code>dominio</code> no bloco <code>modules</code> do POM SOAP.</li>
+                <li>Salvei os dois enums no pacote e nos arquivos indicados.</li>
+                <li>Executei <strong>Run As → Maven build…</strong> com <code>compile</code> e a aba
+                    <strong>Console</strong> mostrou <code>BUILD SUCCESS</code>.</li>
+                <li>O novo módulo e seus arquivos aparecem no Eclipse.</li>
+            </ul>
+            <button class="concluir" data-aula="dominio-estados" type="button" aria-pressed="false">Marcar aula como
+                concluída</button>
+            <p>Depois, avance para <a href="modelo-mesa.html">Implementar Mesa</a>, onde usaremos o enum
+                <code>SituacaoMesa</code>.</p>
+        </section>
+
+        <details class="base">
+            <summary>Leitura complementar sobre domínio e pacotes</summary>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os records e
+                    enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8 não são
+                    apresentados como fonte da sintaxe de record.</p>
+                <ul>
+                    <li data-referencia="clean-negocio"><a href="../docs/referencias.html#leitura-clean-negocio">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 20: entidades, casos de uso e modelos de dados. <strong>Páginas 260–266
+                            do PDF</strong>.</li>
+                    <li data-referencia="oca-pacotes"><a href="../docs/referencias.html#leitura-oca-pacotes">[R06]
+                            Guilherme Silveira; Mário Amaral — Java SE 7 Programmer I: o guia para sua certificação
+                            Oracle Certified Associate</a>. Cap. 3, §3.2: estrutura da classe e pacotes. <strong>Páginas
+                            18–20 do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Quais campos representam o negócio e quais seriam apenas
+                    detalhes de tela ou transporte?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </details>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="estrutura.html">← Criar os primeiros POMs do
+                zero</a><a href="modelo-mesa.html">Implementar Mesa →</a></nav>
+    </main>
+</body>
+
+</html>

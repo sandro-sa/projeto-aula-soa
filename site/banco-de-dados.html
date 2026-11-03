@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Criar bancos e usuário no MySQL · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a class="current" aria-current="page" href="banco-de-dados.html"><span
+                    aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a href="tomcat.html"><span
+                    aria-hidden="true">08.</span> Instalar Tomcat 10.1</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <h1>Criar bancos e usuário no MySQL</h1>
+        <p class="lead">Criar os bancos e entender constraints, transações e evolução do esquema.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo do tutorial</h2>
+            <p>Criar os bancos e entender constraints, transações e evolução do esquema.</p>
+           
+        </section>
+      
+        
+<section>
+    <h2 id="codigo">
+        2. Implementação passo a passo e código da etapa
+    </h2>
+
+    <h3>Passo 1: Criar os bancos de dados do restaurante</h3>
+
+    <p>
+        Para os projetos SOAP e REST, criaremos dois bancos
+        de dados independentes utilizando o MariaDB
+        disponibilizado pelo XAMPP.
+    </p>
+
+    <ol>
+        <li>Inicie Apache e MySQL no XAMPP Control Panel.</li>
+        <li>
+            Abra o navegador e acesse
+            <a href="http://localhost/phpmyadmin/"
+               target="_blank" rel="noopener noreferrer">
+                http://localhost/phpmyadmin/
+            </a>.
+        </li>
+        <li>
+            Na página inicial do phpMyAdmin,
+            clique na aba <strong>SQL</strong>.
+        </li>
+        <li>Insira os comandos abaixo.</li>
+    </ol>
+
+    <pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS restaurante_soap
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+CREATE DATABASE IF NOT EXISTS restaurante_rest
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;</code></pre>
+
+    <p><strong>Explicação do código:</strong></p>
+
+    <ul>
+        <li>
+            <code>CREATE DATABASE</code>:
+            cria um novo banco de dados.
+        </li>
+        <li>
+            <code>IF NOT EXISTS</code>:
+            evita erro caso o banco já exista.
+        </li>
+        <li>
+            <code>restaurante_soap</code>:
+            banco utilizado pelo serviço SOAP.
+        </li>
+        <li>
+            <code>restaurante_rest</code>:
+            banco utilizado pelo serviço REST.
+        </li>
+        <li>
+            <code>CHARACTER SET utf8mb4</code>:
+            permite armazenar caracteres Unicode,
+            incluindo acentos e emojis.
+        </li>
+        <li>
+            <code>COLLATE utf8mb4_unicode_ci</code>:
+            define regras para comparação e
+            ordenação de textos sem diferenciar
+            letras maiúsculas e minúsculas.
+        </li>
+    </ul>
+
+    <ol>
+        <li>Clique em <strong>Executar</strong>.</li>
+        <li>Atualize a lista de bancos de dados.</li>
+        <li>
+            Confirme a criação dos bancos
+            <code>restaurante_soap</code> e
+            <code>restaurante_rest</code>.
+        </li>
+    </ol>
+
+    <h3>Passo 2: Criar o usuário do banco de dados</h3>
+
+    <p>
+        Não é recomendado utilizar a conta
+        administrativa <code>root</code> nas aplicações.
+        Criaremos um usuário específico para
+        acessar os bancos do restaurante.
+    </p>
+
+    <p>
+        No phpMyAdmin, utilizando uma conta com
+        privilégios administrativos, execute:
+    </p>
+
+    <pre><code class="language-sql">CREATE USER 'restaurante'@'localhost'
+IDENTIFIED BY 'SUA_SENHA_SEGURA';</code></pre>
+
+    <p><strong>Explicação do código:</strong></p>
+
+    <ul>
+        <li>
+            <code>CREATE USER</code>:
+            cria um usuário no servidor MariaDB.
+        </li>
+        <li>
+            <code>'restaurante'</code>:
+            nome da conta utilizada pelas aplicações.
+        </li>
+        <li>
+            <code>'localhost'</code>:
+            identifica o host local autorizado
+            para essa conta.
+        </li>
+        <li>
+            <code>IDENTIFIED BY</code>:
+            define a senha do usuário.
+        </li>
+    </ul>
+
+    <p>
+        <strong>Atenção:</strong> substitua
+        <code>SUA_SENHA_SEGURA</code> por uma senha própria.
+        Não salve a senha real em arquivos SQL publicados
+        ou enviados para repositórios.
+    </p>
+
+    <p>
+        Execute o comando apenas uma vez.
+        Se a conta já existir, o MariaDB poderá
+        informar que o usuário está duplicado.
+        Nesse caso, não é necessário recriá-lo.
+    </p>
+
+    <h3>Passo 3: Conceder permissões ao usuário</h3>
+
+    <p>
+        O usuário foi criado, mas ainda precisa
+        receber as permissões necessárias
+        para acessar os bancos.
+    </p>
+
+    <p>Execute:</p>
+
+    <pre><code class="language-sql">GRANT SELECT, INSERT, UPDATE, DELETE,
+CREATE, ALTER, INDEX, REFERENCES
+ON restaurante_soap.*
+TO 'restaurante'@'localhost';
+
+GRANT SELECT, INSERT, UPDATE, DELETE,
+CREATE, ALTER, INDEX, REFERENCES
+ON restaurante_rest.*
+TO 'restaurante'@'localhost';</code></pre>
+
+    <p><strong>Explicação das permissões:</strong></p>
+
+    <ul>
+        <li>
+            <code>SELECT</code>:
+            permite consultar registros.
+        </li>
+        <li>
+            <code>INSERT</code>:
+            permite cadastrar registros.
+        </li>
+        <li>
+            <code>UPDATE</code>:
+            permite atualizar informações existentes.
+        </li>
+        <li>
+            <code>DELETE</code>:
+            permite excluir registros.
+        </li>
+        <li>
+            <code>CREATE</code>:
+            permite criar tabelas e outras estruturas.
+        </li>
+        <li>
+            <code>ALTER</code>:
+            permite alterar estruturas existentes.
+        </li>
+        <li>
+            <code>INDEX</code>:
+            permite criar e remover índices.
+        </li>
+        <li>
+            <code>REFERENCES</code>:
+            é um privilégio associado à definição
+            de relacionamentos por chaves estrangeiras.
+        </li>
+    </ul>
+
+    <p>
+        A expressão <code>restaurante_soap.*</code>
+        representa todas as tabelas do banco
+        <code>restaurante_soap</code>.
+    </p>
+
+    <p>
+        O mesmo procedimento é aplicado ao banco
+        <code>restaurante_rest</code>.
+    </p>
+
+    <p>
+        <strong>Observação:</strong> essas permissões
+        são adequadas para um ambiente didático
+        que também executa migrações de tabelas.
+        Em produção, separe as permissões de
+        manutenção das operações cotidianas.
+    </p>
+
+    <h3>Passo 4: Verificar os bancos e as permissões</h3>
+
+    <p>
+        Para confirmar se os bancos foram criados,
+        execute no phpMyAdmin:
+    </p>
+
+    <pre><code class="language-sql">SHOW DATABASES;</code></pre>
+
+    <p>
+        O resultado deverá incluir:
+    </p>
+
+    <pre><code class="language-text">restaurante_soap
+restaurante_rest</code></pre>
+
+    <p>
+        Agora verifique os privilégios do usuário:
+    </p>
+
+    <pre><code class="language-sql">SHOW GRANTS FOR 'restaurante'@'localhost';</code></pre>
+
+    <p>
+        O comando apresenta as permissões concedidas
+        à conta <code>restaurante</code>.
+    </p>
+
+    <h3>Passo 5: Verificar a conexão pelo PowerShell</h3>
+
+    <p>
+        Também podemos utilizar o cliente MariaDB
+        instalado com o XAMPP para testar a conexão.
+    </p>
+
+    <ol>
+        <li>Abra o PowerShell.</li>
+        <li>Acesse a pasta de executáveis do banco.</li>
+    </ol>
+
+    <pre><code class="language-powershell">cd C:\xampp\mysql\bin</code></pre>
+
+    <p>
+        Para conectar com a conta administrativa:
+    </p>
+
+    <pre><code class="language-powershell">.\mysql.exe -u root -p</code></pre>
+
+    <p>
+        Informe a senha quando solicitada.
+        Se a conta não tiver senha na instalação
+        local, pressione Enter.
+    </p>
+
+    <p>
+        Após conectar, execute:
+    </p>
+
+    <pre><code class="language-sql">SHOW DATABASES;
+
+SELECT VERSION();</code></pre>
+
+    <p>
+        <code>SHOW DATABASES</code> apresenta
+        os bancos existentes.
+        <code>SELECT VERSION()</code> mostra
+        a versão do servidor de banco de dados.
+    </p>
+
+    <p>Para encerrar a conexão:</p>
+
+    <pre><code class="language-sql">EXIT;</code></pre>
+
+    <h3>Passo 6: Testar o usuário restaurante</h3>
+
+    <p>
+        Agora verificaremos se a conta criada
+        consegue acessar os dois bancos.
+    </p>
+
+    <p>No PowerShell, execute:</p>
+
+    <pre><code class="language-powershell">cd C:\xampp\mysql\bin
+
+.\mysql.exe -u restaurante -p</code></pre>
+
+    <p>
+        Informe a senha definida na criação
+        do usuário e execute:
+    </p>
+
+    <pre><code class="language-sql">USE restaurante_soap;
+
+SELECT DATABASE();
+
+USE restaurante_rest;
+
+SELECT DATABASE();</code></pre>
+
+    <p>
+        O comando <code>USE</code> seleciona
+        o banco de dados ativo.
+    </p>
+
+    <p>
+        O comando <code>SELECT DATABASE()</code>
+        informa qual banco está selecionado.
+    </p>
+
+    <p>
+        Se ambos os comandos funcionarem,
+        o usuário conseguiu selecionar
+        os dois bancos.
+    </p>
+
+    <p>
+        Para conferir também os privilégios
+        concedidos à sessão atual, execute:
+    </p>
+
+    <pre><code class="language-sql">SHOW GRANTS;</code></pre>
+
+    <p>
+        Por fim, encerre a conexão:
+    </p>
+
+    <pre><code class="language-sql">EXIT;</code></pre>
+
+    <h3>Passo 7: Resolver problemas comuns</h3>
+
+    <h4>Apache não inicia</h4>
+    <p>
+        Verifique se as portas 80 ou 443
+        estão sendo utilizadas por outro serviço,
+        como IIS ou outra instalação do Apache.
+        Consulte os logs do XAMPP.
+    </p>
+
+    <h4>MySQL não inicia</h4>
+    <p>
+        Verifique se a porta 3306 está
+        ocupada por outra instalação
+        do MySQL ou MariaDB.
+        Não exclua arquivos da pasta de dados
+        para tentar resolver o problema.
+    </p>
+
+    <h4>phpMyAdmin não abre</h4>
+    <p>
+        Confirme que Apache e MySQL estão ativos.
+        Depois, acesse:
+        <a href="http://localhost/phpmyadmin/"
+           target="_blank" rel="noopener noreferrer">
+            http://localhost/phpmyadmin/
+        </a>.
+    </p>
+
+    <h4>Erro: Access denied for user</h4>
+    <p>
+        Verifique se o nome do usuário,
+        a senha e o host estão corretos.
+        Confira também as permissões
+        concedidas com o comando
+        <code>SHOW GRANTS</code>.
+    </p>
+
+    <h4>Erro: Can't connect to MySQL server</h4>
+    <p>
+        Verifique se o serviço MySQL está iniciado
+        no XAMPP e se a aplicação utiliza
+        a porta correta.
+    </p>
+
+    <h3>Passo 8: Encerrar os serviços</h3>
+
+    <ol>
+        <li>Abra o XAMPP Control Panel.</li>
+        <li>
+            Clique em <strong>Stop</strong>
+            na linha MySQL.
+        </li>
+        <li>
+            Clique em <strong>Stop</strong>
+            na linha Apache.
+        </li>
+        <li>
+            Aguarde a interrupção completa
+            dos serviços antes de fechar o painel.
+        </li>
+    </ol>
+
+    <h3>Observações importantes</h3>
+
+    <p>
+        O XAMPP será utilizado principalmente
+        como ambiente local para disponibilizar
+        o banco MariaDB dos projetos.
+    </p>
+
+    <p>
+        Os serviços SOAP e REST desenvolvidos
+        em Java serão executados pelo
+        Apache Tomcat 10.1, quando empacotados
+        como aplicações WAR compatíveis.
+    </p>
+
+    <p>
+        O phpMyAdmin deve permanecer restrito
+        ao ambiente local, e as aplicações
+        não devem utilizar a conta root.
+    </p>
+
+    <p>
+        Os bancos e usuários estão configurados.
+        Na próxima etapa, será necessário criar
+        as tabelas do restaurante, como produto,
+        categoria, pedido e item_pedido,
+        e configurar a conexão JDBC no Java.
+    </p>
+</section>
+
+
+        <section>
+           
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação:</h3>
+                <p>A leitura de contexto explica por que uma aplicação precisa de conexão e limites de transação. Nesta
+                    trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário e GRANT vêm do roteiro
+                    MySQL, sem criar persistence.xml.</p>
+                <ul>
+                    <li data-referencia="jpa-transacao"><a href="../docs/referencias.html#leitura-jpa-transacao">[R08]
+                            Hébert Coelho - JPA Eficaz: as melhores práticas de persistência de dados em Java</a>. Cap.
+                        2, §2.4.1: controle manual da transação. <strong>Páginas 30–32 do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Por que a identidade administrativa do banco não deve ser a
+                    identidade usada pela aplicação?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </section>
+       
+        <section>
+          <button class="concluir" data-aula="banco-de-dados" type="button" aria-pressed="false">
+            Marcar tutorial como concluída
+        </button>
+        </section>
+       
+           
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para ferramentas e versões: <a
+                href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="instalacao-mysql.html">← Instalar e testar
+                MySQL 8.4</a><a href="tomcat.html">Instalar Tomcat 10.1 →</a></nav>
+    </main>
+</body>
+
+</html>

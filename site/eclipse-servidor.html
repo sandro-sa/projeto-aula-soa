@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Registrar Tomcat no Eclipse · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+     <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+         Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+         local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+         17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+         o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+         POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+         8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+         MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a class="current"
+         aria-current="page" href="eclipse-servidor.html"><span aria-hidden="true">09.</span>
+         Registrar Tomcat no Eclipse</a>
+     <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+         Desenhar as fronteiras SOA</a>
+     
+ </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <h1>Registrar Tomcat no Eclipse</h1>
+        <p class="lead">Registrar o runtime do Tomcat, configurar o JDK 17 e validar o servidor sem um projeto Java.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo da aula</h2>
+            <p>Registrar o runtime do Tomcat, configurar o JDK 17 e validar o servidor sem um projeto Java.</p>
+        </section>
+        <section>
+            <h2 id="codigo">2. Implementação passo a passo e código da etapa</h2>
+            <h3>Passo 1: Instalar o suporte Tomcat no Eclipse</h3>
+
+            <p>
+                Para administrar o Tomcat diretamente
+                no Eclipse, é necessário possuir
+                as ferramentas de desenvolvimento web
+                e integração com servidores.
+            </p>
+
+            <ol>
+                <li>Abra o Eclipse.</li>
+                <li>
+                    Acesse o menu
+                    <strong>Help &gt; Eclipse Marketplace</strong>.
+                </li>
+                <li>
+                    Pesquise por ferramentas do
+                    <strong>Eclipse Web Tools Platform (WTP)</strong>
+                    e suporte a servidores Java.
+                </li>
+                <li>
+                    Se necessário, utilize
+                    <strong>Help &gt; Install New Software</strong>
+                    para instalar os componentes
+                    Web Tools e os adaptadores de servidor.
+                </li>
+                <li>
+                    Reinicie o Eclipse após a instalação.
+                </li>
+                <li>
+                    Caso o suporte não esteja disponível,
+                    considere utilizar a distribuição
+                    <strong>Eclipse IDE for Enterprise Java
+                        and Web Developers</strong>.
+                </li>
+            </ol>
+
+            <p>
+                O nome e a disponibilidade dos componentes
+                podem variar conforme a versão do Eclipse.
+            </p>
+
+            <h3>Passo 2: Configurar o Tomcat no Eclipse</h3>
+
+            <ol>
+                <li>Abra o Eclipse.</li>
+                <li>
+                    Acesse
+                    <strong>Window &gt; Preferences</strong>.
+                </li>
+                <li>
+                    Localize
+                    <strong>Server &gt; Runtime Environments</strong>.
+                </li>
+                <li>Clique em <strong>Add</strong>.</li>
+                <li>
+                    Selecione
+                    <strong>Apache &gt; Apache Tomcat v10.1</strong>,
+                    caso esteja disponível.
+                </li>
+                <li>Clique em <strong>Next</strong>.</li>
+                <li>
+                    Informe o diretório de instalação:
+                    <code>C:\Servers\apache-tomcat-10.1.61</code>.
+                </li>
+                <li>
+                    Selecione a instalação do JDK 17.
+                </li>
+                <li>
+                    Clique em <strong>Finish</strong>.
+                </li>
+            </ol>
+
+            <p>
+                Caso a opção Server não apareça,
+                verifique a instalação dos componentes
+                WTP e dos adaptadores de servidor.
+            </p>
+
+            <h3>Passo 3: Criar o servidor na aba Servers</h3>
+
+            <ol>
+                <li>
+                    Acesse
+                    <strong>Window &gt; Show View &gt; Other</strong>.
+                </li>
+                <li>
+                    Procure por <strong>Server &gt; Servers</strong>.
+                </li>
+                <li>
+                    Na aba Servers, clique com o botão
+                    direito e escolha
+                    <strong>New &gt; Server</strong>.
+                </li>
+                <li>
+                    Selecione o Tomcat 10.1 configurado.
+                </li>
+                <li>
+                    Escolha o runtime correspondente.
+                </li>
+                <li>
+                    Clique em <strong>Finish</strong>.
+                </li>
+                <li>
+                    Clique com o botão direito no servidor
+                    e selecione <strong>Start</strong>.
+                </li>
+            </ol>
+
+            <p>
+                Verifique no Console do Eclipse
+                se o Tomcat iniciou corretamente.
+            </p>
+
+            <p>
+                <strong>Atenção:</strong> não inicie
+                simultaneamente o mesmo Tomcat pelo
+                PowerShell e pelo Eclipse utilizando
+                as mesmas portas.
+            </p>
+
+            <h3>Passo 4: Iniciar o Tomcat pelo Eclipse</h3>
+            <p>
+                Nesta aula ainda não existe um projeto Java para publicar.
+                Vamos verificar somente se o servidor Tomcat está corretamente
+                integrado ao Eclipse.
+            </p>
+            <ol>
+                <li>Na aba <strong>Servers</strong>, selecione o servidor Apache Tomcat v10.1.</li>
+                <li>Confirme que o status inicial é <strong>Stopped</strong>.</li>
+                <li>Clique com o botão direito no servidor e selecione <strong>Start</strong>.</li>
+                <li>Abra a aba <strong>Console</strong> para acompanhar as mensagens.</li>
+                <li>Verifique se o servidor mudou para o estado <strong>Started</strong>.</li>
+            </ol>
+            <p>
+                Se a porta 8080 já estiver ocupada, confira se outra instância do
+                Tomcat foi iniciada pelo PowerShell antes de tentar novamente.
+            </p>
+
+            <h3>Passo 5: Testar o servidor sem uma aplicação</h3>
+            <p>
+                Abra <code>http://localhost:8080/</code> no navegador.
+                O resultado depende da configuração da instância criada pelo Eclipse:
+                a página inicial do Tomcat poderá ser exibida ou a raiz poderá retornar
+                <strong>HTTP 404</strong>, caso não exista uma aplicação ROOT publicada.
+                Um erro 404 na raiz, isoladamente, não significa que o Tomcat falhou.
+            </p>
+            <ol>
+                <li>Confira na aba <strong>Servers</strong> se o estado é <strong>Started</strong>.</li>
+                <li>Confira no <strong>Console</strong> se há erros de inicialização.</li>
+                <li>Verifique se o navegador conseguiu se conectar à porta configurada.</li>
+                <li>Não tente acessar endpoints SOAP nem arquivos WSDL: eles ainda não foram criados.</li>
+            </ol>
+
+            <h3>Passo 6: Identificar CATALINA_HOME e CATALINA_BASE</h3>
+            <p>
+                O <code>CATALINA_HOME</code> aponta para os arquivos de instalação do Tomcat.
+                Já <code>CATALINA_BASE</code> aponta para os arquivos de configuração
+                e execução de uma instância específica. O Eclipse pode criar uma base
+                separada para o servidor configurado na IDE.
+            </p>
+            <ol>
+                <li>Na aba <strong>Servers</strong>, dê dois cliques no servidor.</li>
+                <li>Observe a seção <strong>Server Locations</strong>, quando disponível.</li>
+                <li>Abra as configurações de execução ou a visualização Console para inspecionar os caminhos utilizados.
+                </li>
+                <li>Compare os caminhos da instalação e da instância, sem alterar ou apagar arquivos.</li>
+            </ol>
+            <p>
+                Isso explica por que o Tomcat iniciado pelo Eclipse pode ter
+                configurações e aplicações diferentes do Tomcat iniciado pelos scripts
+                em <code>C:\Servers\apache-tomcat-10.1.x\bin</code>.
+            </p>
+
+            <h3>Passo 7: Parar o servidor e concluir a preparação</h3>
+            <ol>
+                <li>Na aba <strong>Servers</strong>, clique com o botão direito no Tomcat.</li>
+                <li>Selecione <strong>Stop</strong>.</li>
+                <li>Aguarde até que o estado mude para <strong>Stopped</strong>.</li>
+                <li>Não adicione módulos: a aplicação Restaurante será criada nas próximas aulas.</li>
+            </ol>
+            <p>
+                <strong>Checkpoint:</strong> Tomcat registrado no Eclipse, JDK 17 selecionado,
+                servidor iniciado e interrompido sem erros críticos. Nenhum WAR é necessário.
+            </p>
+
+            <section>
+                <h2 id="explicacao">6. Explicação do código e das decisões</h2>
+                <ul>
+                    <li>O empacotamento WAR e a publicação de serviços serão ensinados apenas depois da criação dos
+                        módulos Maven.</li>
+                    <li>JRE do runtime Tomcat pode ser 17 mesmo quando o Eclipse exige um JDK superior.</li>
+                    <li>No estado Stopped é possível editar portas sem conflito com processos em execução.</li>
+                </ul>
+                <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                    <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                    <p>O endereço concreto de um serviço liga protocolo, host, porta e contexto. Tomcat e o runtime do
+                        Eclipse ainda são preparação: um endereço no contrato não significa que o endpoint já exista. Os
+                        comandos Tomcat 10.1 são a adaptação deste laboratório.</p>
+                    <ul>
+                        <li data-referencia="soa-wsdl"><a href="../docs/referencias.html#leitura-soa-wsdl">[R01]
+                                Alexandre
+                                Saudate — SOA aplicado: integrando com web services e além</a>. Cap. 2, §2.5–2.9:
+                            message,
+                            portType, binding e service. <strong>Páginas 37–42 do PDF</strong>.</li>
+                    </ul>
+                    <p><strong>Confira na leitura:</strong> Qual parte da futura URL depende do contexto publicado no
+                        Tomcat?</p>
+                    <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                            href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos
+                            exemplos</a>.
+                    </p>
+                </div>
+            </section>
+            <section>
+                <h2 id="eclipse">7. Como implementar no Eclipse e executar</h2>
+
+            </section>
+            <section>
+                <h2 id="fluxo">8. Fluxo da execução</h2>
+                <div class="fluxo">Eclipse Servers → runtime Tomcat e JDK 17 → iniciar → conferir Console e porta HTTP →
+                    parar.</div>
+            </section>
+            <section>
+                <h2 id="resultado">9. Resultado esperado nesta etapa</h2>
+                <p>Runtime registrado, Tomcat iniciado e testado, e servidor novamente parado. Nenhum projeto ou WAR foi
+                    criado nesta aula.</p>
+                <p>O resultado é um checkpoint para você executar. O <a href="../docs/validacao.md">registro de
+                        validação do
+                        material</a> distingue testes automatizados, reconstrução da trilha e execução real no MySQL.
+                    Consulte também a <a href="../docs/revisao-html.md">revisão passo a passo dos HTMLs</a>.</p>
+            </section>
+            <section>
+                <h2 id="problemas">10. Problemas frequentes</h2>
+                <ul>
+                    <li>Tomcat não aparece na lista: confirme a instalação do Eclipse WTP e do adaptador do Tomcat.</li>
+                    <li>Porta 8080 ocupada: verifique outras instâncias do Tomcat e serviços locais.</li>
+                    <li>Não execute uma aula posterior para compensar um erro: retorne ao último checkpoint aprovado.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2 id="checkpoint">11. Checkpoint antes de continuar</h2>
+                <ul>
+                    <li>Localizar a configuração de runtime e o JDK do servidor.</li>
+                    <li>Não adicionar um projeto que ainda não existe.</li>
+                </ul><button class="concluir" data-aula="eclipse-servidor" type="button" aria-pressed="false">Marcar
+                    aula
+                    como concluída</button>
+            </section>
+            <section>
+                <h2 id="exercicio">12. Exercício</h2>
+                <p>Localize CATALINA_BASE da instância Eclipse e compare com CATALINA_HOME da instalação.</p>
+            </section>
+            <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">9 PDFs fornecidos e leituras por
+                    aula</a>. Complementos oficiais para ferramentas e versões: <a
+                    href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                    href="https://start.spring.io/">Spring Initializr</a> · <a
+                    href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                    href="https://springdoc.org/">springdoc</a> · <a
+                    href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                    href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                    href="https://maven.apache.org/guides/">Maven</a>.</p>
+            <nav class="links" aria-label="Aulas anterior e seguinte"><a href="tomcat.html">← Instalar Tomcat 10.1</a><a
+                    href="arquitetura-soa.html">Desenhar as fronteiras SOA →</a></nav>
+    </main>
+</body>
+
+</html>

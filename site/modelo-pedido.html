@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Implementar Pedido · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a
+                href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a class="current"
+                aria-current="page" href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar
+                Pedido</a><a href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do
+                domínio</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Projeto e domínio · aula 18 de 85</span>
+        <h1>Implementar Pedido</h1>
+        <p class="lead">Criar Pedido.java no módulo dominio, com a lista de itens e o cálculo do total.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+            <div class="callout">
+                <p><strong>Criar Pedido.java no módulo dominio, com a lista de itens e o cálculo do total.</strong></p>
+                <ol>
+                    <li>Criar:
+                        <code>source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/Pedido.java</code>
+                    </li>
+                </ol>
+                <p><strong>A aula termina quando:</strong> Pedido.java compila e você consegue explicar mesaId,
+                    dataHora, situacao, itens e total().</p>
+            </div>
+            <p>Continue no Eclipse após <a href="modelo-item.html">Implementar ItemPedido</a>. Use os projetos e os
+                arquivos que você construiu nas etapas anteriores.</p>
+        </section>
+        <section>
+            <h2 id="conceitos">2. Entenda o que será feito</h2>
+            <p>Pedido representa a conta de uma mesa. List.copyOf guarda uma cópia não modificável da lista recebida;
+                total() soma os subtotais dos itens a partir de 0.00.</p>
+            <ul>
+                <li>O enum SituacaoPedido e o record ItemPedido já existem.</li>
+                <li>O record mantém os dados; as transições de estado serão coordenadas pela aplicação.</li>
+            </ul>
+            <details>
+                <summary>Pontos para observar no código</summary>
+                <ul>
+                    <li>mesaId associa a conta; dataHora é um Instant UTC; situacao usa o enum.</li>
+                    <li>O construtor copia itens com List.copyOf, impedindo mutação da lista por fora.</li>
+                    <li>total() soma os subtotais no servidor, começando em 0.00.</li>
+                </ul>
+            </details>
+        </section>
+        <section>
+            <h2 id="codigo">3. Faça o passo a passo</h2>
+            <h3 id="passo-1">Passo 1: Localizar o ponto de trabalho no Eclipse</h3>
+            <p>No <em>Project Explorer</em>, selecione o projeto <code>dominio</code>. Confira os arquivos que vieram da
+                aula anterior e localize o caminho da primeira edição abaixo. Os diretórios são relativos à pasta do
+                laboratório, já importada na IDE.</p>
+            <article class="etapa-arquivo"
+                data-path="source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/Pedido.java">
+                <h3 id="passo-2">Passo 2: Criar <code>Pedido.java</code></h3>
+                <p><strong>Caminho na pasta do laboratório:</strong>
+                    <code>source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/Pedido.java</code>.
+                </p>
+                <ol>
+                    <li>Selecione o projeto <code>dominio</code> e a pasta <code>src/main/java</code>. Se ela não
+                        aparecer, use <strong>New → Source Folder</strong> para criá-la.</li>
+                    <li>No pacote <code>br.edu.soa.restaurante.dominio</code>, crie o arquivo. Se o pacote ainda não
+                        existir, use <strong>New → Package</strong> com esse nome.</li>
+                    <li>Selecione o pacote e use <strong>File → New → Other… → General → File</strong>. Informe
+                        <code>Pedido.java</code> e finalize. Confira a pasta de destino
+                        <code>dominio/src/main/java/br/edu/soa/restaurante/dominio</code>.</li>
+                </ol>
+                <p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com
+                    <strong>Ctrl+S</strong>.</p>
+                <pre><code class="language-java">// Finalidade: Representar a conta de uma mesa e calcular seu total pelos itens.
+package br.edu.soa.restaurante.dominio;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.List;
+public record Pedido(long id, long mesaId, Instant dataHora, SituacaoPedido situacao, List&lt;ItemPedido&gt; itens) {
+ // Copia a lista recebida para impedir mudanças externas na coleção do pedido.
+ public Pedido { itens = List.copyOf(itens); }
+ // Soma os subtotais dos itens com BigDecimal, partindo de zero.
+ public BigDecimal total() { return itens.stream().map(ItemPedido::subtotal).reduce(new BigDecimal(&quot;0.00&quot;), BigDecimal::add); }
+}
+</code></pre>
+                <p><strong>Confira:</strong> o arquivo pertence ao projeto <code>dominio</code>, no caminho indicado e
+                    com o conteúdo completo desta etapa.</p>
+            </article>
+            <h3 id="passo-3">Passo 3: Verificar pelo Maven no Eclipse</h3>
+            <ol>
+                <li>Use <strong>File → Save All</strong>.</li>
+                <li>No projeto <code>dominio</code>, clique com o botão direito e escolha <strong>Run As → Maven
+                        build…</strong>. Use um nome identificável, como <code>Verificar aula 18</code>.</li>
+                <li>Confira <strong>Base directory</strong>: selecione o projeto <code>dominio</code> com <strong>Browse
+                        Workspace…</strong>. Em <strong>Goals</strong>, informe o conteúdo abaixo, sem o prefixo
+                    <code>mvn</code>.</li>
+                <li>Na aba <strong>JRE</strong>, confira o JDK 17. Clique em <strong>Apply → Run</strong> e acompanhe a
+                    aba <strong>Console</strong>.</li>
+            </ol>
+            <pre><code class="language-text">compile</code></pre>
+            <p><strong>Confira:</strong> a execução deve terminar em <code>BUILD SUCCESS</code>. Esse checkpoint valida
+                o build desta etapa; a inicialização com banco e a interação pelas telas serão conferidas nas aulas de
+                execução.</p>
+            <h3 id="passo-4">Passo 4: Conferir a entrega na IDE</h3>
+            <ol>
+                <li>Abra os arquivos salvos nos caminhos indicados e compare com a versão desta etapa.</li>
+                <li>Leia a aba <strong>Problems</strong> e a saída da verificação. Corrija os erros relacionados aos
+                    projetos desta aula antes de avançar.</li>
+                <li>Confira o resultado esperado: Pedido.java compila e você consegue explicar mesaId, dataHora,
+                    situacao, itens e total().</li>
+            </ol>
+        </section>
+        <section>
+            <h2 id="resultado">4. Resultado esperado</h2>
+            <p>Pedido.java compila e você consegue explicar mesaId, dataHora, situacao, itens e total().</p>
+            <details>
+                <summary>Estrutura de diretórios acumulada até esta aula</summary>
+                <p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na
+                    raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta
+                    árvore.</p>
+                <pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   └── componentes.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        └── pom.xml</code></pre>
+            </details>
+            <details>
+                <summary>Se a verificação não der certo</summary>
+                <ul>
+                    <li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>;
+                        confira o projeto, o caminho do arquivo e o pacote.</li>
+                    <li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo
+                        listado já possui seu POM.</li>
+                    <li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em
+                        erro de download, confira a conexão e o repositório informado.</li>
+                    <li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato
+                        e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li>
+                </ul>
+            </details>
+        </section>
+        <section>
+            <h2 id="checkpoint">5. Confira e continue</h2>
+            <ul>
+                <li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li>
+                <li>Pedido.java compila e você consegue explicar mesaId, dataHora, situacao, itens e total().</li>
+                <li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li>
+                <li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li>
+            </ul><button class="concluir" data-aula="modelo-pedido" type="button" aria-pressed="false">Marcar aula como
+                concluída</button>
+            <p>Depois, avance para <a href="modelos.html">Conferir os relacionamentos do domínio</a>.</p>
+        </section>
+        <details class="base">
+            <summary>Fundamentação e leitura complementar</summary>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>Pedido reúne dados e comportamento do negócio: total é derivado dos itens e dataHora identifica um
+                    instante. A leitura de java.time diferencia data local de data com fuso; a escolha de Instant/UTC é
+                    explicitada no código desta trilha.</p>
+                <ul>
+                    <li data-referencia="clean-negocio"><a href="../docs/referencias.html#leitura-clean-negocio">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 20: entidades, casos de uso e modelos de dados. <strong>Páginas 260–266
+                            do PDF</strong>.</li>
+                    <li data-referencia="java8-dinheiro"><a href="../docs/referencias.html#leitura-java8-dinheiro">[R05]
+                            Paulo Silveira; Rodrigo Turini — Java 8 Prático: lambdas, streams e os novos recursos da
+                            linguagem</a>. Cap. 11, §11.2–11.3: soma de BigDecimal por redução. <strong>Páginas 110–112
+                            do PDF</strong>.</li>
+                    <li data-referencia="java8-datas"><a href="../docs/referencias.html#leitura-java8-datas">[R05] Paulo
+                            Silveira; Rodrigo Turini — Java 8 Prático: lambdas, streams e os novos recursos da
+                            linguagem</a>. Cap. 10, §10.2: java.time e imutabilidade. <strong>Páginas 93–96 do
+                            PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Explique a diferença entre a hora exibida ao usuário e o
+                    instante armazenado para o pedido.</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </details>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="modelo-item.html">← Implementar
+                ItemPedido</a><a href="modelos.html">Conferir os relacionamentos do domínio →</a></nav>
+    </main>
+</body>
+
+</html>

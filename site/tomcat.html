@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Instalar Tomcat 10.1 · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a class="current" aria-current="page" href="tomcat.html"><span aria-hidden="true">08.</span>
+                Instalar Tomcat 10.1</a><a href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar
+                Tomcat no Eclipse</a>
+          
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Preparação do laboratório · tutorial 8 de 85</span>
+        <h1>Instalar Tomcat 10.1</h1>
+        <p class="lead">Instalar, iniciar e parar o container Servlet que hospedará os serviços..</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo da tutorial</h2>
+            <p>Instalar, iniciar e parar o container Servlet que hospedará os serviços.</p>
+
+        </section>
+
+        <h2 id="codigo">1. Implementação passo a passo e código da etapa</h2>
+
+
+        <h3>Passo 1: Verificar a instalação do Java 17</h3>
+
+        <p>
+            O Apache Tomcat é um servidor de aplicações web
+            Java, utilizado para executar aplicações que
+            implementam tecnologias como Jakarta Servlet
+            e Jakarta Server Pages (JSP).
+        </p>
+
+        <p>
+            Antes de instalar o Tomcat, é necessário
+            verificar se o Java está instalado.
+            Neste tutorial, utilizaremos Java 17.
+        </p>
+
+        <ol>
+            <li>Abra o PowerShell do Windows.</li>
+            <li>Execute os comandos abaixo:</li>
+        </ol>
+
+        <pre><code class="language-powershell">java -version
+
+javac -version
+
+$env:JAVA_HOME</code></pre>
+
+        <p><strong>Explicação dos comandos:</strong></p>
+
+        <ul>
+            <li>
+                <code>java -version</code>:
+                apresenta a versão do Java utilizada
+                pelo terminal.
+            </li>
+            <li>
+                <code>javac -version</code>:
+                mostra a versão do compilador Java.
+            </li>
+            <li>
+                <code>$env:JAVA_HOME</code>:
+                apresenta o caminho configurado para
+                a instalação do JDK.
+            </li>
+        </ul>
+
+        <p>
+            O resultado deve indicar o Java 17.
+            Se houver outra versão ativa, revise
+            as variáveis JAVA_HOME e Path.
+        </p>
+
+        <h3>Passo 2: Baixar o Apache Tomcat</h3>
+
+        <ol>
+            <li>
+                Acesse o site oficial:
+                <a href="https://tomcat.apache.org/download-10.cgi" target="_blank" rel="noopener noreferrer">
+                    Apache Tomcat 10 Downloads
+                </a>.
+            </li>
+            <li>
+                Localize a versão estável da série
+                <strong>Apache Tomcat 10.1.x</strong>.
+            </li>
+            <li>
+                Na seção <strong>Binary Distributions</strong>,
+                localize a categoria <strong>Core</strong>.
+            </li>
+            <li>
+                Selecione a opção <strong>zip</strong>,
+                que contém a distribuição binária
+                do Tomcat.
+            </li>
+            <li>
+                Baixe um arquivo semelhante a:
+                <code>apache-tomcat-10.1.61.zip</code>.
+            </li>
+            <li>
+                Evite baixar a opção Source Code,
+                pois ela contém o código-fonte
+                e não a distribuição pronta para execução.
+            </li>
+        </ol>
+
+        <p>
+            <strong>Observação:</strong> o número da versão
+            pode mudar conforme novas atualizações
+            são publicadas.
+        </p>
+
+        <h3>Passo 3: Extrair os arquivos</h3>
+
+        <ol>
+            <li>
+                Crie uma pasta para organizar
+                os servidores Java:
+                <code>C:\tomcat</code>.
+            </li>
+            <li>
+                Acesse a pasta Downloads.
+            </li>
+            <li>
+                Clique com o botão direito no ZIP
+                e escolha <strong>Extrair Tudo</strong>.
+            </li>
+            <li>
+                Extraia a pasta do Tomcat para:
+                <code>C:\tomcat\apache-tomcat-10.1.61</code>.
+            </li>
+            <li>
+                Verifique se a pasta contém
+                os diretórios bin, conf, lib,
+                logs, temp, webapps e work.
+            </li>
+        </ol>
+
+        <p>
+            A estrutura da instalação será
+            semelhante a:
+        </p>
+
+        <pre><code class="language-text">C:\tomcat\
+  apache-tomcat-10.1.61\
+    bin\
+    conf\
+    lib\
+    logs\
+    temp\
+    webapps\
+    work\
+    RUNNING.txt</code></pre>
+
+        <p><strong>Função dos principais diretórios:</strong></p>
+
+        <ul>
+            <li>
+                <code>bin</code>:
+                contém os scripts para iniciar,
+                interromper e configurar o Tomcat.
+            </li>
+            <li>
+                <code>conf</code>:
+                contém os arquivos de configuração,
+                incluindo server.xml.
+            </li>
+            <li>
+                <code>lib</code>:
+                contém bibliotecas utilizadas pelo Tomcat.
+            </li>
+            <li>
+                <code>logs</code>:
+                armazena registros de execução e erros.
+            </li>
+            <li>
+                <code>webapps</code>:
+                pasta padrão de publicação
+                das aplicações web.
+            </li>
+            <li>
+                <code>work</code>:
+                armazena arquivos temporários
+                produzidos durante o processamento.
+            </li>
+        </ul>
+
+        <h3>Passo 4: Configurar variáveis de ambiente</h3>
+
+        <p>
+            A configuração do CATALINA_HOME facilita
+            a localização da instalação do Tomcat.
+            O JAVA_HOME indica qual JDK será utilizado.
+        </p>
+
+        <ol>
+            <li>
+                No menu Iniciar do Windows,
+                pesquise por "Variáveis de ambiente".
+            </li>
+            <li>
+                Abra <strong>Editar as variáveis
+                    de ambiente do sistema</strong>.
+            </li>
+            <li>
+                Clique em <strong>Variáveis de Ambiente</strong>.
+            </li>
+            <li>
+                Verifique se JAVA_HOME aponta para
+                o diretório do JDK 17, por exemplo:
+                <code>C:\Java\jdk-17</code>.
+            </li>
+            <li>
+                Em Variáveis do Sistema,
+                clique em <strong>Novo</strong>.
+            </li>
+            <li>
+                Configure:
+                <ul>
+                    <li>
+                        Nome:
+                        <code>CATALINA_HOME</code>
+                    </li>
+                    <li>
+                        Valor:
+                        <code>C:\tomcat\apache-tomcat-10.1.61</code>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Clique em OK para salvar.
+            </li>
+        </ol>
+
+        <p>
+            A variável CATALINA_HOME é opcional
+            quando os scripts conseguem identificar
+            automaticamente a instalação.
+            Porém, sua utilização facilita a administração.
+        </p>
+
+        <h3>Passo 5: Verificar as configurações</h3>
+
+        <p>
+            Feche o PowerShell e abra uma nova janela.
+            Em seguida, execute:
+        </p>
+
+        <pre><code class="language-powershell">$env:JAVA_HOME
+
+$env:CATALINA_HOME
+
+Test-Path "$env:CATALINA_HOME\bin\startup.bat"
+
+Test-Path "$env:CATALINA_HOME\bin\catalina.bat"</code></pre>
+
+        <p>
+            Os comandos Test-Path devem retornar
+            <strong>True</strong> quando os arquivos
+            forem encontrados.
+        </p>
+
+        <p>
+            Também podemos consultar a versão do Tomcat:
+        </p>
+
+        <pre><code class="language-powershell">&amp; "$env:CATALINA_HOME\bin\version.bat"</code></pre>
+
+        <p>
+            O comando deve apresentar informações
+            sobre a versão do servidor, sistema
+            operacional e ambiente Java.
+        </p>
+
+        <h3>Passo 6: Iniciar o Apache Tomcat</h3>
+
+        <p>
+            O servidor pode ser iniciado pelo PowerShell
+            utilizando os scripts disponíveis
+            na pasta bin.
+        </p>
+
+        <pre><code class="language-powershell">cd "$env:CATALINA_HOME\bin"
+
+.\startup.bat</code></pre>
+
+        <p><strong>Explicação:</strong></p>
+
+        <ul>
+            <li>
+                <code>cd</code>:
+                altera o diretório atual do terminal.
+            </li>
+            <li>
+                <code>startup.bat</code>:
+                executa o script responsável
+                por iniciar o servidor.
+            </li>
+        </ul>
+
+        <p>
+            Alternativamente, para acompanhar
+            a execução diretamente no terminal:
+        </p>
+
+        <pre><code class="language-powershell">.\catalina.bat run</code></pre>
+
+        <p>
+            Esse comando mantém a execução associada
+            à janela atual, facilitando a visualização
+            das mensagens e dos erros do servidor.
+        </p>
+
+        <h3>Passo 7: Testar o Tomcat no navegador</h3>
+
+        <ol>
+            <li>
+                Abra o navegador.
+            </li>
+            <li>
+                Acesse:
+                <a href="http://localhost:8080/" target="_blank" rel="noopener noreferrer">
+                    http://localhost:8080/
+                </a>.
+            </li>
+            <li>
+                Verifique se a página inicial
+                do Apache Tomcat aparece.
+            </li>
+            <li>
+                Se a página estiver disponível,
+                o servidor está respondendo
+                às requisições HTTP.
+            </li>
+        </ol>
+
+        <p>
+            A porta 8080 é a configuração HTTP
+            padrão do Tomcat.
+        </p>
+
+        <h3>Passo 8: Verificar a porta 8080</h3>
+
+        <p>
+            Caso a página não abra, verifique
+            se a porta 8080 está sendo utilizada.
+        </p>
+
+        <pre><code class="language-powershell">netstat -ano | findstr :8080</code></pre>
+
+        <p>
+            O comando apresenta conexões e processos
+            associados à porta informada.
+        </p>
+
+        <p>
+            Para identificar um processo pelo PID:
+        </p>
+
+        <pre><code class="language-powershell">Get-Process -Id 1234</code></pre>
+
+        <p>
+            Substitua 1234 pelo identificador
+            apresentado no resultado do netstat.
+        </p>
+
+        <p>
+            Se outra aplicação estiver ocupando
+            a porta 8080, escolha uma porta livre
+            ou encerre o serviço conflitante
+            de maneira apropriada.
+        </p>
+
+        <h3>Passo 9: Alterar a porta do Tomcat</h3>
+
+        <p>
+            Para modificar a porta HTTP,
+            abra o arquivo:
+        </p>
+
+        <pre><code class="language-text">C:\tomcat\apache-tomcat-10.1.61\conf\server.xml</code></pre>
+
+        <p>
+            Localize o conector HTTP,
+            que poderá ser semelhante a:
+        </p>
+
+        <pre><code class="language-xml">&lt;Connector port="8080"
+           protocol="HTTP/1.1"
+           connectionTimeout="20000" /&gt;</code></pre>
+
+        <p>
+            Para utilizar a porta 8081,
+            altere somente o atributo port:
+        </p>
+
+        <pre><code class="language-xml">&lt;Connector port="8081"
+           protocol="HTTP/1.1"
+           connectionTimeout="20000" /&gt;</code></pre>
+
+        <p>
+            Salve o arquivo e reinicie o Tomcat.
+            O endereço passará a ser:
+        </p>
+
+        <pre><code class="language-text">http://localhost:8081/</code></pre>
+
+        <h3>Passo 10: Encerrar o Apache Tomcat</h3>
+
+        <p>
+            Se o servidor foi iniciado utilizando
+            startup.bat, execute:
+        </p>
+
+        <pre><code class="language-powershell">&amp; "$env:CATALINA_HOME\bin\shutdown.bat"</code></pre>
+
+        <p>
+            Se estiver utilizando catalina.bat run,
+            pressione Ctrl+C na janela do terminal
+            para solicitar o encerramento.
+        </p>
+
+        <p>
+            Aguarde a finalização do processo
+            antes de iniciar outra instância.
+        </p>
+
+
+        <h3>Passo 11: Resolver problemas comuns</h3>
+
+        <h4>startup.bat não foi encontrado</h4>
+        <p>
+            Confirme se a pasta bin existe
+            e se CATALINA_HOME aponta para
+            a raiz correta da instalação.
+        </p>
+
+        <h4>JAVA_HOME não foi definido</h4>
+        <p>
+            Configure JAVA_HOME apontando
+            para a pasta do JDK 17.
+            Abra um novo terminal e tente novamente.
+        </p>
+
+        <h4>Porta 8080 já está sendo utilizada</h4>
+        <p>
+            Verifique se existe outro Tomcat
+            ou servidor executando na mesma porta.
+            Altere a porta HTTP ou encerre
+            a instância conflitante.
+        </p>
+
+        <h4>Erro HTTP 404</h4>
+        <p>
+            Verifique o nome do WAR, o contexto
+            da aplicação, o caminho do endpoint
+            e as mensagens de publicação.
+        </p>
+
+        <h4>Erro HTTP 500</h4>
+        <p>
+            Consulte os logs do Tomcat.
+            O problema pode estar no código,
+            nas dependências, na configuração
+            da aplicação ou na conexão com o banco.
+        </p>
+
+        <h4>O Eclipse não mostra o menu Server</h4>
+        <p>
+            Instale o Eclipse Web Tools Platform
+            e os adaptadores de servidor ou utilize
+            a edição Enterprise Java and Web Developers.
+        </p>
+
+        <h4>Erro de compatibilidade javax/jakarta</h4>
+        <p>
+            O Tomcat 10.1 utiliza APIs Jakarta.
+            Aplicações antigas baseadas
+            em javax.servlet podem exigir migração.
+            Verifique as versões das bibliotecas
+            utilizadas pelo projeto.
+        </p>
+
+        <h3>Observações importantes</h3>
+
+        <p>
+            O Tomcat será responsável por executar
+            as aplicações Java SOAP e REST
+            empacotadas em WAR.
+        </p>
+
+        <p>
+            O XAMPP será utilizado separadamente
+            para disponibilizar o MariaDB
+            e o phpMyAdmin.
+        </p>
+
+        <p>
+            O Maven gerencia dependências
+            e automatiza a compilação,
+            os testes e o empacotamento.
+        </p>
+
+        <p>
+            O Eclipse será utilizado para desenvolver,
+            depurar e administrar os projetos.
+        </p>
+
+        <p>
+            Este tutorial utiliza o Tomcat
+            em ambiente local de desenvolvimento.
+            Antes de disponibilizar aplicações
+            na internet, é necessário realizar
+            configurações adicionais de segurança.
+        </p>
+
+        <section>
+            <button class="concluir" data-aula="tomcat" type="button" aria-pressed="false">Marcar tutorial como
+                concluída</button>
+        </section>
+
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para
+            ferramentas e versões: <a href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="banco-de-dados.html">← Criar bancos e usuário
+                no MySQL</a><a href="eclipse-servidor.html">Registrar Tomcat no Eclipse →</a></nav>
+    </main>
+</body>
+
+</html>

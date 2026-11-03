@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Implementar ItemPedido · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a
+                href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                class="current" aria-current="page" href="modelo-item.html"><span aria-hidden="true">17.</span>
+                Implementar ItemPedido</a><a href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar
+                Pedido</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <span class="chip">Projeto e domínio · aula 17 de 85</span>
+        <h1>Implementar ItemPedido</h1>
+        <p class="lead">Representar um item do pedido, validar a quantidade e calcular seu subtotal.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+
+        <section>
+            <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+            <div class="callout">
+                <p><strong>Sua tarefa é criar um único arquivo: <code>ItemPedido.java</code>.</strong></p>
+                <p>No Eclipse, use o projeto <code>dominio</code> e o pacote
+                    <code>br.edu.soa.restaurante.dominio</code>, já existentes. O código completo e comentado está no
+                    passo 2.</p>
+                <p><strong>A aula termina quando o arquivo aparecer nesse pacote e a compilação Maven mostrar
+                        <code>BUILD SUCCESS</code> na aba Console.</strong></p>
+            </div>
+            <p>Continue o projeto após <a href="modelo-produto.html">Implementar Produto</a>. O novo arquivo ficará em
+                <code>source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/ItemPedido.java</code>.
+            </p>
+        </section>
+
+        <section>
+            <h2 id="conceitos">2. Entenda os dados de ItemPedido</h2>
+            <p>Um item registra um produto incluído no pedido. Ele guarda a quantidade e os valores de nome e preço
+                recebidos na inclusão, para preservar o histórico da conta.</p>
+            <table>
+                <caption>Componentes do record ItemPedido</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Componente</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>id</code></td>
+                        <td><code>long</code></td>
+                        <td>Identificador da inclusão no pedido.</td>
+                        <td><code>1</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>produtoId</code></td>
+                        <td><code>long</code></td>
+                        <td>Identificador do produto escolhido.</td>
+                        <td><code>10</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>nomeProduto</code></td>
+                        <td><code>String</code></td>
+                        <td>Nome guardado no momento da inclusão.</td>
+                        <td><code>Suco de laranja</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>quantidade</code></td>
+                        <td><code>int</code></td>
+                        <td>Quantidade permitida de 1 até 10000, inclusive.</td>
+                        <td><code>2</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>precoUnitario</code></td>
+                        <td><code>BigDecimal</code></td>
+                        <td>Preço guardado para cada unidade desse item.</td>
+                        <td><code>new BigDecimal(&quot;18.50&quot;)</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Produto e item têm papéis diferentes:</strong> <code>Produto.preco</code> é o preço do catálogo;
+                <code>ItemPedido.precoUnitario</code> guarda o preço usado naquela inclusão. A aplicação e a
+                persistência farão a cópia desses dados ao registrar o item.</p>
+            <p><strong>Construtor compacto:</strong> o bloco <code>public ItemPedido { ... }</code> valida os argumentos
+                durante a criação do record. Se a quantidade estiver fora do intervalo, lança
+                <code>IllegalArgumentException</code>. Ao concluir normalmente, o Java atribui os argumentos aos campos.
+                <a href="https://docs.oracle.com/en/java/javase/17/language/records.html">Construtores de records</a>.
+            </p>
+            <p><strong>Subtotal:</strong> <code>subtotal()</code> multiplica o preço unitário pela quantidade. Com duas
+                unidades de <code>18.50</code>, o resultado é <code>37.00</code>. O cálculo usa os dados do próprio
+                item.</p>
+            <details>
+                <summary>Confira o comportamento definido pelo código</summary>
+                <table>
+                    <caption>Quantidade e subtotal</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Entrada</th>
+                            <th scope="col">Comportamento esperado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quantidade 2 e preço unitário 18.50.</td>
+                            <td>O item é criado e <code>subtotal()</code> devolve <code>37.00</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantidade 1 ou 10000.</td>
+                            <td>A quantidade está dentro do intervalo permitido.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantidade 0, negativa ou maior que 10000.</td>
+                            <td>O construtor lança <code>IllegalArgumentException</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Esses exemplos explicam o comportamento. A entrega desta aula continua sendo o arquivo
+                    <code>ItemPedido.java</code> e sua compilação.</p>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="codigo">3. Faça o passo a passo no Eclipse</h2>
+
+            <h3 id="passo-1">Passo 1: Criar o arquivo no pacote existente</h3>
+            <ol>
+                <li>No <em>Project Explorer</em>, expanda
+                    <code>dominio → src/main/java → br.edu.soa.restaurante.dominio</code>.</li>
+                <li>Selecione o pacote e acesse <strong>File → New → Other… → General → File → Next</strong>.</li>
+                <li>Confira a pasta de destino: <code>dominio/src/main/java/br/edu/soa/restaurante/dominio</code>.</li>
+                <li>Em <strong>File name</strong>, informe <code>ItemPedido.java</code> e clique em
+                    <strong>Finish</strong>.</li>
+            </ol>
+            <p><strong>Confira:</strong> o Eclipse abriu <code>ItemPedido.java</code> no pacote do domínio. Se ele já
+                existir, abra esse arquivo e compare seu conteúdo com o passo seguinte.</p>
+
+            <article class="etapa-arquivo"
+                data-path="source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/ItemPedido.java">
+                <h3 id="passo-2">Passo 2: Escrever o record comentado</h3>
+                <p>Cole o código completo abaixo no editor de <code>ItemPedido.java</code> e salve com
+                    <strong>Ctrl+S</strong>. Os comentários explicam cada parte e podem ser mantidos no arquivo.</p>
+                <pre><code class="language-java">package br.edu.soa.restaurante.dominio;
+
+import java.math.BigDecimal;
+
+// Dados de uma inclusão de produto em um pedido.
+public record ItemPedido(
+    long id,
+    long produtoId,
+    // Nome recebido no momento da inclusão, para preservar o histórico.
+    String nomeProduto,
+    int quantidade,
+    // Preço recebido na inclusão, independente de mudanças no catálogo.
+    BigDecimal precoUnitario
+) {
+    // Construtor compacto: valida os argumentos antes de guardar os campos.
+    public ItemPedido {
+        // Aceita quantidades de 1 até 10000, inclusive.
+        if (quantidade &lt;= 0 || quantidade &gt; 10000)
+            throw new IllegalArgumentException(&quot;Quantidade entre 1 e 10000.&quot;);
+    }
+
+    // Calcula o valor desse item: preço unitário multiplicado pela quantidade.
+    public BigDecimal subtotal() {
+        // Converte a quantidade inteira para BigDecimal antes de multiplicar.
+        return precoUnitario.multiply(BigDecimal.valueOf(quantidade));
+    }
+}
+</code></pre>
+                <p><strong>Confira:</strong> A validação fica no bloco <code>public ItemPedido</code>. O método
+                    <code>subtotal()</code> retorna <code>BigDecimal</code> e usa <code>precoUnitario</code> e
+                    <code>quantidade</code>.</p>
+            </article>
+
+            <h3 id="passo-3">Passo 3: Compilar pelo Maven no Eclipse</h3>
+            <ol>
+                <li>Use <strong>File → Save All</strong>.</li>
+                <li>Acesse <strong>Run → Run Configurations… → Maven Build</strong> e selecione <strong>Compilar
+                        dominio</strong>, a configuração da aula 13.</li>
+                <li>Confira <strong>Base directory</strong>: deve apontar para o projeto <code>dominio</code>, em
+                    <code>source/restaurante-soap/dominio</code>.</li>
+                <li>Em <strong>Goals</strong>, mantenha o conteúdo abaixo. Confira o JDK 17 na aba <strong>JRE</strong>
+                    e clique em <strong>Run</strong>.</li>
+            </ol>
+            <pre><code class="language-text">compile</code></pre>
+            <p><strong>Deu certo quando:</strong> a aba <strong>Console</strong> terminar com
+                <code>BUILD SUCCESS</code>. O Maven compila os fontes do módulo e gera <code>ItemPedido.class</code> em
+                <code>dominio/target/classes/br/edu/soa/restaurante/dominio</code>.</p>
+
+            <h3 id="passo-4">Passo 4: Conferir o resultado na IDE</h3>
+            <ol>
+                <li>No <em>Project Explorer</em>, confira <code>ItemPedido.java</code> junto aos tipos das aulas
+                    anteriores.</li>
+                <li>Abra a aba <strong>Problems</strong> e confira se há erros relacionados ao projeto
+                    <code>dominio</code>. Se necessário, use <strong>Window → Show View → Problems</strong>.</li>
+                <li>Compare o conteúdo salvo com o código desta aula e confira o <code>BUILD SUCCESS</code> da execução
+                    Maven.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 id="resultado">4. Resultado esperado</h2>
+            <p>A estrutura passa a incluir <code>ItemPedido.java</code>. Mantenha os diretórios e arquivos já criados:
+            </p>
+            <pre><code class="language-text">laboratorio-restaurante-soa/
+├── diagramas/
+│   └── componentes.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── pom.xml
+        └── dominio/
+            ├── pom.xml
+            └── src/main/java/br/edu/soa/restaurante/dominio/
+                ├── SituacaoMesa.java
+                ├── SituacaoPedido.java
+                ├── Mesa.java
+                ├── Categoria.java
+                ├── Produto.java
+                └── ItemPedido.java</code></pre>
+            <p>A pasta <code>target</code>, gerada pelo Maven dentro do módulo, contém os arquivos compilados.</p>
+            <details>
+                <summary>Se algo não funcionar no Eclipse</summary>
+                <ul>
+                    <li><strong>O arquivo está fora do pacote:</strong> confira a pasta selecionada no assistente
+                        <em>File</em> e a declaração <code>package br.edu.soa.restaurante.dominio;</code>.</li>
+                    <li><strong>Erro no nome do tipo:</strong> o arquivo deve se chamar <code>ItemPedido.java</code> e
+                        declarar <code>public record ItemPedido</code>, respeitando maiúsculas.</li>
+                    <li><strong><code>record</code> não é reconhecido:</strong> confira o JDK 17 e use <strong>Maven →
+                            Update Project…</strong> no projeto <code>dominio</code>.</li>
+                    <li><strong>A configuração de execução não aparece:</strong> clique com o botão direito em
+                        <code>dominio → Run As → Maven build…</code>, use o nome <code>Compilar dominio</code> e informe
+                        <code>compile</code> em <strong>Goals</strong>.</li>
+                    <li><strong>Erro no construtor compacto:</strong> confira <code>public ItemPedido { ... }</code>,
+                        sem parênteses ou tipo de retorno, dentro do corpo do record.</li>
+                </ul>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="checkpoint">5. Confira e continue</h2>
+            <ul>
+                <li>Salvei <code>ItemPedido.java</code> no projeto <code>dominio</code> e no pacote correto.</li>
+                <li>Consigo explicar o preço histórico, os limites da quantidade e o cálculo de <code>subtotal()</code>.
+                </li>
+                <li>A aba <strong>Problems</strong> está sem erros referentes ao módulo.</li>
+                <li>A compilação Maven terminou com <code>BUILD SUCCESS</code>.</li>
+            </ul>
+            <button class="concluir" data-aula="modelo-item" type="button" aria-pressed="false">Marcar aula como
+                concluída</button>
+            <p>Depois, avance para <a href="modelo-pedido.html">Implementar Pedido</a>.</p>
+        </section>
+
+        <details class="base">
+            <summary>Leitura complementar desta aula</summary>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>A redução de BigDecimal discutida por Silveira e Turini apoia o cálculo monetário sem usar double. O
+                    restaurante acrescenta quantidade, preço histórico e validação de centavos; essas são regras
+                    próprias do exemplo, não requisitos extraídos do livro.</p>
+                <ul>
+                    <li data-referencia="clean-negocio"><a href="../docs/referencias.html#leitura-clean-negocio">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 20: entidades, casos de uso e modelos de dados. <strong>Páginas 260–266
+                            do PDF</strong>.</li>
+                    <li data-referencia="java8-dinheiro"><a href="../docs/referencias.html#leitura-java8-dinheiro">[R05]
+                            Paulo Silveira; Rodrigo Turini — Java 8 Prático: lambdas, streams e os novos recursos da
+                            linguagem</a>. Cap. 11, §11.2–11.3: soma de BigDecimal por redução. <strong>Páginas 110–112
+                            do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Por que mudar o preço de Produto não pode alterar o preço já
+                    gravado no ItemPedido?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </details>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="modelo-produto.html">← Implementar
+                Produto</a><a href="modelo-pedido.html">Implementar Pedido →</a></nav>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Definir camadas e dependências · Restaurante do zero</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+        <aside><span class="chip">Do zero até localhost</span>
+                <h2>Restaurante<br>SOAP + REST</h2>
+                <p>Java 17 · MySQL · Spring Initializr</p>
+                <nav aria-label="Trilha de construção">
+                        <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span
+                                        aria-hidden="true">01.</span> Do zero até localhost</a><a
+                                href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a
+                                href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o
+                                JDK 17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar
+                                Eclipse e registrar o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span>
+                                Instalar Maven e compreender o POM</a><a href="instalacao-mysql.html"><span
+                                        aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a
+                                href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat
+                                10.1</a><a href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar
+                                Tomcat no Eclipse</a>
+                        <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span
+                                        aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a class="current"
+                                aria-current="page" href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                                Definir camadas e dependências</a><a href="estrutura.html"><span
+                                        aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a
+                                href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e
+                                seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span>
+                                Implementar Categoria</a><a href="modelo-produto.html"><span
+                                        aria-hidden="true">16.</span> Implementar Produto</a><a
+                                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a
+                                href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a
+                                href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do
+                                domínio</a>
+                        <p class="nav-grupo">Regras de negócio</p><a href="aplicacao-falhas.html"><span
+                                        aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a
+                                href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de
+                                persistência</a><a href="aplicacao-mesas.html"><span aria-hidden="true">22.</span>
+                                Implementar regras de mesas</a><a href="aplicacao-categorias.html"><span
+                                        aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a
+                                href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de
+                                produtos</a><a href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span>
+                                Implementar o ciclo do pedido</a><a href="testes-unidade.html"><span
+                                        aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a>
+                        <p class="nav-grupo">Persistência MySQL</p><a href="infraestrutura-pom.html"><span
+                                        aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a
+                                href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do
+                                MySQL</a><a href="infraestrutura-banco.html"><span aria-hidden="true">29.</span>
+                                Configurar conexões e Flyway</a><a href="infraestrutura-jdbc.html"><span
+                                        aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a
+                                href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar
+                                credenciais externas</a><a href="testes-banco.html"><span aria-hidden="true">32.</span>
+                                Testar repositório, histórico e concorrência</a>
+                        <p class="nav-grupo">Contratos SOAP</p><a href="contrato-xsd.html"><span
+                                        aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a
+                                href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a
+                                href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de
+                                Categoria</a><a href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o
+                                WSDL de Produto</a><a href="wsdl-pedidos.html"><span aria-hidden="true">37.</span>
+                                Escrever o WSDL de Pedido</a><a href="contrato.html"><span aria-hidden="true">38.</span>
+                                Gerar Java a partir dos contratos</a>
+                        <p class="nav-grupo">Servidor SOAP</p><a href="servidor.html"><span
+                                        aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a
+                                href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco
+                                no WAR</a><a href="soap-autenticacao.html"><span aria-hidden="true">41.</span>
+                                Autenticar requisições SOAP</a><a href="soap-falhas.html"><span
+                                        aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a
+                                href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs
+                                SOAP</a><a href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar
+                                MesaEndpoint</a><a href="servico-categorias.html"><span aria-hidden="true">45.</span>
+                                Implementar CategoriaEndpoint</a><a href="servico-produtos.html"><span
+                                        aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a
+                                href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar
+                                PedidoEndpoint</a><a href="infra-qr.html"><span aria-hidden="true">48.</span>
+                                Implementar a geração da imagem QR</a><a href="bff-soap.html"><span
+                                        aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a
+                                href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e
+                                serviços no Tomcat</a><a href="implantacao.html"><span aria-hidden="true">51.</span>
+                                Publicar o SOAP no Tomcat localhost</a>
+                        <p class="nav-grupo">Interfaces Swing</p><a href="desktop-conexao.html"><span
+                                        aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a
+                                href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com
+                                SwingWorker</a><a href="swing-cadastro.html"><span aria-hidden="true">54.</span>
+                                Construir o painel comum de cadastro</a><a href="swing-mesas.html"><span
+                                        aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a
+                                href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro
+                                Swing de categorias</a><a href="swing-formulario-produtos.html"><span
+                                        aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a
+                                href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela
+                                administrativa</a><a href="swing-pedidos.html"><span aria-hidden="true">59.</span>
+                                Construir a janela do garçom</a><a href="testes-swing.html"><span
+                                        aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a>
+                        <p class="nav-grupo">Cardápio local</p><a href="cardapio-imagem.html"><span
+                                        aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a
+                                href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML
+                                semântico</a><a href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar
+                                o layout responsivo</a><a href="cardapio-digital.html"><span
+                                        aria-hidden="true">64.</span> Implementar busca, categorias e consulta
+                                JSON</a><a href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR
+                                em localhost</a>
+                        <p class="nav-grupo">REST desde o Initializr</p><a href="spring-initializr.html"><span
+                                        aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a
+                                href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint
+                                HTTP</a><a href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e
+                                as dependências REST</a><a href="rest-entradas.html"><span aria-hidden="true">69.</span>
+                                Escrever DTOs de entrada REST</a><a href="rest-saidas.html"><span
+                                        aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a
+                                href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a
+                                href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao
+                                MySQL</a><a href="seguranca.html"><span aria-hidden="true">73.</span> Implementar
+                                autorização HTTP</a><a href="rest-mesas.html"><span aria-hidden="true">74.</span>
+                                Implementar MesaController</a><a href="rest-categorias.html"><span
+                                        aria-hidden="true">75.</span> Implementar CategoriaController</a><a
+                                href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar
+                                ProdutoController</a><a href="rest-pedidos.html"><span aria-hidden="true">77.</span>
+                                Implementar PedidoController</a><a href="rest-cardapio.html"><span
+                                        aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a
+                                href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração
+                                OpenAPI</a>
+                        <p class="nav-grupo">Validação em localhost</p><a href="testes-rest.html"><span
+                                        aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a
+                                href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação
+                                SOAP</a><a href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema
+                                completo em localhost</a>
+                        <p class="nav-grupo">Consolidação</p><a href="comparativo.html"><span
+                                        aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a
+                                href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do
+                                laboratório</a><a href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a
+                                construção e estender o sistema</a>
+                </nav>
+        </aside>
+        <main id="conteudo" tabindex="-1">
+                <span class="chip">Projeto e domínio · tutorial 11 de 85</span>
+                <h1>Definir camadas e dependências</h1>
+                <p class="lead">Registrar onde ficarão as classes e as regras do restaurante.</p>
+                <p id="progresso" class="foot" aria-live="polite"></p>
+
+                <section>
+                        <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+                        <div class="callout">
+                                <p><strong>Sua tarefa é criar um único arquivo: <code>docs/camadas.md</code>.</strong></p>
+                                <p>Nele, você vai registrar a organização do código que construiremos nas próximas aulas. O conteúdo está pronto no passo 3: leia, copie e salve.</p>
+                                <p><strong>A aula termina quando esse arquivo estiver salvo e você conseguir explicar onde fica cada responsabilidade.</strong> A criação dos projetos Maven começa na <a href="estrutura.html">aula 12</a>.</p>
+                        </div>
+                </section>
+
+                <section>
+                        <h2 id="conceitos">2. Entenda o que será registrado</h2>
+                        <p>Na <a href="arquitetura-soa.html">aula anterior</a>, desenhamos as partes do sistema. Agora vamos definir como organizar o código dentro do servidor:</p>
+                        <table>
+                                <caption>Quatro responsabilidades do restaurante</caption>
+                                <thead><tr><th scope="col">Parte</th><th scope="col">Responsabilidade</th><th scope="col">Exemplo</th></tr></thead>
+                                <tbody>
+                                        <tr><td>Domínio</td><td>Representar os dados e os cálculos do negócio.</td><td>Mesa, Pedido e cálculo do subtotal de um item.</td></tr>
+                                        <tr><td>Aplicação</td><td>Executar as operações e verificar as regras.</td><td>Recusar a abertura de pedido para mesa ocupada.</td></tr>
+                                        <tr><td>Infraestrutura</td><td>Consultar e gravar os dados no banco.</td><td>Executar SQL com JDBC.</td></tr>
+                                        <tr><td>Entradas SOAP e REST</td><td>Receber solicitações e chamar a aplicação.</td><td>Receber o identificador da mesa para abrir um pedido.</td></tr>
+                                </tbody>
+                        </table>
+                        <p><strong>Ideia principal:</strong> a regra de mesa ocupada fica na aplicação. Assim, SOAP e REST podem usar a mesma regra.</p>
+                </section>
+
+                <section>
+                        <h2 id="codigo">3. Faça o passo a passo</h2>
+
+                        <h3 id="passo-1">Passo 1: Abrir o terminal na pasta do laboratório</h3>
+                        <ol>
+                                <li>No Explorador de Arquivos, abra a sua pasta <code>laboratorio-restaurante-soa</code>.</li>
+                                <li>Clique na barra de endereço, digite <code>powershell</code> e pressione <strong>Enter</strong>.</li>
+                                <li>No terminal que abrir, execute:</li>
+                        </ol>
+                        <pre><code class="language-powershell">Get-Location</code></pre>
+                        <p><strong>Confira:</strong> o caminho exibido deve terminar na pasta do seu laboratório. É nessa pasta que vamos criar o documento.</p>
+
+                        <h3 id="passo-2">Passo 2: Preparar as pastas e abrir o arquivo</h3>
+                        <p>Na raiz do laboratório, mantenha <code>diagramas</code> para o desenho da aula 10 e <code>docs</code> para o documento desta aula. No mesmo PowerShell, execute:</p>
+                        <pre><code class="language-powershell">New-Item -ItemType Directory -Path '.\diagramas' -Force
+New-Item -ItemType Directory -Path '.\docs' -Force
+notepad '.\docs\camadas.md'</code></pre>
+                        <p>As duas primeiras linhas garantem as pastas <code>diagramas</code> e <code>docs</code>; <code>-Force</code> reaproveita as pastas existentes. A terceira abre <code>camadas.md</code> no Bloco de Notas. Se aparecer uma pergunta para criar o arquivo, escolha <strong>Sim</strong>.</p>
+                        <p>Se o arquivo já tiver anotações suas, revise-as antes de substituir o conteúdo.</p>
+
+                        <h3 id="passo-3">Passo 3: Copiar o conteúdo e salvar</h3>
+                        <p>Leia o texto abaixo e copie-o para o Bloco de Notas. Este é o conteúdo do arquivo <code>camadas.md</code>:</p>
+                        <pre><code class="language-markdown"># Camadas do restaurante
+
+## Domínio
+Representa Mesa, Categoria, Produto, Pedido e ItemPedido.
+Contém cálculos como o subtotal de um item.
+Não conhece banco de dados, SOAP ou REST.
+
+## Aplicação
+Coordena as operações na classe Restaurante.
+Exemplo de regra: mesa ocupada não pode abrir outro pedido.
+Usa a interface Repositorio para consultar e gravar dados.
+
+## Infraestrutura
+Implementa Repositorio na classe JdbcRepositorio.
+Executa SQL e controla as conexões com o banco.
+
+## Entradas SOAP e REST
+Recebem solicitações, chamam Restaurante e devolvem respostas.
+A regra de negócio fica na aplicação.
+
+## Dependências do núcleo
+A seta significa: uma parte conhece tipos da outra.
+
+aplicacao -> dominio
+infraestrutura -> aplicacao e dominio
+
+A interface Repositorio fica na aplicação.
+A implementação JdbcRepositorio fica na infraestrutura.
+A aplicação usa a interface sem depender da implementação JDBC.
+
+## Exemplo: abrir pedido
+1. SOAP ou REST recebe a solicitação com o identificador da mesa.
+2. A aplicação consulta a mesa pela interface Repositorio.
+3. Se a mesa estiver ocupada, a aplicação recusa a operação.
+4. Se estiver livre, cria o pedido e ocupa a mesa na mesma transação.
+5. SOAP ou REST devolve o resultado ao cliente.
+
+As consultas e gravações desses passos são executadas
+pela infraestrutura, por meio da interface Repositorio.</code></pre>
+                        <p>Pressione <strong>Ctrl+S</strong>. Se aparecer a janela de salvamento, confira o nome <code>camadas.md</code>, a pasta <code>docs</code> e a codificação <strong>UTF-8</strong>.</p>
+
+                        <h3 id="passo-4">Passo 4: Conferir o que foi salvo</h3>
+                        <p>Volte ao PowerShell e execute:</p>
+                        <pre><code class="language-powershell">Get-Content -LiteralPath '.\docs\camadas.md' -Encoding UTF8</code></pre>
+                        <p><strong>Deu certo quando:</strong> o terminal mostrar o texto que você acabou de salvar, começando por <code># Camadas do restaurante</code>.</p>
+                        <p>Se aparecer “arquivo não encontrado”, confira se salvou em <code>docs</code> e se o nome ficou <code>camadas.md</code>, sem <code>.txt</code> no final.</p>
+                </section>
+
+                <section>
+                        <h2 id="resultado">4. Resultado esperado</h2>
+                        <p>Ao terminar a aula 11, a estrutura deve incluir o diagrama da aula 10 e o novo documento:</p>
+                        <pre><code class="language-text">laboratorio-restaurante-soa/
+├── diagramas/
+│   └── componentes.md
+└── docs/
+    └── camadas.md</code></pre>
+                        <p><code>diagramas/componentes.md</code> vem da <a href="arquitetura-soa.html">aula 10</a>; <code>docs/camadas.md</code> é criado nesta aula. Se o diagrama ainda não existir, retome a aula 10 para preencher o arquivo.</p>
+                        <p>Os nomes de classes registrados no documento orientam a implementação das próximas aulas.</p>
+                </section>
+
+                <section>
+                        <h2 id="checkpoint">5. Confira e continue</h2>
+                        <ul>
+                                <li>A pasta <code>diagramas</code> contém <code>componentes.md</code>, da aula 10.</li>
+                                <li>Criei e salvei <code>docs/camadas.md</code>.</li>
+                                <li>O comando do passo 4 mostrou o conteúdo salvo.</li>
+                                <li>Entendi que a aplicação verifica as regras e a infraestrutura executa o acesso ao banco.</li>
+                        </ul>
+                        <p><strong>Conferência rápida:</strong> onde deve ficar a regra “mesa ocupada não pode abrir outro pedido”? Na aplicação, para ser usada tanto por SOAP quanto por REST.</p>
+                        <button class="concluir" data-aula="clean-architecture" type="button" aria-pressed="false">Marcar aula como concluída</button>
+                        <p>Depois, avance para <a href="estrutura.html">Criar os primeiros POMs do zero</a>.</p>
+                </section>
+
+                <details class="base">
+                        <summary>Leitura complementar sobre as decisões de arquitetura</summary>
+                        <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                                <p>Aplique a regra de dependência aos imports: domínio não conhece JDBC, Metro ou
+                                        Spring; aplicação depende da porta Repositorio. O laboratório agrupa casos de
+                                        uso em Restaurante e devolve entidades aos adaptadores internos; não reproduz
+                                        todas as portas de entrada, saída e apresentadores do diagrama do livro.</p>
+                                <ul>
+                                        <li data-referencia="clean-dip"><a
+                                                        href="../docs/referencias.html#leitura-clean-dip">[R03] Robert
+                                                        C. Martin — Arquitetura Limpa: o guia do artesão para estrutura
+                                                        e design de software</a>. Cap. 11: princípio da inversão de
+                                                dependência. <strong>Páginas 139–144 do PDF</strong>.</li>
+                                        <li data-referencia="clean-camadas"><a
+                                                        href="../docs/referencias.html#leitura-clean-camadas">[R03]
+                                                        Robert C. Martin — Arquitetura Limpa: o guia do artesão para
+                                                        estrutura e design de software</a>. Cap. 22: regra de
+                                                dependência e adaptadores. <strong>Páginas 273–282 do PDF</strong>.</li>
+                                        <li data-referencia="clean-srp"><a
+                                                        href="../docs/referencias.html#leitura-clean-srp">[R03] Robert
+                                                        C. Martin — Arquitetura Limpa: o guia do artesão para estrutura
+                                                        e design de software</a>. Cap. 7: princípio da responsabilidade
+                                                única. <strong>Páginas 113–119 do PDF</strong>.</li>
+                                </ul>
+                                <p><strong>Confira na leitura:</strong> Se o banco mudar, quais classes deverão mudar e
+                                        quais regras devem permanecer iguais?</p>
+                                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                                                href="../docs/referencias.html#criterios">Critérios, adaptações e
+                                                atualização dos exemplos</a>.</p>
+                        </div>
+                </details>
+                <nav class="links" aria-label="Aulas anterior e seguinte"><a href="arquitetura-soa.html">← Desenhar as
+                                fronteiras SOA</a><a href="estrutura.html">Criar os primeiros POMs do zero →</a></nav>
+        </main>
+</body>
+
+</html>

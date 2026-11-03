@@ -1,0 +1,1019 @@
+{
+  "consultadoEm": "2026-11-01",
+  "paginasConsultadasPorLeitura": {
+    "soa": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      152,
+      153,
+      200,
+      201,
+      202,
+      203,
+      208,
+      209,
+      210,
+      211
+    ],
+    "rest": [
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      35,
+      36,
+      37,
+      38,
+      40,
+      41,
+      42,
+      43
+    ],
+    "clean": [
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      260,
+      261,
+      262,
+      263,
+      264,
+      265,
+      266,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279,
+      280,
+      281,
+      282,
+      323,
+      324,
+      325,
+      326,
+      327
+    ],
+    "java": [
+      34,
+      35,
+      36,
+      550,
+      551,
+      552,
+      554,
+      555,
+      556
+    ],
+    "java8": [
+      20,
+      21,
+      22,
+      23,
+      57,
+      58,
+      59,
+      93,
+      94,
+      95,
+      96,
+      110,
+      111,
+      112
+    ],
+    "oca": [
+      18,
+      19,
+      20,
+      326,
+      327,
+      328,
+      329,
+      336,
+      337,
+      338,
+      339
+    ],
+    "javafx": [
+      72,
+      73,
+      74,
+      118,
+      119,
+      120
+    ],
+    "jpa": [
+      30,
+      31,
+      32,
+      74,
+      75,
+      76,
+      77,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164
+    ],
+    "jsf": [
+      171,
+      172,
+      173
+    ]
+  },
+  "aulas": [
+    {
+      "id": "index",
+      "titulo": "Do zero até localhost",
+      "leituras": [
+        "soa-fundamentos",
+        "clean-camadas"
+      ],
+      "aplicacao": "Os serviços são capacidades do restaurante e os frameworks são ferramentas para expô-las. A construção começa na pasta vazia; os livros orientam as decisões, não fornecem um projeto do restaurante para importar.",
+      "pergunta": "Quais regras deverão continuar iguais quando o transporte mudar de SOAP para HTTP/JSON?"
+    },
+    {
+      "id": "ambiente",
+      "titulo": "Planejar o ambiente local",
+      "leituras": [
+        "java-compilacao"
+      ],
+      "aplicacao": "Schildt distingue fonte, classe compilada e execução. Use essa distinção para conferir java, javac e PATH. Os caminhos do JDK 8 do exemplar são substituídos pela instalação real do JDK 17 do laboratório.",
+      "pergunta": "Qual ferramenta compila e qual executa a classe? Como verificar qual JDK o terminal usa?"
+    },
+    {
+      "id": "instalacao-java",
+      "titulo": "Instalar e configurar o JDK 17",
+      "leituras": [
+        "java-compilacao"
+      ],
+      "aplicacao": "Schildt distingue fonte, classe compilada e execução. Use essa distinção para conferir java, javac e PATH. Os caminhos do JDK 8 do exemplar são substituídos pela instalação real do JDK 17 do laboratório.",
+      "pergunta": "Qual ferramenta compila e qual executa a classe? Como verificar qual JDK o terminal usa?"
+    },
+    {
+      "id": "instalacao-eclipse",
+      "titulo": "Instalar Eclipse e registrar o JDK",
+      "leituras": [
+        "oca-pacotes",
+        "java-compilacao"
+      ],
+      "aplicacao": "A IDE organiza os arquivos, mas as regras de pacote e a separação entre compilar e executar continuam sendo da linguagem. O cadastro de JDK e os menus da versão atual do Eclipse seguem o roteiro desta aula.",
+      "pergunta": "O pacote declarado corresponde ao diretório Java que você criará?"
+    },
+    {
+      "id": "maven",
+      "titulo": "Instalar Maven e compreender o POM",
+      "leituras": [
+        "java-compilacao",
+        "oca-pacotes"
+      ],
+      "aplicacao": "A leitura prepara a distinção entre organização dos fontes, compilação e execução. Maven automatiza esse trabalho em módulos; coordenadas, escopos e versões do POM são ensinados pelo tutorial e pela documentação oficial, não por esses trechos dos livros.",
+      "pergunta": "Qual parte do comando Maven seleciona o módulo e qual parte seleciona a etapa de construção?"
+    },
+    {
+      "id": "instalacao-mysql",
+      "titulo": "Instalar e testar MySQL 8.4",
+      "leituras": [
+        "jpa-transacao"
+      ],
+      "aplicacao": "A leitura de contexto explica por que uma aplicação precisa de conexão e limites de transação. Nesta trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário e GRANT vêm do roteiro MySQL, sem criar persistence.xml.",
+      "pergunta": "Por que a identidade administrativa do banco não deve ser a identidade usada pela aplicação?"
+    },
+    {
+      "id": "banco-de-dados",
+      "titulo": "Criar bancos e usuário no MySQL",
+      "leituras": [
+        "jpa-transacao"
+      ],
+      "aplicacao": "A leitura de contexto explica por que uma aplicação precisa de conexão e limites de transação. Nesta trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário e GRANT vêm do roteiro MySQL, sem criar persistence.xml.",
+      "pergunta": "Por que a identidade administrativa do banco não deve ser a identidade usada pela aplicação?"
+    },
+    {
+      "id": "tomcat",
+      "titulo": "Instalar Tomcat 10.1",
+      "leituras": [
+        "soa-wsdl"
+      ],
+      "aplicacao": "O endereço concreto de um serviço liga protocolo, host, porta e contexto. Tomcat e o runtime do Eclipse ainda são preparação: um endereço no contrato não significa que o endpoint já exista. Os comandos Tomcat 10.1 são a adaptação deste laboratório.",
+      "pergunta": "Qual parte da futura URL depende do contexto publicado no Tomcat?"
+    },
+    {
+      "id": "eclipse-servidor",
+      "titulo": "Registrar Tomcat no Eclipse",
+      "leituras": [
+        "soa-wsdl"
+      ],
+      "aplicacao": "O endereço concreto de um serviço liga protocolo, host, porta e contexto. Tomcat e o runtime do Eclipse ainda são preparação: um endereço no contrato não significa que o endpoint já exista. Os comandos Tomcat 10.1 são a adaptação deste laboratório.",
+      "pergunta": "Qual parte da futura URL depende do contexto publicado no Tomcat?"
+    },
+    {
+      "id": "arquitetura-soa",
+      "titulo": "Desenhar as fronteiras SOA",
+      "leituras": [
+        "soa-fundamentos",
+        "soa-canonico",
+        "clean-camadas"
+      ],
+      "aplicacao": "Saudate discute contratos e reutilização entre capacidades; Martin discute dependências internas. No restaurante, quatro serviços compartilham regras e uma base transacional por implementação. Não se conclui que quatro WSDLs constituem quatro microsserviços.",
+      "pergunta": "Desenhe a diferença entre uma chamada remota e uma dependência de código-fonte."
+    },
+    {
+      "id": "clean-architecture",
+      "titulo": "Definir camadas e dependências",
+      "leituras": [
+        "clean-dip",
+        "clean-camadas",
+        "clean-srp"
+      ],
+      "aplicacao": "Aplique a regra de dependência aos imports: domínio não conhece JDBC, Metro ou Spring; aplicação depende da porta Repositorio. O laboratório agrupa casos de uso em Restaurante e devolve entidades aos adaptadores internos; não reproduz todas as portas de entrada, saída e apresentadores do diagrama do livro.",
+      "pergunta": "Se o banco mudar, quais classes deverão mudar e quais regras devem permanecer iguais?"
+    },
+    {
+      "id": "estrutura",
+      "titulo": "Criar os primeiros POMs do zero",
+      "leituras": [
+        "oca-pacotes",
+        "clean-camadas"
+      ],
+      "aplicacao": "Organização de pacotes e direção das dependências ajudam a justificar os módulos Maven. O nome de uma pasta não garante uma arquitetura: o POM e os imports devem manter as dependências apontando para o núcleo.",
+      "pergunta": "Como você detectaria uma dependência indevida do domínio para o servidor?"
+    },
+    {
+      "id": "dominio-estados",
+      "titulo": "Criar o módulo domínio e seus estados",
+      "leituras": [
+        "clean-negocio",
+        "oca-pacotes"
+      ],
+      "aplicacao": "Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os records e enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8 não são apresentados como fonte da sintaxe de record.",
+      "pergunta": "Quais campos representam o negócio e quais seriam apenas detalhes de tela ou transporte?"
+    },
+    {
+      "id": "modelo-mesa",
+      "titulo": "Implementar Mesa",
+      "leituras": [
+        "clean-negocio",
+        "oca-pacotes"
+      ],
+      "aplicacao": "Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os records e enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8 não são apresentados como fonte da sintaxe de record.",
+      "pergunta": "Quais campos representam o negócio e quais seriam apenas detalhes de tela ou transporte?"
+    },
+    {
+      "id": "modelo-categoria",
+      "titulo": "Implementar Categoria",
+      "leituras": [
+        "clean-negocio",
+        "oca-pacotes"
+      ],
+      "aplicacao": "Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os records e enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8 não são apresentados como fonte da sintaxe de record.",
+      "pergunta": "Quais campos representam o negócio e quais seriam apenas detalhes de tela ou transporte?"
+    },
+    {
+      "id": "modelo-produto",
+      "titulo": "Implementar Produto",
+      "leituras": [
+        "clean-negocio",
+        "java8-dinheiro"
+      ],
+      "aplicacao": "A redução de BigDecimal discutida por Silveira e Turini apoia o cálculo monetário sem usar double. O restaurante acrescenta quantidade, preço histórico e validação de centavos; essas são regras próprias do exemplo, não requisitos extraídos do livro.",
+      "pergunta": "Por que mudar o preço de Produto não pode alterar o preço já gravado no ItemPedido?"
+    },
+    {
+      "id": "modelo-item",
+      "titulo": "Implementar ItemPedido",
+      "leituras": [
+        "clean-negocio",
+        "java8-dinheiro"
+      ],
+      "aplicacao": "A redução de BigDecimal discutida por Silveira e Turini apoia o cálculo monetário sem usar double. O restaurante acrescenta quantidade, preço histórico e validação de centavos; essas são regras próprias do exemplo, não requisitos extraídos do livro.",
+      "pergunta": "Por que mudar o preço de Produto não pode alterar o preço já gravado no ItemPedido?"
+    },
+    {
+      "id": "modelo-pedido",
+      "titulo": "Implementar Pedido",
+      "leituras": [
+        "clean-negocio",
+        "java8-dinheiro",
+        "java8-datas"
+      ],
+      "aplicacao": "Pedido reúne dados e comportamento do negócio: total é derivado dos itens e dataHora identifica um instante. A leitura de java.time diferencia data local de data com fuso; a escolha de Instant/UTC é explicitada no código desta trilha.",
+      "pergunta": "Explique a diferença entre a hora exibida ao usuário e o instante armazenado para o pedido."
+    },
+    {
+      "id": "modelos",
+      "titulo": "Conferir os relacionamentos do domínio",
+      "leituras": [
+        "jpa-relacoes",
+        "clean-negocio"
+      ],
+      "aplicacao": "Coelho relaciona associações de objetos com chaves estrangeiras. Use a comparação para conferir categoria/produto e pedido/item no diagrama; o laboratório guarda IDs e usa JDBC, sem anotações de relacionamento JPA.",
+      "pergunta": "Qual tabela deverá guardar a chave estrangeira em cada associação do restaurante?"
+    },
+    {
+      "id": "aplicacao-falhas",
+      "titulo": "Criar a aplicação e seus erros",
+      "leituras": [
+        "oca-excecoes"
+      ],
+      "aplicacao": "A hierarquia de exceções e o controle de fluxo apoiam Falha como erro de negócio. Um código estável será traduzido pelo adaptador depois; o núcleo não escolhe agora um status HTTP nem monta XML SOAP.",
+      "pergunta": "Qual diferença existe entre validar uma entrada e expor uma stacktrace ao cliente?"
+    },
+    {
+      "id": "aplicacao-repositorio",
+      "titulo": "Definir a porta de persistência",
+      "leituras": [
+        "clean-dip",
+        "oca-abstracao"
+      ],
+      "aplicacao": "A aplicação declara o contrato que a persistência deve implementar. O fluxo executará SQL mais tarde, mas a dependência de código aponta da infraestrutura para a interface interna; Repositorio não recebe Connection, EntityManager ou HttpServletRequest.",
+      "pergunta": "Por que chamar o banco durante a execução não obriga a aplicação a importar JDBC?"
+    },
+    {
+      "id": "aplicacao-mesas",
+      "titulo": "Implementar regras de mesas",
+      "leituras": [
+        "clean-negocio",
+        "clean-dip"
+      ],
+      "aplicacao": "As operações de cadastro pertencem ao caso de uso; transporte e formulário apenas fornecem dados. A versão intermediária de Restaurante inclui somente as capacidades apresentadas até esta aula, preservando a construção cumulativa.",
+      "pergunta": "Qual validação desta etapa deverá valer tanto para um consumidor SOAP quanto para um consumidor REST?"
+    },
+    {
+      "id": "aplicacao-categorias",
+      "titulo": "Acrescentar regras de categorias",
+      "leituras": [
+        "clean-negocio",
+        "clean-dip"
+      ],
+      "aplicacao": "As operações de cadastro pertencem ao caso de uso; transporte e formulário apenas fornecem dados. A versão intermediária de Restaurante inclui somente as capacidades apresentadas até esta aula, preservando a construção cumulativa.",
+      "pergunta": "Qual validação desta etapa deverá valer tanto para um consumidor SOAP quanto para um consumidor REST?"
+    },
+    {
+      "id": "aplicacao-produtos",
+      "titulo": "Acrescentar regras de produtos",
+      "leituras": [
+        "clean-negocio",
+        "clean-dip"
+      ],
+      "aplicacao": "As operações de cadastro pertencem ao caso de uso; transporte e formulário apenas fornecem dados. A versão intermediária de Restaurante inclui somente as capacidades apresentadas até esta aula, preservando a construção cumulativa.",
+      "pergunta": "Qual validação desta etapa deverá valer tanto para um consumidor SOAP quanto para um consumidor REST?"
+    },
+    {
+      "id": "aplicacao-pedidos",
+      "titulo": "Implementar o ciclo do pedido",
+      "leituras": [
+        "clean-negocio",
+        "jpa-transacao"
+      ],
+      "aplicacao": "O caso de uso coordena abertura, itens e fechamento por uma porta transacional. A comparação com o controle manual de transação do livro de JPA ajuda a identificar o início e o fim da operação; aqui a implementação concreta será JDBC, não EntityManager.",
+      "pergunta": "Por que fechar o pedido e liberar a mesa precisam pertencer à mesma transação?"
+    },
+    {
+      "id": "testes-unidade",
+      "titulo": "Escrever os primeiros testes de regras",
+      "leituras": [
+        "clean-testes"
+      ],
+      "aplicacao": "Os testes exercitam comportamento sem navegar por telas. A fronteira Repositorio permite testar regras como total e pedido fechado sem depender do Tomcat ou de um MySQL externo.",
+      "pergunta": "Que comportamento deve continuar testável quando uma tela for reorganizada?"
+    },
+    {
+      "id": "infraestrutura-pom",
+      "titulo": "Criar o módulo de infraestrutura",
+      "leituras": [
+        "clean-dip",
+        "jpa-transacao"
+      ],
+      "aplicacao": "A porta foi definida antes do driver. Esta etapa acrescenta o mecanismo de persistência fora da aplicação; Connector/J e Flyway são escolhas do laboratório, distintas da configuração JPA usada no livro de apoio.",
+      "pergunta": "Em qual módulo devem ficar as dependências de driver e migração?"
+    },
+    {
+      "id": "migracao-mysql",
+      "titulo": "Escrever a migração do MySQL",
+      "leituras": [
+        "jpa-relacoes",
+        "jpa-transacao"
+      ],
+      "aplicacao": "Compare associações do modelo com as FKs explícitas da V1. Identidade, vínculo e integridade são preocupações comuns à persistência; AUTO_INCREMENT, CHECK e Flyway são implementações MySQL/JDBC desta trilha.",
+      "pergunta": "Que exclusão poderia destruir o histórico se fosse propagada automaticamente?"
+    },
+    {
+      "id": "infraestrutura-banco",
+      "titulo": "Configurar conexões e Flyway",
+      "leituras": [
+        "jpa-transacao",
+        "clean-dip"
+      ],
+      "aplicacao": "A composição da conexão fica fora dos casos de uso. Banco lê a configuração e aplica migrações; a comparação com EntityManagerFactory trata somente da responsabilidade de inicialização, sem equivalência entre as duas APIs.",
+      "pergunta": "Quem configura a conexão e quem decide a regra de negócio?"
+    },
+    {
+      "id": "infraestrutura-jdbc",
+      "titulo": "Implementar o repositório JDBC",
+      "leituras": [
+        "jpa-transacao",
+        "jpa-concorrencia"
+      ],
+      "aplicacao": "A transação JDBC usa commit/rollback e os bloqueios são obtidos por SQL. O livro ajuda a discutir conflitos, mas @Version e LockModeType não aparecem nesta implementação. O comportamento de leitura do MySQL não é inferido das generalizações do exemplar sobre JPA.",
+      "pergunta": "Quais linhas precisam ser bloqueadas para impedir duas aberturas simultâneas na mesma mesa?"
+    },
+    {
+      "id": "infraestrutura-credenciais",
+      "titulo": "Implementar credenciais externas",
+      "leituras": [
+        "soa-http-basic"
+      ],
+      "aplicacao": "Separe autenticar uma identidade de autorizar uma ação. As senhas do laboratório vêm do ambiente e as identidades ADMIN/GARCOM têm permissões diferentes. Base64 é codificação reversível, não criptografia.",
+      "pergunta": "Por que fornecer uma senha correta não autoriza qualquer operação?"
+    },
+    {
+      "id": "testes-banco",
+      "titulo": "Testar repositório, histórico e concorrência",
+      "leituras": [
+        "clean-testes",
+        "jpa-concorrencia"
+      ],
+      "aplicacao": "Teste as consequências de concorrência e falhas transacionais, não apenas métodos isolados. O comportamento em H2 e o comportamento no MySQL real são evidências distintas; um teste opt-in ignorado não prova a segunda.",
+      "pergunta": "O que um teste em H2 não permite afirmar sobre locks e códigos de erro do MySQL?"
+    },
+    {
+      "id": "contrato-xsd",
+      "titulo": "Escrever os tipos e mensagens XSD",
+      "leituras": [
+        "soa-xml",
+        "soa-canonico"
+      ],
+      "aplicacao": "Defina um vocabulário XML compartilhado pelos serviços antes da geração de Java. Namespaces e tipos reduzem ambiguidades; o modelo de transporte continua separado dos records de domínio, evitando que código gerado seja tratado como entidade de negócio.",
+      "pergunta": "Qual diferença existe entre complexType e o elemento XML que usa esse tipo?"
+    },
+    {
+      "id": "wsdl-mesas",
+      "titulo": "Escrever o WSDL de Mesa",
+      "leituras": [
+        "soa-wsdl",
+        "soa-contract-first"
+      ],
+      "aplicacao": "No contrato de Mesa, identifique mensagem de entrada, saída e Fault, ligue as operações ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar uma interface Java não publica o serviço.",
+      "pergunta": "Localize uma operação de Mesa desde o elemento XSD até o endereço concreto do serviço."
+    },
+    {
+      "id": "wsdl-categorias",
+      "titulo": "Escrever o WSDL de Categoria",
+      "leituras": [
+        "soa-wsdl",
+        "soa-contract-first"
+      ],
+      "aplicacao": "No contrato de Categoria, identifique mensagem de entrada, saída e Fault, ligue as operações ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar uma interface Java não publica o serviço.",
+      "pergunta": "Localize uma operação de Categoria desde o elemento XSD até o endereço concreto do serviço."
+    },
+    {
+      "id": "wsdl-produtos",
+      "titulo": "Escrever o WSDL de Produto",
+      "leituras": [
+        "soa-wsdl",
+        "soa-contract-first"
+      ],
+      "aplicacao": "No contrato de Produto, identifique mensagem de entrada, saída e Fault, ligue as operações ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar uma interface Java não publica o serviço.",
+      "pergunta": "Localize uma operação de Produto desde o elemento XSD até o endereço concreto do serviço."
+    },
+    {
+      "id": "wsdl-pedidos",
+      "titulo": "Escrever o WSDL de Pedido",
+      "leituras": [
+        "soa-wsdl",
+        "soa-contract-first"
+      ],
+      "aplicacao": "No contrato de Pedido, identifique mensagem de entrada, saída e Fault, ligue as operações ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar uma interface Java não publica o serviço.",
+      "pergunta": "Localize uma operação de Pedido desde o elemento XSD até o endereço concreto do serviço."
+    },
+    {
+      "id": "contrato",
+      "titulo": "Gerar Java a partir dos contratos",
+      "leituras": [
+        "soa-contract-first",
+        "soa-canonico"
+      ],
+      "aplicacao": "A geração traduz o contrato que o aluno escreveu; ela não inventa os casos de uso. O livro usa ferramentas de uma geração antiga do JDK; esta trilha usa o plugin Maven/Metro e não pressupõe wsimport disponível no JDK 17.",
+      "pergunta": "Por que editar target/generated-sources faz a alteração desaparecer no próximo build?"
+    },
+    {
+      "id": "servidor",
+      "titulo": "Criar o módulo WAR do servidor",
+      "leituras": [
+        "clean-camadas",
+        "soa-wsdl"
+      ],
+      "aplicacao": "O WAR e seus descritores compõem a borda SOAP. Eles conectam contexto, classes e contrato, mantendo regras no núcleo. A configuração concreta é Metro/Jakarta/Tomcat deste tutorial, não uma reprodução do servidor antigo do livro.",
+      "pergunta": "Qual ligação está faltando quando o WAR sobe, mas o WSDL retorna 404?"
+    },
+    {
+      "id": "soap-contexto",
+      "titulo": "Compor aplicação e banco no WAR",
+      "leituras": [
+        "clean-dip",
+        "jpa-transacao"
+      ],
+      "aplicacao": "Contexto cria os mecanismos concretos e injeta o repositório na aplicação. É o ponto de composição: escolher a implementação JDBC aqui evita espalhar a criação de conexões pelos serviços.",
+      "pergunta": "Por que esse ponto pode conhecer infraestrutura sem transferir essa dependência para Restaurante?"
+    },
+    {
+      "id": "soap-autenticacao",
+      "titulo": "Autenticar requisições SOAP",
+      "leituras": [
+        "soa-http-basic",
+        "rest-status"
+      ],
+      "aplicacao": "O filtro autentica a chamada HTTP e o endpoint verifica o papel para a operação. A leitura fornece os conceitos; a configuração usa credenciais externas e Basic em localhost. Basic não é WS-Security e a codificação do cabeçalho não protege seu conteúdo.",
+      "pergunta": "Como distinguir ausência de autenticação de falta de permissão para um cadastro?"
+    },
+    {
+      "id": "soap-falhas",
+      "titulo": "Autorizar e converter SOAP Fault",
+      "leituras": [
+        "soa-fault",
+        "oca-excecoes"
+      ],
+      "aplicacao": "A recusa do caso de uso vira um Fault declarado com dados de erro no detail. A classe Java da exceção e o conteúdo XML de transporte têm responsabilidades diferentes; não envie a mensagem SQL ou a stacktrace ao consumidor.",
+      "pergunta": "Onde o cliente encontra o código PEDIDO_FECHADO em uma resposta SOAP?"
+    },
+    {
+      "id": "soap-dtos",
+      "titulo": "Mapear domínio para DTOs SOAP",
+      "leituras": [
+        "clean-negocio",
+        "soa-canonico"
+      ],
+      "aplicacao": "O adaptador converte records internos em tipos do contrato. O vocabulário XML é compartilhado pelos quatro serviços; isso não obriga domínio e transporte a usar a mesma classe gerada.",
+      "pergunta": "O que aconteceria se uma anotação ou mudança de geração JAXB passasse a determinar o formato das entidades?"
+    },
+    {
+      "id": "servico-mesas",
+      "titulo": "Implementar MesaEndpoint",
+      "leituras": [
+        "soa-wsdl",
+        "clean-camadas"
+      ],
+      "aplicacao": "O endpoint de Mesa implementa a interface do WSDL, valida o papel e traduz os dados. As regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve duplicar essas regras.",
+      "pergunta": "Qual parte do serviço Mesa é contrato, qual é adaptação e qual é regra de negócio?"
+    },
+    {
+      "id": "servico-categorias",
+      "titulo": "Implementar CategoriaEndpoint",
+      "leituras": [
+        "soa-wsdl",
+        "clean-camadas"
+      ],
+      "aplicacao": "O endpoint de Categoria implementa a interface do WSDL, valida o papel e traduz os dados. As regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve duplicar essas regras.",
+      "pergunta": "Qual parte do serviço Categoria é contrato, qual é adaptação e qual é regra de negócio?"
+    },
+    {
+      "id": "servico-produtos",
+      "titulo": "Implementar ProdutoEndpoint",
+      "leituras": [
+        "soa-wsdl",
+        "clean-camadas"
+      ],
+      "aplicacao": "O endpoint de Produto implementa a interface do WSDL, valida o papel e traduz os dados. As regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve duplicar essas regras.",
+      "pergunta": "Qual parte do serviço Produto é contrato, qual é adaptação e qual é regra de negócio?"
+    },
+    {
+      "id": "servico-pedidos",
+      "titulo": "Implementar PedidoEndpoint",
+      "leituras": [
+        "soa-wsdl",
+        "clean-camadas"
+      ],
+      "aplicacao": "O endpoint de Pedido implementa a interface do WSDL, valida o papel e traduz os dados. As regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve duplicar essas regras.",
+      "pergunta": "Qual parte do serviço Pedido é contrato, qual é adaptação e qual é regra de negócio?"
+    },
+    {
+      "id": "infra-qr",
+      "titulo": "Implementar a geração da imagem QR",
+      "leituras": [
+        "rest-media",
+        "rest-recursos"
+      ],
+      "aplicacao": "A URL identifica o recurso público e o PNG é uma representação binária com media type próprio. A codificação QR é implementação autoral com a biblioteca do projeto, não um algoritmo retirado dos livros.",
+      "pergunta": "Qual diferença existe entre a imagem QR, a URL codificada e os dados retornados pelo cardápio?"
+    },
+    {
+      "id": "bff-soap",
+      "titulo": "Criar o BFF HTTP/JSON público",
+      "leituras": [
+        "clean-camadas",
+        "rest-recursos"
+      ],
+      "aplicacao": "O BFF oferece uma projeção de leitura para a interface Web, usando o caso de uso interno. O nome do produto e seu preço são dados de apresentação; pedidos e credenciais não fazem parte dessa projeção pública.",
+      "pergunta": "Por que o navegador não precisa receber a senha do consumidor SOAP para exibir produtos?"
+    },
+    {
+      "id": "soap-descritores",
+      "titulo": "Registrar filtros e serviços no Tomcat",
+      "leituras": [
+        "clean-camadas",
+        "soa-wsdl"
+      ],
+      "aplicacao": "O WAR e seus descritores compõem a borda SOAP. Eles conectam contexto, classes e contrato, mantendo regras no núcleo. A configuração concreta é Metro/Jakarta/Tomcat deste tutorial, não uma reprodução do servidor antigo do livro.",
+      "pergunta": "Qual ligação está faltando quando o WAR sobe, mas o WSDL retorna 404?"
+    },
+    {
+      "id": "implantacao",
+      "titulo": "Publicar o SOAP no Tomcat localhost",
+      "leituras": [
+        "soa-wsdl",
+        "soa-http-basic"
+      ],
+      "aplicacao": "Confira o contrato concreto e teste requisições autenticadas no endereço publicado. A mesma definição de serviço pode ter endereços diferentes no laboratório; porta e contexto não são regras do restaurante.",
+      "pergunta": "Como demonstrar que o endpoint e a autenticação respondem, sem depender de uma tela Swing?"
+    },
+    {
+      "id": "desktop-conexao",
+      "titulo": "Criar o módulo desktop e o cliente SOAP",
+      "leituras": [
+        "soa-wsdl",
+        "oca-abstracao"
+      ],
+      "aplicacao": "O consumidor usa a interface gerada e pode substituir o endereço concreto do WSDL por configuração. Credenciais e timeout pertencem ao adaptador cliente; o desktop não passa a conhecer tabelas ou JDBC.",
+      "pergunta": "Qual configuração permite apontar as mesmas telas para outra instância local do SOAP?"
+    },
+    {
+      "id": "swing-worker",
+      "titulo": "Construir a janela com SwingWorker",
+      "leituras": [
+        "java-edt",
+        "javafx-concorrencia",
+        "java8-funcoes"
+      ],
+      "aplicacao": "Schildt mostra a criação da janela por invokeLater; Oliveira discute separar trabalho de fundo e atualização visual em JavaFX. A adaptação correta aqui é SwingWorker: rede em doInBackground e atualização na EDT em done. Task/Platform.runLater não são APIs Swing.",
+      "pergunta": "Quais instruções podem executar fora da EDT e quais devem voltar para ela?"
+    },
+    {
+      "id": "swing-cadastro",
+      "titulo": "Construir o painel comum de cadastro",
+      "leituras": [
+        "oca-abstracao",
+        "java-swing"
+      ],
+      "aplicacao": "A classe abstrata reúne o fluxo comum do formulário e deixa operações específicas para os painéis concretos. Componentes e contêineres são elementos da apresentação, não o local das regras transacionais.",
+      "pergunta": "Quais métodos um painel concreto precisa implementar antes de poder ser instanciado?"
+    },
+    {
+      "id": "swing-mesas",
+      "titulo": "Construir o cadastro Swing de mesas",
+      "leituras": [
+        "java-swing",
+        "java8-funcoes"
+      ],
+      "aplicacao": "O painel de mesas associa campos e listeners às chamadas SOAP. Os exemplos de componentes e interfaces funcionais ajudam a ler os eventos; o servidor continua responsável por validar o cadastro.",
+      "pergunta": "Onde os valores do formulário de mesas são capturados antes da chamada remota?"
+    },
+    {
+      "id": "swing-categorias",
+      "titulo": "Construir o cadastro Swing de categorias",
+      "leituras": [
+        "java-swing",
+        "java8-funcoes"
+      ],
+      "aplicacao": "O painel de categorias associa campos e listeners às chamadas SOAP. Os exemplos de componentes e interfaces funcionais ajudam a ler os eventos; o servidor continua responsável por validar o cadastro.",
+      "pergunta": "Onde os valores do formulário de categorias são capturados antes da chamada remota?"
+    },
+    {
+      "id": "swing-formulario-produtos",
+      "titulo": "Construir o formulário Swing de produtos",
+      "leituras": [
+        "java-swing",
+        "java8-funcoes"
+      ],
+      "aplicacao": "O painel de produtos associa campos e listeners às chamadas SOAP. Os exemplos de componentes e interfaces funcionais ajudam a ler os eventos; o servidor continua responsável por validar o cadastro.",
+      "pergunta": "Onde os valores do formulário de produtos são capturados antes da chamada remota?"
+    },
+    {
+      "id": "swing-produtos",
+      "titulo": "Montar a janela administrativa",
+      "leituras": [
+        "java-swing",
+        "java-edt",
+        "javafx-comparacao"
+      ],
+      "aplicacao": "A janela agrupa painéis já construídos e inicia na EDT. O capítulo comparativo de JavaFX esclarece a escolha de toolkit; a exigência desta trilha é Swing, sem migração de componentes para JavaFX.",
+      "pergunta": "Qual diferença existe entre montar a janela e implementar os casos de uso de cada aba?"
+    },
+    {
+      "id": "swing-pedidos",
+      "titulo": "Construir a janela do garçom",
+      "leituras": [
+        "java-swing",
+        "java8-dinheiro",
+        "jsf-feedback"
+      ],
+      "aplicacao": "A tela exibe o total calculado no servidor e comunica o resultado de cada ação. O princípio de feedback de uma requisição assíncrona também se aplica ao desktop; o código usa Swing e não componentes JSF.",
+      "pergunta": "Por que a interface desabilita uma ação durante a chamada e mesmo assim o servidor revalida o estado?"
+    },
+    {
+      "id": "testes-swing",
+      "titulo": "Testar as duas telas contra o SOAP local",
+      "leituras": [
+        "clean-testes",
+        "java-edt"
+      ],
+      "aplicacao": "O teste funcional pela janela complementa os testes das regras. Execute o fluxo completo e observe responsividade, mensagens e estado da mesa; testes sem GUI não constituem uma inspeção visual integral do Swing.",
+      "pergunta": "Que evidência seria perdida se você conferisse somente o valor retornado pelo serviço?"
+    },
+    {
+      "id": "cardapio-imagem",
+      "titulo": "Criar o recurso visual do cardápio",
+      "leituras": [
+        "rest-media"
+      ],
+      "aplicacao": "Uma imagem é um recurso com tipo de conteúdo próprio, separado do JSON do catálogo. O SVG desta aula é um recurso autoral do material; os livros não são apresentados como fonte da ilustração.",
+      "pergunta": "Qual caminho deve ser publicado para que o navegador encontre a imagem?"
+    },
+    {
+      "id": "cardapio-html",
+      "titulo": "Escrever o HTML semântico",
+      "leituras": [
+        "clean-camadas",
+        "jsf-feedback"
+      ],
+      "aplicacao": "A apresentação prepara os pontos em que dados e mensagens serão exibidos; ela não calcula a conta. O princípio de feedback do livro de JSF é aplicado ao HTML sem adotar componentes JSF ou renderização por ManagedBeans.",
+      "pergunta": "Em que elemento o usuário saberá se os produtos ainda estão carregando?"
+    },
+    {
+      "id": "cardapio-css",
+      "titulo": "Implementar o layout responsivo",
+      "leituras": [
+        "clean-camadas",
+        "rest-media"
+      ],
+      "aplicacao": "O layout é uma decisão do adaptador visual, e a folha CSS é carregada como recurso separado. Grid, breakpoints e seletores desta aula são implementação do tutorial; a referência arquitetural justifica não misturar apresentação e regras.",
+      "pergunta": "Mudar de três colunas para uma exige alterar o caso de uso ou o contrato JSON?"
+    },
+    {
+      "id": "cardapio-digital",
+      "titulo": "Implementar busca, categorias e consulta JSON",
+      "leituras": [
+        "jsf-feedback",
+        "rest-media",
+        "rest-recursos"
+      ],
+      "aplicacao": "Aplique feedback de carregamento, falha e nova tentativa à chamada fetch. A resposta JSON alimenta a apresentação e os filtros locais; não há JSF, sessão de pedido no navegador nem cálculo de conta nessa interface.",
+      "pergunta": "Que mensagem deve aparecer quando a consulta falha e que mensagem aparece quando a busca não encontra produtos?"
+    },
+    {
+      "id": "qr-code",
+      "titulo": "Gerar e conferir QR em localhost",
+      "leituras": [
+        "rest-media",
+        "rest-recursos"
+      ],
+      "aplicacao": "A URL identifica o recurso público e o PNG é uma representação binária com media type próprio. A codificação QR é implementação autoral com a biblioteca do projeto, não um algoritmo retirado dos livros.",
+      "pergunta": "Qual diferença existe entre a imagem QR, a URL codificada e os dados retornados pelo cardápio?"
+    },
+    {
+      "id": "spring-initializr",
+      "titulo": "Gerar a base REST no Spring Initializr",
+      "leituras": [
+        "clean-camadas",
+        "rest-recursos"
+      ],
+      "aplicacao": "Os livros fundamentam separação de camadas e recursos HTTP. A geração pelo Spring Initializr, Boot 4 e springdoc são complementos atuais do tutorial: o gerador fornece somente bootstrap e ferramentas, não contratos ou regras do restaurante.",
+      "pergunta": "O que veio do ZIP gerado e o que ainda precisa ser escrito pelo aluno?"
+    },
+    {
+      "id": "rest-ping",
+      "titulo": "Escrever o primeiro endpoint HTTP",
+      "leituras": [
+        "rest-http",
+        "rest-media"
+      ],
+      "aplicacao": "A primeira resposta HTTP/JSON verifica o adaptador mínimo. Um GET bem-sucedido não comprova conexão ao MySQL nem a implementação de regras; ping não representa um cadastro completo do restaurante.",
+      "pergunta": "Quais evidências ainda faltam depois de receber 200 em /api/public/ping?"
+    },
+    {
+      "id": "rest-pom",
+      "titulo": "Integrar o núcleo e as dependências REST",
+      "leituras": [
+        "clean-dip",
+        "clean-camadas"
+      ],
+      "aplicacao": "Spring é composto na borda e o mesmo núcleo é reutilizado por outro adaptador. A configuração de dependências e versões é do projeto atual, enquanto o princípio de isolar o framework vem da leitura.",
+      "pergunta": "Por que o projeto REST depende do núcleo, mas não do contrato SOAP ou das telas?"
+    },
+    {
+      "id": "rest-entradas",
+      "titulo": "Escrever DTOs de entrada REST",
+      "leituras": [
+        "clean-negocio"
+      ],
+      "aplicacao": "Entradas descreve os dados aceitos na borda HTTP e usa Bean Validation. A regra de negócio também é verificada pelo caso de uso, pois consumidores SOAP e outros adaptadores devem respeitá-la.",
+      "pergunta": "Por que total e preço histórico não devem ser recebidos como autoridade no JSON de entrada?"
+    },
+    {
+      "id": "rest-saidas",
+      "titulo": "Escrever DTOs de saída REST",
+      "leituras": [
+        "clean-negocio",
+        "java8-streams"
+      ],
+      "aplicacao": "Saidas converte entidades internas em representações HTTP sem expor objetos de persistência. A leitura de map/collect ajuda a acompanhar a transformação; Stream.toList utilizado em Java 17 é posterior à versão Java 8 do livro.",
+      "pergunta": "Qual diferença existe entre a lista de entidades recebida do caso de uso e o DTO devolvido ao cliente?"
+    },
+    {
+      "id": "rest-erros",
+      "titulo": "Padronizar erros HTTP",
+      "leituras": [
+        "rest-status",
+        "oca-excecoes"
+      ],
+      "aplicacao": "Traduza a falha da aplicação para semântica HTTP sem revelar detalhes internos. Leia a atualização de HTTP na bibliografia: 415 trata o conteúdo recebido incompatível; negociação de uma representação de resposta pode resultar em 406, corrigindo a associação feita no exemplar.",
+      "pergunta": "Como distinguir um JSON inválido, um pedido fechado e um Content-Type de entrada não aceito?"
+    },
+    {
+      "id": "rest-configuracao",
+      "titulo": "Conectar REST ao MySQL",
+      "leituras": [
+        "clean-dip",
+        "jpa-transacao"
+      ],
+      "aplicacao": "A classe de configuração compõe DataSource, repositório e casos de uso. Spring fornece o mecanismo de composição; a decisão de não levar esse mecanismo ao domínio é arquitetural. Não há EntityManager nessa configuração.",
+      "pergunta": "Qual objeto concreto é escolhido aqui para implementar Repositorio?"
+    },
+    {
+      "id": "seguranca",
+      "titulo": "Implementar autorização HTTP",
+      "leituras": [
+        "soa-http-basic",
+        "rest-status"
+      ],
+      "aplicacao": "Autenticação identifica o consumidor e autorização restringe a ação. A configuração atual separa leitura pública, ADMIN e GARCOM por rota/método; Basic é codificação de credenciais em HTTP e não um mecanismo de criptografia.",
+      "pergunta": "Quais situações devem produzir 401 e quais devem produzir 403?"
+    },
+    {
+      "id": "rest-mesas",
+      "titulo": "Implementar MesaController",
+      "leituras": [
+        "rest-recursos",
+        "rest-http",
+        "rest-status"
+      ],
+      "aplicacao": "Modele mesas como recursos e operações HTTP, mantendo as validações no núcleo. Identifique a criação com 201/Location e escolha o status de conflito quando a operação for incompatível com o estado atual. A API usa URLs conhecidas e não implementa navegação HATEOAS.",
+      "pergunta": "Escolha uma operação de mesas e explique URI, método, entrada, saída e status."
+    },
+    {
+      "id": "rest-categorias",
+      "titulo": "Implementar CategoriaController",
+      "leituras": [
+        "rest-recursos",
+        "rest-http",
+        "rest-status"
+      ],
+      "aplicacao": "Modele categorias como recursos e operações HTTP, mantendo as validações no núcleo. Identifique a criação com 201/Location e escolha o status de conflito quando a operação for incompatível com o estado atual. A API usa URLs conhecidas e não implementa navegação HATEOAS.",
+      "pergunta": "Escolha uma operação de categorias e explique URI, método, entrada, saída e status."
+    },
+    {
+      "id": "rest-produtos",
+      "titulo": "Implementar ProdutoController",
+      "leituras": [
+        "rest-recursos",
+        "rest-http",
+        "rest-status"
+      ],
+      "aplicacao": "Modele produtos como recursos e operações HTTP, mantendo as validações no núcleo. Identifique a criação com 201/Location e escolha o status de conflito quando a operação for incompatível com o estado atual. A API usa URLs conhecidas e não implementa navegação HATEOAS.",
+      "pergunta": "Escolha uma operação de produtos e explique URI, método, entrada, saída e status."
+    },
+    {
+      "id": "rest-pedidos",
+      "titulo": "Implementar PedidoController",
+      "leituras": [
+        "rest-recursos",
+        "rest-http",
+        "rest-status"
+      ],
+      "aplicacao": "Modele pedidos como recursos e operações HTTP, mantendo as validações no núcleo. Identifique a criação com 201/Location e escolha o status de conflito quando a operação for incompatível com o estado atual. A API usa URLs conhecidas e não implementa navegação HATEOAS.",
+      "pergunta": "Escolha uma operação de pedidos e explique URI, método, entrada, saída e status."
+    },
+    {
+      "id": "rest-cardapio",
+      "titulo": "Expor cardápio e QR pela API HTTP",
+      "leituras": [
+        "rest-media",
+        "rest-recursos"
+      ],
+      "aplicacao": "Catálogo JSON e imagem QR são recursos públicos com representações diferentes. O controller adapta a projeção existente do núcleo; nenhuma credencial de garçom precisa ser entregue ao navegador para essa leitura.",
+      "pergunta": "Quais tipos de conteúdo são esperados no catálogo e no QR?"
+    },
+    {
+      "id": "rest-openapi",
+      "titulo": "Escrever a configuração OpenAPI",
+      "leituras": [
+        "rest-hateoas",
+        "rest-media"
+      ],
+      "aplicacao": "O livro de REST mostra que representação e hipermídia fazem parte do desenho da API. OpenAPI descreve o contrato HTTP implementado, mas não acrescenta HATEOAS nem regras automaticamente. A API didática exercita recursos/métodos/status e deixa hipermídia como extensão explícita.",
+      "pergunta": "O que o Swagger documenta e que comportamento ele não implementa por você?"
+    },
+    {
+      "id": "testes-rest",
+      "titulo": "Implementar testes REST e exportação OpenAPI",
+      "leituras": [
+        "clean-testes",
+        "rest-status"
+      ],
+      "aplicacao": "Teste comportamento, autorização e o contrato de resposta sem depender da disposição de uma página. MockMvc, o processo HTTP real e MySQL real são níveis de evidência diferentes e devem ser registrados com seus limites.",
+      "pergunta": "Qual teste demonstra uma regra e qual teste demonstra o contrato HTTP dessa regra?"
+    },
+    {
+      "id": "testes",
+      "titulo": "Implementar testes de publicação SOAP",
+      "leituras": [
+        "clean-testes",
+        "soa-fault"
+      ],
+      "aplicacao": "O teste publica descritores reais e consome os serviços. Isso complementa o teste do núcleo: além do resultado de negócio, confira WSDL, autenticação, projeção pública e tradução de Fault.",
+      "pergunta": "Por que compilar uma interface gerada não comprova que o WSDL está publicado corretamente?"
+    },
+    {
+      "id": "localhost",
+      "titulo": "Executar o sistema completo em localhost",
+      "leituras": [
+        "clean-testes",
+        "soa-fundamentos"
+      ],
+      "aplicacao": "A conclusão exige observar a capacidade de negócio pelos dois contratos, com persistência real. Os livros fundamentam reutilização e testabilidade; valores da conta, portas e roteiro MySQL são os experimentos próprios deste restaurante.",
+      "pergunta": "Quais evidências demonstram conta correta, mesa liberada e persistência após reiniciar?"
+    },
+    {
+      "id": "comparativo",
+      "titulo": "Comparar SOAP e REST construídos",
+      "leituras": [
+        "soa-fundamentos",
+        "rest-hateoas",
+        "clean-camadas"
+      ],
+      "aplicacao": "Compare contratos e formas de interação sem tratar SOA, SOAP, REST e OpenAPI como sinônimos. O mesmo caso de uso é reaproveitado; a alternativa HTTP do laboratório não inclui HATEOAS, ponto importante ao compará-la com a proposta completa do livro.",
+      "pergunta": "O que muda no transporte e o que permanece na regra quando você troca SOAP por HTTP/JSON?"
+    },
+    {
+      "id": "erros",
+      "titulo": "Resolver problemas do laboratório",
+      "leituras": [
+        "oca-excecoes",
+        "rest-status",
+        "soa-fault"
+      ],
+      "aplicacao": "Use a evidência da camada para interpretar o problema: erro de ambiente, recusa de negócio, status HTTP e Fault XML têm significados diferentes. A referência bibliográfica não substitui a reprodução do erro no ambiente do aluno.",
+      "pergunta": "Qual dado do log ou da resposta permite localizar a camada responsável sem expor uma senha?"
+    },
+    {
+      "id": "exercicios",
+      "titulo": "Conferir a construção e estender o sistema",
+      "leituras": [
+        "clean-testes",
+        "clean-srp",
+        "rest-hateoas"
+      ],
+      "aplicacao": "Justifique decisões e proponha uma extensão delimitada: por exemplo, acrescentar links de ações válidas em um pedido aberto e testá-los. Isso exige implementação e teste próprios; citar HATEOAS ou adicionar Swagger não conclui a extensão.",
+      "pergunta": "Escolha uma mudança e descreva sua regra, seu adaptador, sua referência e a evidência de teste necessária."
+    }
+  ]
+}

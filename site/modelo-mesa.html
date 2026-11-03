@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Implementar Mesa · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a
+                href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a class="current" aria-current="page" href="modelo-mesa.html"><span
+                    aria-hidden="true">14.</span> Implementar Mesa</a><a href="modelo-categoria.html"><span
+                    aria-hidden="true">15.</span> Implementar Categoria</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <span class="chip">Projeto e domínio · aula 14 de 85</span>
+        <h1>Implementar Mesa</h1>
+        <p class="lead">Representar uma mesa usando o enum criado na aula 13.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+
+        <section>
+            <h2 id="objetivo">1. O que fazer nesta etapa</h2>
+            <div class="callout">
+                <p><strong>Sua tarefa é criar um único arquivo: <code>Mesa.java</code>.</strong></p>
+                <p>No Eclipse, use o projeto <code>dominio</code> e o pacote
+                    <code>br.edu.soa.restaurante.dominio</code>, já existentes. O código completo e comentado está no
+                    passo 2.</p>
+                <p><strong>A aula termina quando o arquivo aparecer nesse pacote e a compilação Maven mostrar
+                        <code>BUILD SUCCESS</code> na aba Console.</strong></p>
+            </div>
+            <p>Continue o projeto após <a href="dominio-estados.html">Criar o módulo domínio e seus estados</a>. O novo
+                arquivo ficará em
+                <code>source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/Mesa.java</code>.</p>
+        </section>
+
+        <section>
+            <h2 id="conceitos">2. Entenda os dados de Mesa</h2>
+            <p>Uma mesa precisa de uma identificação técnica, de um número usado no salão e de uma situação. Vamos
+                reunir esses três dados em um <strong>record</strong> Java.</p>
+            <table>
+                <caption>Componentes do record Mesa</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Componente</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>id</code></td>
+                        <td><code>long</code></td>
+                        <td>Identificador técnico do registro, usado para consultar ou relacionar a mesa.</td>
+                        <td><code>7</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>numero</code></td>
+                        <td><code>int</code></td>
+                        <td>Número que o funcionário vê no salão. Pode ser diferente do id.</td>
+                        <td><code>3</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>situacao</code></td>
+                        <td><code>SituacaoMesa</code></td>
+                        <td>Valor do enum já criado: LIVRE ou OCUPADA.</td>
+                        <td><code>SituacaoMesa.LIVRE</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Um <code>record</code> declara seus componentes no cabeçalho. O Java gera o construtor e os métodos de
+                leitura <code>id()</code>, <code>numero()</code> e <code>situacao()</code>, além de
+                <code>equals()</code>, <code>hashCode()</code> e <code>toString()</code>. Os campos são
+                <code>final</code>, sem setters. <a href="https://openjdk.org/jeps/395">Referência: records em Java</a>.
+            </p>
+            <p><strong>Exemplo:</strong> uma mesa pode ter <code>id = 7</code> e <code>numero = 3</code>. A regra que
+                impede dois pedidos abertos na mesma mesa será implementada na aplicação; este record representa seus
+                dados.</p>
+
+        </section>
+
+        <section>
+            <h2 id="codigo">3. Faça o passo a passo no Eclipse</h2>
+
+            <h3 id="passo-1">Passo 1: Criar o arquivo no pacote existente</h3>
+            <ol>
+                <li>No <em>Project Explorer</em>, expanda
+                    <code>dominio → src/main/java → br.edu.soa.restaurante.dominio</code>.</li>
+                <li>Selecione o pacote e acesse <strong>File → New → Other… → General → File → Next</strong>.</li>
+                <li>Confira a pasta de destino: <code>dominio/src/main/java/br/edu/soa/restaurante/dominio</code>.</li>
+                <li>Em <strong>File name</strong>, informe <code>Mesa.java</code> e clique em <strong>Finish</strong>.
+                </li>
+            </ol>
+            <p><strong>Confira:</strong> o Eclipse abriu <code>Mesa.java</code> no pacote do domínio. Se ele já existir,
+                abra esse arquivo e compare seu conteúdo com o passo seguinte.</p>
+
+            <article class="etapa-arquivo"
+                data-path="source/restaurante-soap/dominio/src/main/java/br/edu/soa/restaurante/dominio/Mesa.java">
+                <h3 id="passo-2">Passo 2: Escrever o record comentado</h3>
+                <p>Cole o código completo abaixo no editor de <code>Mesa.java</code> e salve com
+                    <strong>Ctrl+S</strong>. Os comentários explicam cada parte e podem ser mantidos no arquivo.</p>
+                <pre><code class="language-java">package br.edu.soa.restaurante.dominio;
+
+// Record: reúne os dados de uma mesa e gera construtor e acessores.
+public record Mesa(
+    // Identificação técnica do registro.
+    long id,
+    // Número da mesa mostrado aos funcionários.
+    int numero,
+    // Usa o enum LIVRE/OCUPADA criado na aula 13.
+    SituacaoMesa situacao
+) {}
+</code></pre>
+                <p><strong>Confira:</strong> A declaração usa <code>record</code>, o tipo da situação é
+                    <code>SituacaoMesa</code> e o enum continua no mesmo pacote.</p>
+            </article>
+
+            <h3 id="passo-3">Passo 3: Compilar pelo Maven no Eclipse</h3>
+            <ol>
+                <li>Use <strong>File → Save All</strong>.</li>
+                <li>Acesse <strong>Run → Run Configurations… → Maven Build</strong> e selecione <strong>Compilar
+                        dominio</strong>, a configuração da aula 13.</li>
+                <li>Confira <strong>Base directory</strong>: deve apontar para o projeto <code>dominio</code>, em
+                    <code>source/restaurante-soap/dominio</code>.</li>
+                <li>Em <strong>Goals</strong>, mantenha o conteúdo abaixo. Confira o JDK 17 na aba <strong>JRE</strong>
+                    e clique em <strong>Run</strong>.</li>
+            </ol>
+            <pre><code class="language-text">compile</code></pre>
+            <p><strong>Deu certo quando:</strong> a aba <strong>Console</strong> terminar com
+                <code>BUILD SUCCESS</code>. O Maven compila os fontes do módulo e gera <code>Mesa.class</code> em
+                <code>dominio/target/classes/br/edu/soa/restaurante/dominio</code>.</p>
+
+            <h3 id="passo-4">Passo 4: Conferir o resultado na IDE</h3>
+            <ol>
+                <li>No <em>Project Explorer</em>, confira <code>Mesa.java</code> junto aos tipos das aulas anteriores.
+                </li>
+                <li>Abra a aba <strong>Problems</strong> e confira se há erros relacionados ao projeto
+                    <code>dominio</code>. Se necessário, use <strong>Window → Show View → Problems</strong>.</li>
+                <li>Compare o conteúdo salvo com o código desta aula e confira o <code>BUILD SUCCESS</code> da execução
+                    Maven.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 id="resultado">4. Resultado esperado</h2>
+            <p>A estrutura passa a incluir <code>Mesa.java</code>. Mantenha os diretórios e arquivos já criados:</p>
+            <pre><code class="language-text">laboratorio-restaurante-soa/
+├── diagramas/
+│   └── componentes.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── pom.xml
+        └── dominio/
+            ├── pom.xml
+            └── src/main/java/br/edu/soa/restaurante/dominio/
+                ├── SituacaoMesa.java
+                ├── SituacaoPedido.java
+                └── Mesa.java</code></pre>
+            <p>A pasta <code>target</code>, gerada pelo Maven dentro do módulo, contém os arquivos compilados.</p>
+            <details>
+                <summary>Se algo não funcionar no Eclipse</summary>
+                <ul>
+                    <li><strong>O arquivo está fora do pacote:</strong> confira a pasta selecionada no assistente
+                        <em>File</em> e a declaração <code>package br.edu.soa.restaurante.dominio;</code>.</li>
+                    <li><strong>Erro no nome do tipo:</strong> o arquivo deve se chamar <code>Mesa.java</code> e
+                        declarar <code>public record Mesa</code>, respeitando maiúsculas.</li>
+                    <li><strong><code>record</code> não é reconhecido:</strong> confira o JDK 17 e use <strong>Maven →
+                            Update Project…</strong> no projeto <code>dominio</code>.</li>
+                    <li><strong>A configuração de execução não aparece:</strong> clique com o botão direito em
+                        <code>dominio → Run As → Maven build…</code>, use o nome <code>Compilar dominio</code> e informe
+                        <code>compile</code> em <strong>Goals</strong>.</li>
+                    <li><strong><code>SituacaoMesa</code> não é encontrado:</strong> confira se o enum da aula 13 está
+                        no mesmo pacote e se o nome foi escrito com as mesmas maiúsculas.</li>
+                </ul>
+            </details>
+        </section>
+
+        <section>
+            <h2 id="checkpoint">5. Confira e continue</h2>
+            <ul>
+                <li>Salvei <code>Mesa.java</code> no projeto <code>dominio</code> e no pacote correto.</li>
+                <li>Consigo diferenciar <code>id</code> de <code>numero</code> e explicar o uso de
+                    <code>SituacaoMesa</code>.</li>
+                <li>A aba <strong>Problems</strong> está sem erros referentes ao módulo.</li>
+                <li>A compilação Maven terminou com <code>BUILD SUCCESS</code>.</li>
+            </ul>
+            <button class="concluir" data-aula="modelo-mesa" type="button" aria-pressed="false">Marcar aula como
+                concluída</button>
+            <p>Depois, avance para <a href="modelo-categoria.html">Implementar Categoria</a>.</p>
+        </section>
+
+        <details class="base">
+            <summary>Leitura complementar desta aula</summary>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os records e
+                    enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8 não são
+                    apresentados como fonte da sintaxe de record.</p>
+                <ul>
+                    <li data-referencia="clean-negocio"><a href="../docs/referencias.html#leitura-clean-negocio">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 20: entidades, casos de uso e modelos de dados. <strong>Páginas 260–266
+                            do PDF</strong>.</li>
+                    <li data-referencia="oca-pacotes"><a href="../docs/referencias.html#leitura-oca-pacotes">[R06]
+                            Guilherme Silveira; Mário Amaral — Java SE 7 Programmer I: o guia para sua certificação
+                            Oracle Certified Associate</a>. Cap. 3, §3.2: estrutura da classe e pacotes. <strong>Páginas
+                            18–20 do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Quais campos representam o negócio e quais seriam apenas
+                    detalhes de tela ou transporte?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </details>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="dominio-estados.html">← Criar o módulo
+                domínio e seus estados</a><a href="modelo-categoria.html">Implementar Categoria →</a></nav>
+    </main>
+</body>
+
+</html>

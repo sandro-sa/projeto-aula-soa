@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Do zero até localhost · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Projeto SOAP|OpenAPI</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a class="current" aria-current="page"
+                href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a
+                href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a>
+        
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <h1>Projeto SOAP|OpenAPI</h1>
+        <p class="lead">Construir, executar e compreender o mesmo sistema com SOAP e REST/OpenAPI.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo</h2>
+            <p>Construir, executar e compreender o mesmo sistema com SOAP e REST/OpenAPI.</p>
+        </section>
+        <section>
+            <h2 id="conceitos">2. Conceitos necessários</h2>
+            <p>Java básico, classes, exceções, coleções e uma primeira noção de cliente/servidor. Cada parte avançada
+                será introduzida antes do código.</p>
+            <p>Comece em uma pasta vazia chamada <code>laboratorio-restaurante-soa</code>. Nesta trilha você criará os
+                POMs, pacotes, classes, contratos, banco, telas e páginas Web.</p>
+            <p>Cada página trata de um assunto e mostra o estado do arquivo naquela etapa. Quando uma classe crescer, o
+                código completo da nova versão será apresentado e explicado. Os comandos só serão usados depois que os
+                arquivos dos quais dependem tiverem sido construídos. O Spring Initializr fornece apenas a estrutura
+                inicial da parte REST; os recursos do restaurante serão implementados depois.</p>
+            <ol>
+                <li>Preparar Java, Eclipse, Maven, MySQL e Tomcat.</li>
+                <li>Criar o projeto Maven e o domínio, classe por classe.</li>
+                <li>Implementar regras e persistência, depois contratos e endpoints SOAP.</li>
+                <li>Construir as telas Swing e o cardápio.</li>
+                <li>Gerar uma aplicação vazia no Spring Initializr e implementar REST/OpenAPI.</li>
+                <li>Executar os testes e os dois sistemas em localhost.</li>
+            </ol>
+            <p>O destino final é um laboratório local: SOAP em <code>localhost:8080/restaurante</code> e REST em
+                <code>localhost:8081</code>, com bancos MySQL distintos. Não é necessário publicar nada na Internet.</p>
+        </section>
+        <section>
+            <h2 id="problema">3. Problema que será resolvido</h2>
+            <p>Organizar uma construção reproduzível sem exigir nenhum arquivo funcional como ponto de partida.</p>
+        </section>
+        <section>
+            <h2 id="arquivos">4. Arquivos a criar ou alterar</h2>
+            <p>Caminhos relativos à pasta vazia em laboratorio-restaurante-soa, e depois ao projeto que você está construindo:</p>
+            <p>Este tutorial configura ferramentas ou exercita o projeto já construído. Nenhuma classe futura é pressuposta.
+            </p>
+        </section>
+        <section>
+            <h2 id="codigo">5. Implementação passo a passo e código da etapa</h2>
+            <p>Execute os passos na ordem apresentada. Não há arquivo de solução para importar no início. Quando um
+                arquivo evolui, a versão completa abaixo corresponde exatamente a esta etapa.</p>
+            <h3>Exemplo para implementar/verificar nesta etapa</h3>
+            <pre><code class="language-text">laboratorio-restaurante-soa/
+└── (vazio)</code></pre>
+        </section>
+        <section>
+        
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação</h3>
+                <p>Os serviços são capacidades do restaurante e os frameworks são ferramentas para expô-las. A
+                    construção começa na pasta vazia; os livros orientam as decisões, não fornecem um projeto do
+                    restaurante para importar.</p>
+                <ul>
+                    <li data-referencia="soa-fundamentos"><a
+                            href="../docs/referencias.html#leitura-soa-fundamentos">[R01] Alexandre Saudate — SOA
+                            aplicado: integrando com web services e além</a>. Cap. 1, §1.7–1.8: serviços e orientação a
+                        serviços. <strong>Páginas 27–29 do PDF</strong>.</li>
+                    <li data-referencia="clean-camadas"><a href="../docs/referencias.html#leitura-clean-camadas">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 22: regra de dependência e adaptadores. <strong>Páginas 273–282 do
+                            PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Quais regras deverão continuar iguais quando o transporte mudar
+                    de SOAP para HTTP/JSON?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </section>
+        <section>
+            <h2 id="eclipse">6. Como implementar no Eclipse e executar</h2>
+            <ol>
+                <li>Continue na pasta do aluno criada no tutorial inicial. Não importe a solução final.</li>
+                <li>Execute a configuração/experimento descrito acima e registre o resultado.</li>
+                <li>Execute somente os comandos desta página. Use outro terminal quando um comando mantiver um servidor
+                    em execução.</li>
+            </ol>
+            <pre><code class="language-powershell">$pastaLaboratorio = Join-Path $env:USERPROFILE 'laboratorio-restaurante-soa'
+if (Test-Path $pastaLaboratorio) { throw 'Escolha outra pasta vazia para iniciar a atividade.' }
+New-Item -ItemType Directory -Path $pastaLaboratorio
+Set-Location $pastaLaboratorio
+Get-ChildItem -Force</code></pre>
+        </section>
+        <section>
+            <h2 id="fluxo">7. Fluxo da execução</h2>
+            <div class="fluxo">Pasta vazia → ferramentas → POM inicial → arquivos escritos por assunto → testes →
+                localhost.</div>
+        </section>
+        <section>
+            <h2 id="resultado">8. Resultado esperado nesta etapa</h2>
+            <p>Somente uma pasta vazia foi criada; ainda não existe aplicação para executar.</p>
+            <p>O resultado é um checkpoint para você executar. O <a href="../docs/validacao.md">registro de validação do
+                    material</a> distingue testes automatizados, reconstrução da trilha e execução real no MySQL.
+                Consulte também a <a href="../docs/revisao-html.md">revisão passo a passo dos HTMLs</a>.</p>
+        </section>
+        <section>
+            <h2 id="problemas">9. Problemas frequentes</h2>
+            <ul>
+                <li>Pasta já existe: escolha outro nome vazio, preservando o trabalho anterior.</li>
+                <li>Permissão negada: use uma pasta gravável do seu perfil, sem exigir execução como administrador.</li>
+                <li>Diretório errado: confirme Get-Location antes de criar os primeiros arquivos.</li>
+            </ul>
+        </section>
+     
+       
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para ferramentas e versões: <a
+                href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="ambiente.html">Planejar o ambiente local
+                →</a></nav>
+    </main>
+</body>
+
+</html>

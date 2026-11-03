@@ -1,0 +1,197 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Comparar SOAP e REST construídos · Restaurante do zero</title><link rel="stylesheet" href="style.css"><script src="tutorial.js" defer></script></head><body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a><aside><span class="chip">Do zero até localhost</span><h2>Restaurante<br>SOAP + REST</h2><p>Java 17 · MySQL · Spring Initializr</p><nav aria-label="Trilha de construção"><p class="nav-grupo">Preparação do laboratório</p><a  href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a  href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a  href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK 17</a><a  href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar o JDK</a><a  href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o POM</a><a  href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a  href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a  href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a  href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a><p class="nav-grupo">Projeto e domínio</p><a  href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a  href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a  href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a  href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a  href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a  href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a  href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a  href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a  href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a  href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a><p class="nav-grupo">Regras de negócio</p><a  href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a  href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de persistência</a><a  href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de mesas</a><a  href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a  href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de produtos</a><a  href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo do pedido</a><a  href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a><p class="nav-grupo">Persistência MySQL</p><a  href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a  href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a  href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a  href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a  href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais externas</a><a  href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a><p class="nav-grupo">Contratos SOAP</p><a  href="contrato-xsd.html"><span aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a  href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a  href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de Categoria</a><a  href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de Produto</a><a  href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de Pedido</a><a  href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos contratos</a><p class="nav-grupo">Servidor SOAP</p><a  href="servidor.html"><span aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a  href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco no WAR</a><a  href="soap-autenticacao.html"><span aria-hidden="true">41.</span> Autenticar requisições SOAP</a><a  href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a  href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs SOAP</a><a  href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar MesaEndpoint</a><a  href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar CategoriaEndpoint</a><a  href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a  href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar PedidoEndpoint</a><a  href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da imagem QR</a><a  href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a  href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e serviços no Tomcat</a><a  href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no Tomcat localhost</a><p class="nav-grupo">Interfaces Swing</p><a  href="desktop-conexao.html"><span aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a  href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a  href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de cadastro</a><a  href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a  href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing de categorias</a><a  href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a  href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela administrativa</a><a  href="swing-pedidos.html"><span aria-hidden="true">59.</span> Construir a janela do garçom</a><a  href="testes-swing.html"><span aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a><p class="nav-grupo">Cardápio local</p><a  href="cardapio-imagem.html"><span aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a  href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML semântico</a><a  href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar o layout responsivo</a><a  href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar busca, categorias e consulta JSON</a><a  href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR em localhost</a><p class="nav-grupo">REST desde o Initializr</p><a  href="spring-initializr.html"><span aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a  href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a  href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a  href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a  href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a  href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a  href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a  href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a  href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a  href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a  href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a  href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a  href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a  href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a><p class="nav-grupo">Validação em localhost</p><a  href="testes-rest.html"><span aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a  href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a  href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a><p class="nav-grupo">Consolidação</p><a class="current" aria-current="page" href="comparativo.html"><span aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a  href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do laboratório</a><a  href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e estender o sistema</a></nav></aside><main id="conteudo" tabindex="-1"><span class="chip">Consolidação · aula 83 de 85</span><h1>Comparar SOAP e REST construídos</h1><p class="lead">Registrar uma comparação entre uma operação SOAP e a mesma capacidade na API REST.</p><p id="progresso" class="foot" aria-live="polite"></p>
+<section><h2 id="objetivo">1. O que fazer nesta etapa</h2><div class="callout"><p><strong>Registrar uma comparação entre uma operação SOAP e a mesma capacidade na API REST.</strong></p><p>Esta aula é uma atividade de execução, análise ou registro sobre o sistema já construído.</p><p><strong>A aula termina quando:</strong> Seu registro compara XML/JSON, WSDL/OpenAPI, autenticação e erros com evidências.</p></div><p>Continue no Eclipse após <a href="localhost.html">Executar o sistema completo em localhost</a>. Use os projetos e os arquivos que você construiu nas etapas anteriores.</p></section>
+<section><h2 id="conceitos">2. Entenda o que será feito</h2><p>Compare mensagens e contratos reais do laboratório para separar protocolo, estilo arquitetural e implementação.</p><ul><li>Use adicionar item ou fechar pedido nas duas versões.</li><li>A regra e a transação pertencem ao núcleo em ambas.</li></ul><details><summary>Pontos para observar no código</summary><ul><li>SOAPAction/operation identifica a operação SOAP; no REST combinamos rota e método.</li><li>Um 500 SOAP com Fault de negócio não equivale à mesma convenção do REST 409.</li><li>Transporte seguro e autorização são necessários em ambas as alternativas.</li></ul></details></section>
+<section><h2 id="codigo">3. Faça o passo a passo</h2><h3 id="passo-1">Passo 1: Executar a atividade e registrar a evidência</h3><ol><li>Escolha uma capacidade disponível nas duas versões, como adicionar item ao pedido.</li><li>Observe a operação SOAP no contrato e no cliente e a operação HTTP no Swagger. Anote entrada, resposta, identidade e tratamento de erro.</li><li>Registre uma chamada válida e uma recusa por regra de negócio em cada versão, usando dados equivalentes.</li><li>Compare o formato da mensagem, o contrato e o caminho até Restaurante. Conclua quais partes mudaram e quais regras permaneceram no núcleo.</li></ol><p>Registre a verificação no arquivo <code>docs/registro-laboratorio.md</code>. No projeto <code>laboratorio-restaurante</code>, use <strong>New → File</strong> se ele ainda não existir; nas próximas atividades, acrescente a nova aula ao mesmo registro.</p></section>
+<section><h2 id="resultado">4. Resultado esperado</h2><p>Seu registro compara XML/JSON, WSDL/OpenAPI, autenticação e erros com evidências.</p><table><thead><tr><th scope="col">Compare</th><th scope="col">SOAP</th><th scope="col">REST deste laboratório</th></tr></thead><tbody><tr><td>Contrato e mensagem</td><td>WSDL/XSD e envelope XML.</td><td>OpenAPI e operações HTTP com JSON.</td></tr><tr><td>Consumidor observado</td><td>Cliente gerado usado no Swing.</td><td>Swagger UI ou cliente HTTP.</td></tr><tr><td>Recusa do negócio</td><td>SOAP Fault traduzido pelo adaptador.</td><td>Status HTTP e corpo de erro.</td></tr><tr><td>Regra e persistência</td><td colspan="2">Casos de uso e porta de persistência no núcleo; bancos separados por implantação.</td></tr></tbody></table><details><summary>Estrutura de diretórios acumulada até esta aula</summary><p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta árvore.</p><pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── cardapio-web/
+│   ├── app.js
+│   ├── assets/
+│   │   └── carbonara.svg
+│   ├── index.html
+│   └── style.css
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   ├── camadas.md
+│   └── registro-laboratorio.md
+├── pom.xml
+├── scripts/
+│   ├── configurar-sessao.ps1
+│   └── maven.ps1
+├── source/
+│   ├── restaurante-rest-openapi/
+│   │   ├── .mvn/
+│   │   │   └── wrapper/
+│   │   │       └── maven-wrapper.properties
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   └── src/
+│   │       ├── main/
+│   │       │   ├── java/
+│   │       │   │   └── br/
+│   │       │   │       └── edu/
+│   │       │   │           └── soa/
+│   │       │   │               └── restaurante/
+│   │       │   │                   └── rest/
+│   │       │   │                       ├── CardapioController.java
+│   │       │   │                       ├── CategoriaController.java
+│   │       │   │                       ├── ConfiguracaoAplicacao.java
+│   │       │   │                       ├── DocumentacaoOpenApi.java
+│   │       │   │                       ├── Entradas.java
+│   │       │   │                       ├── Erros.java
+│   │       │   │                       ├── MesaController.java
+│   │       │   │                       ├── PedidoController.java
+│   │       │   │                       ├── PingController.java
+│   │       │   │                       ├── ProdutoController.java
+│   │       │   │                       ├── QrController.java
+│   │       │   │                       ├── RestauranteApplication.java
+│   │       │   │                       ├── Saidas.java
+│   │       │   │                       └── Seguranca.java
+│   │       │   └── resources/
+│   │       │       └── application.properties
+│   │       └── test/
+│   │           └── java/
+│   │               └── br/
+│   │                   └── edu/
+│   │                       └── soa/
+│   │                           └── restaurante/
+│   │                               └── rest/
+│   │                                   ├── RestHttpTest.java
+│   │                                   └── RestauranteApplicationTests.java
+│   └── restaurante-soap/
+│       ├── aplicacao/
+│       │   ├── pom.xml
+│       │   └── src/
+│       │       ├── main/
+│       │       │   └── java/
+│       │       │       └── br/
+│       │       │           └── edu/
+│       │       │               └── soa/
+│       │       │                   └── restaurante/
+│       │       │                       └── aplicacao/
+│       │       │                           ├── Falha.java
+│       │       │                           ├── Repositorio.java
+│       │       │                           └── Restaurante.java
+│       │       └── test/
+│       │           └── java/
+│       │               └── br/
+│       │                   └── edu/
+│       │                       └── soa/
+│       │                           └── restaurante/
+│       │                               └── aplicacao/
+│       │                                   └── RestauranteTest.java
+│       ├── contrato/
+│       │   ├── pom.xml
+│       │   └── src/
+│       │       └── main/
+│       │           └── resources/
+│       │               └── wsdl/
+│       │                   ├── CategoriaService.wsdl
+│       │                   ├── MesaService.wsdl
+│       │                   ├── PedidoService.wsdl
+│       │                   ├── ProdutoService.wsdl
+│       │                   └── restaurante.xsd
+│       ├── desktop/
+│       │   ├── pom.xml
+│       │   └── src/
+│       │       └── main/
+│       │           └── java/
+│       │               └── br/
+│       │                   └── edu/
+│       │                       └── soa/
+│       │                           └── restaurante/
+│       │                               ├── CadastroPanel.java
+│       │                               ├── ConexaoSoap.java
+│       │                               ├── Janela.java
+│       │                               ├── PainelCategorias.java
+│       │                               ├── PainelMesas.java
+│       │                               ├── PainelProdutos.java
+│       │                               ├── TelaPedidos.java
+│       │                               └── TelaProdutos.java
+│       ├── dominio/
+│       │   ├── pom.xml
+│       │   └── src/
+│       │       └── main/
+│       │           └── java/
+│       │               └── br/
+│       │                   └── edu/
+│       │                       └── soa/
+│       │                           └── restaurante/
+│       │                               └── dominio/
+│       │                                   ├── Categoria.java
+│       │                                   ├── ItemPedido.java
+│       │                                   ├── Mesa.java
+│       │                                   ├── Pedido.java
+│       │                                   ├── Produto.java
+│       │                                   ├── SituacaoMesa.java
+│       │                                   └── SituacaoPedido.java
+│       ├── infraestrutura/
+│       │   ├── pom.xml
+│       │   └── src/
+│       │       ├── main/
+│       │       │   ├── java/
+│       │       │   │   └── br/
+│       │       │   │       └── edu/
+│       │       │   │           └── soa/
+│       │       │   │               └── restaurante/
+│       │       │   │                   └── infraestrutura/
+│       │       │   │                       ├── Banco.java
+│       │       │   │                       ├── Credenciais.java
+│       │       │   │                       ├── JdbcRepositorio.java
+│       │       │   │                       └── QrCode.java
+│       │       │   └── resources/
+│       │       │       └── db/
+│       │       │           └── migration/
+│       │       │               └── V1__restaurante.sql
+│       │       └── test/
+│       │           └── java/
+│       │               └── br/
+│       │                   └── edu/
+│       │                       └── soa/
+│       │                           └── restaurante/
+│       │                               └── infraestrutura/
+│       │                                   ├── ErrosMySqlTest.java
+│       │                                   ├── MySqlLocalTest.java
+│       │                                   ├── QrCodeTest.java
+│       │                                   └── RestauranteBancoTest.java
+│       ├── pom.xml
+│       └── servidor/
+│           ├── pom.xml
+│           └── src/
+│               ├── main/
+│               │   ├── java/
+│               │   │   └── br/
+│               │   │       └── edu/
+│               │   │           └── soa/
+│               │   │               └── restaurante/
+│               │   │                   ├── Acesso.java
+│               │   │                   ├── AutenticacaoFilter.java
+│               │   │                   ├── CardapioServlet.java
+│               │   │                   ├── CategoriaEndpoint.java
+│               │   │                   ├── Contexto.java
+│               │   │                   ├── MesaEndpoint.java
+│               │   │                   ├── PedidoEndpoint.java
+│               │   │                   ├── ProdutoEndpoint.java
+│               │   │                   └── SoapDtos.java
+│               │   └── webapp/
+│               │       └── WEB-INF/
+│               │           ├── sun-jaxws.xml
+│               │           └── web.xml
+│               └── test/
+│                   └── java/
+│                       └── br/
+│                           └── edu/
+│                               └── soa/
+│                                   └── restaurante/
+│                                       └── SoapHttpTest.java
+└── testes/
+    ├── rest.http
+    └── soap/
+        ├── adicionar-item.xml
+        └── fault.xml</code></pre></details><details><summary>Se a verificação não der certo</summary><ul><li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>; confira o projeto, o caminho do arquivo e o pacote.</li><li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo listado já possui seu POM.</li><li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em erro de download, confira a conexão e o repositório informado.</li><li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li></ul></details></section>
+<section><h2 id="checkpoint">5. Confira e continue</h2><ul><li>Registrei as ações executadas e as evidências em docs/registro-laboratorio.md.</li><li>Seu registro compara XML/JSON, WSDL/OpenAPI, autenticação e erros com evidências.</li><li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li><li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li></ul><button class="concluir" data-aula="comparativo" type="button" aria-pressed="false">Marcar aula como concluída</button><p>Depois, avance para <a href="erros.html">Resolver problemas do laboratório</a>.</p></section>
+<details class="base"><summary>Fundamentação e leitura complementar</summary><div class="callout referencias-aula" aria-labelledby="fundamentacao"><h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3><p>Compare contratos e formas de interação sem tratar SOA, SOAP, REST e OpenAPI como sinônimos. O mesmo caso de uso é reaproveitado; a alternativa HTTP do laboratório não inclui HATEOAS, ponto importante ao compará-la com a proposta completa do livro.</p><ul><li data-referencia="soa-fundamentos"><a href="../docs/referencias.html#leitura-soa-fundamentos">[R01] Alexandre Saudate — SOA aplicado: integrando com web services e além</a>. Cap. 1, §1.7–1.8: serviços e orientação a serviços. <strong>Páginas 27–29 do PDF</strong>.</li><li data-referencia="rest-hateoas"><a href="../docs/referencias.html#leitura-rest-hateoas">[R02] Alexandre Saudate — REST: construa APIs inteligentes de maneira simples</a>. Cap. 3, §3.4–3.5: status e hipermídia. <strong>Páginas 40–43 do PDF</strong>.</li><li data-referencia="clean-camadas"><a href="../docs/referencias.html#leitura-clean-camadas">[R03] Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de software</a>. Cap. 22: regra de dependência e adaptadores. <strong>Páginas 273–282 do PDF</strong>.</li></ul><p><strong>Confira na leitura:</strong> O que muda no transporte e o que permanece na regra quando você troca SOAP por HTTP/JSON?</p><p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.</p></div></details><nav class="links" aria-label="Aulas anterior e seguinte"><a href="localhost.html">← Executar o sistema completo em localhost</a><a href="erros.html">Resolver problemas do laboratório →</a></nav></main></body></html>

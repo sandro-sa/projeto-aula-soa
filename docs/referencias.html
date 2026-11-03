@@ -1,0 +1,1342 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Referências em PDF · Restaurante do zero</title>
+    <link rel="stylesheet" href="../site/style.css">
+    <script src="referencias.js" defer></script>
+</head>
+
+<body><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Bibliografia fornecida</span>
+        <h2>Livros e aplicação<br>nas aulas</h2>
+        <nav aria-label="Referências bibliográficas"><a href="../site/index.html">← Voltar ao tutorial</a><a
+                href="#criterios">Critérios e paginação</a><a href="#atualizacoes">Adaptações e leitura crítica</a><a
+                href="#livro-soa">[R01] SOA aplicado: integrando com web services e além</a><a href="#livro-rest">[R02]
+                REST: construa APIs inteligentes de maneira simples</a><a href="#livro-clean">[R03] Arquitetura Limpa: o
+                guia do artesão para estrutura e design de software</a><a href="#livro-java">[R04] Java para
+                iniciantes</a><a href="#livro-java8">[R05] Java 8 Prático: lambdas, streams e os novos recursos da
+                linguagem</a><a href="#livro-oca">[R06] Java SE 7 Programmer I: o guia para sua certificação Oracle
+                Certified Associate</a><a href="#livro-javafx">[R07] JavaFX: interfaces com qualidade para aplicações
+                desktop</a><a href="#livro-jpa">[R08] JPA Eficaz: as melhores práticas de persistência de dados em
+                Java</a><a href="#livro-jsf">[R09] JSF Eficaz: as melhores práticas para o desenvolvedor web Java</a><a
+                href="#mapa">Mapa das 85 aulas</a></nav>
+    </aside>
+    <main id="conteudo" tabindex="-1">
+        <h1>Referências em PDF</h1>
+        <p class="lead">9 obras, 33 leituras selecionadas e aplicações nas 85 aulas.</p>
+        <p>Consulta: 01/11/2026. <a href="referencias.md">Versão em Markdown</a> · <a
+                href="referencias-pdf.json">Catálogo verificável</a>.</p>
+        <section id="criterios" tabindex="-1">
+            <h2>Como as referências foram usadas</h2>
+            <p>Os nove PDFs originais estão <code> Raiz</code>. A leitura foi dirigida aos trechos listados
+                abaixo, com conferência de autoria nas capas, extração de texto quando disponível e leitura visual das
+                páginas digitalizadas de Schildt. A consulta não representa uma leitura integral de todos os livros.</p>
+            <p><strong>Paginação:</strong> Número da página no arquivo PDF, contado a partir da capa como página 1; não
+                é a numeração impressa. Um link “página 554”, por exemplo, usa a página 554 do arquivo, mesmo que a
+                folha mostre outro número.</p>
+            <p>Cada uma das 85 aulas apresenta uma aplicação do conceito, referências de capítulo/páginas e uma pergunta
+                de compreensão. Os exemplos, regras e código do restaurante são desenvolvidos pelo tutorial. Os PDFs
+                orientam conceitos; versões e comandos de Java 17, Jakarta, Maven, MySQL, Tomcat, Spring Initializr e
+                OpenAPI são complementados pelas documentações oficiais.</p>
+            <p>SOA aplicado, REST e Arquitetura Limpa são as referências principais. Java para iniciantes, Java 8
+                Prático e o guia OCA apoiam a linguagem. JPA, JavaFX e JSF fornecem comparações delimitadas: a
+                implementação continua JDBC/Flyway, Swing e HTML/CSS/JavaScript.</p>
+            <p>Os links abrem os arquivos originais. Pela prévia localhost, o servidor fornece somente os PDFs
+                cadastrados; ao abrir este HTML diretamente do disco, os links usam os caminhos locais. Se os livros
+                forem movidos, defina <code>SOA_REFERENCIAS_DIR</code> antes de gerar a bibliografia e iniciar a prévia.
+            </p>
+        </section>
+        <section id="atualizacoes" tabindex="-1">
+            <h2>Leitura crítica e adaptações</h2>
+            <ul>
+                <li>Java e Jakarta: os exemplos antigos de serviços não determinam as dependências do projeto Java 17. A
+                    geração usa Maven/Metro. javax.swing, javax.sql e javax.xml.namespace continuam sendo APIs Java SE;
+                    não se troca todo prefixo javax por jakarta.</li>
+                <li>Persistência: conceitos de transação, associação e concorrência de JPA Eficaz são comparados à
+                    implementação JDBC. O laboratório não usa EntityManager, @Version ou ORM e não presume o isolamento
+                    do MySQL a partir das descrições do exemplar.</li>
+                <li>Arquitetura: o projeto aplica a direção das dependências, mas agrupa casos de uso em Restaurante e
+                    não replica todas as portas/apresentadores do diagrama de Martin. A proposta do livro e a
+                    simplificação didática são explicitadas nas aulas.</li>
+                <li>REST: o exemplar discute HATEOAS; a API didática implementa recursos, métodos e status com URLs
+                    conhecidas. OpenAPI descreve essa API e não acrescenta navegação por hipermídia. HATEOAS permanece
+                    uma extensão a implementar e testar.</li>
+                <li>Java 8 Prático: a discussão da ausência de Stream.toList pertence ao Java 8 do livro. O código da
+                    trilha tem alvo Java 17 e pode usar essa API posterior, sem atribuí-la ao exemplar.</li>
+            </ul>
+            <p><strong>HTTP:</strong> no PDF REST, p. 28, a associação de Accept incompatível com 415 precisa de
+                atualização. 406 corresponde à negociação da resposta; 415, ao conteúdo recebido não suportado.
+                Content-Type pode aparecer em requisições e respostas. Consulte a <a
+                    href="https://www.rfc-editor.org/rfc/rfc9110.html#name-406-not-acceptable">RFC 9110, §15.5.7</a> e
+                <a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-415-unsupported-media-type">§15.5.16</a>.
+            </p>
+            <p><strong>Basic:</strong> apesar da terminologia no PDF SOA, p. 153, Base64 é codificação reversível, sem
+                confidencialidade criptográfica. Consulte a <a
+                    href="https://www.rfc-editor.org/rfc/rfc4648.html#section-12">RFC 4648, §12</a>.</p>
+        </section>
+        <section id="livro-soa" tabindex="-1">
+            <h2>[R01] SOA aplicado: integrando com web services e além</h2>
+            <p>Alexandre Saudate. SOA aplicado: integrando com web services e além. Casa do Código, [s.d.].</p>
+            <p><span class="chip">Principal</span> 286 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/soa.pdf#page=1"
+                    data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>Fundamenta serviços, contratos, SOAP, WSDL/XSD, faults e contract-first. Os exemplos antigos de JAX-WS e
+                servidores são adaptados para Metro/Jakarta e Tomcat 10.1.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\SOA Aplicado - Integrando com web services e além - Autor (Casa do Código).pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>1b8cefa9f2cd48bc30a05289766a19497896cbf94fc462621c33889d060c18de</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-soa-fundamentos" tabindex="-1"><strong>Cap. 1, §1.7–1.8: serviços e orientação a
+                            serviços</strong> - páginas 27–29 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=27"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="27" target="_blank" rel="noopener">Abrir PDF na página 27</a></div>
+                </li>
+                <li>
+                    <div id="leitura-soa-xml" tabindex="-1"><strong>Cap. 2, §2.1–2.4: namespaces, SOAP e tipos
+                            XML</strong> - páginas 30–35 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=30"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="30" target="_blank" rel="noopener">Abrir PDF na página 30</a></div>
+                </li>
+                <li>
+                    <div id="leitura-soa-wsdl" tabindex="-1"><strong>Cap. 2, §2.5–2.9: message, portType, binding e
+                            service</strong> - páginas 37–42 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=37"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="37" target="_blank" rel="noopener">Abrir PDF na página 37</a></div>
+                </li>
+                <li>
+                    <div id="leitura-soa-fault" tabindex="-1"><strong>Cap. 3, §3.2–3.4: exceções, Fault e
+                            detail</strong> - páginas 60–65 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=60"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="60" target="_blank" rel="noopener">Abrir PDF na página 60</a></div>
+                </li>
+                <li>
+                    <div id="leitura-soa-http-basic" tabindex="-1"><strong>Cap. 6, §6.3: autenticação e autorização
+                            HTTP</strong> - páginas 152–153 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=152"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="152" target="_blank" rel="noopener">Abrir PDF na página 152</a></div>
+                </li>
+                <li>
+                    <div id="leitura-soa-canonico" tabindex="-1"><strong>Cap. 7, §7.1–7.2: integração e modelo
+                            canônico</strong> - páginas 200–203 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=200"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="200" target="_blank" rel="noopener">Abrir PDF na página 200</a></div>
+                </li>
+                <li>
+                    <div id="leitura-soa-contract-first" tabindex="-1"><strong>Cap. 7, §7.3: desenvolvimento
+                            contract-first</strong> - páginas 208–211 do PDF. <a class="abrir-pdf"
+                            href="../referencias/soa.pdf#page=208"
+                            data-arquivo="../SOA%20Aplicado%20-%20Integrando%20com%20web%20services%20e%20al%C3%A9m%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="208" target="_blank" rel="noopener">Abrir PDF na página 208</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-rest" tabindex="-1">
+            <h2>[R02] REST: construa APIs inteligentes de maneira simples</h2>
+            <p>Alexandre Saudate. REST: construa APIs inteligentes de maneira simples. Casa do Código, [s.d.].</p>
+            <p><span class="chip">Principal</span> 107 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/rest.pdf#page=1"
+                    data-arquivo="../REST%20-%20Construa%20API's%20inteligentes%20de%20maneira%20simples%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>Fundamenta recursos, métodos, representações, status e hipermídia. O exemplar tem 107 páginas e termina
+                na bibliografia após o capítulo de Servlets. Spring Boot, Initializr e OpenAPI são complementos do
+                tutorial, não conteúdos atribuídos ao livro.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\REST - Construa API's inteligentes de maneira simples - Autor (Casa do Código).pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>b6fbe6a7269ef5d46f584d2798e7e64a79129a5cc1fd19e01da4e6e6f3d2a8f3</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-rest-http" tabindex="-1"><strong>Cap. 2, §2.2: métodos e idempotência</strong> -
+                        páginas 21–23 do PDF. <a class="abrir-pdf" href="../referencias/rest.pdf#page=21"
+                            data-arquivo="../REST%20-%20Construa%20API's%20inteligentes%20de%20maneira%20simples%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="21" target="_blank" rel="noopener">Abrir PDF na página 21</a></div>
+                </li>
+                <li>
+                    <div id="leitura-rest-media" tabindex="-1"><strong>Cap. 2, §2.4–2.5: cabeçalhos e media
+                            types</strong> - páginas 25–28 do PDF. <a class="abrir-pdf"
+                            href="../referencias/rest.pdf#page=25"
+                            data-arquivo="../REST%20-%20Construa%20API's%20inteligentes%20de%20maneira%20simples%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="25" target="_blank" rel="noopener">Abrir PDF na página 25</a></div>
+                </li>
+                <li>
+                    <div id="leitura-rest-status" tabindex="-1"><strong>Cap. 2, §2.6: códigos de status</strong> -
+                        páginas 29–32 do PDF. <a class="abrir-pdf" href="../referencias/rest.pdf#page=29"
+                            data-arquivo="../REST%20-%20Construa%20API's%20inteligentes%20de%20maneira%20simples%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="29" target="_blank" rel="noopener">Abrir PDF na página 29</a></div>
+                </li>
+                <li>
+                    <div id="leitura-rest-recursos" tabindex="-1"><strong>Cap. 3, §3.1–3.3: recursos, métodos e
+                            representações</strong> - páginas 35–38 do PDF. <a class="abrir-pdf"
+                            href="../referencias/rest.pdf#page=35"
+                            data-arquivo="../REST%20-%20Construa%20API's%20inteligentes%20de%20maneira%20simples%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="35" target="_blank" rel="noopener">Abrir PDF na página 35</a></div>
+                </li>
+                <li>
+                    <div id="leitura-rest-hateoas" tabindex="-1"><strong>Cap. 3, §3.4–3.5: status e hipermídia</strong>
+                        - páginas 40–43 do PDF. <a class="abrir-pdf" href="../referencias/rest.pdf#page=40"
+                            data-arquivo="../REST%20-%20Construa%20API's%20inteligentes%20de%20maneira%20simples%20-%20Autor%20(Casa%20do%20C%C3%B3digo).pdf"
+                            data-pagina="40" target="_blank" rel="noopener">Abrir PDF na página 40</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-clean" tabindex="-1">
+            <h2>[R03] Arquitetura Limpa: o guia do artesão para estrutura e design de software</h2>
+            <p>Robert C. Martin. Arquitetura Limpa: o guia do artesão para estrutura e design de software. Alta Books,
+                2019.</p>
+            <p><span class="chip">Principal</span> 489 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/clean.pdf#page=1"
+                    data-arquivo="../Arquitetura%20Limpa%20-%20O%20Guia%20do%20Artes%C3%A3o%20para%20Estrutura%20e%20Design%20de%20Software%20-%20Autor%20(Robert%20C.%20Martin).pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>Fundamenta a regra de dependência, entidades, casos de uso, adaptadores e testabilidade. A edição digital
+                tem paginação refluída; as referências usam as 489 páginas do PDF. A ficha menciona edição brasileira de
+                2019 e também copyright 2020.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\Arquitetura Limpa - O Guia do Artesão para Estrutura e Design de Software - Autor (Robert C. Martin).pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>80522beebde04d4866b1ae08d18abba6c6db749e456216f93f6bc48b0ecd01f1</code>. Ano conferido no
+                exemplar.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-clean-srp" tabindex="-1"><strong>Cap. 7: princípio da responsabilidade
+                            única</strong> - páginas 113–119 do PDF. <a class="abrir-pdf"
+                            href="../referencias/clean.pdf#page=113"
+                            data-arquivo="../Arquitetura%20Limpa%20-%20O%20Guia%20do%20Artes%C3%A3o%20para%20Estrutura%20e%20Design%20de%20Software%20-%20Autor%20(Robert%20C.%20Martin).pdf"
+                            data-pagina="113" target="_blank" rel="noopener">Abrir PDF na página 113</a></div>
+                </li>
+                <li>
+                    <div id="leitura-clean-dip" tabindex="-1"><strong>Cap. 11: princípio da inversão de
+                            dependência</strong> - páginas 139–144 do PDF. <a class="abrir-pdf"
+                            href="../referencias/clean.pdf#page=139"
+                            data-arquivo="../Arquitetura%20Limpa%20-%20O%20Guia%20do%20Artes%C3%A3o%20para%20Estrutura%20e%20Design%20de%20Software%20-%20Autor%20(Robert%20C.%20Martin).pdf"
+                            data-pagina="139" target="_blank" rel="noopener">Abrir PDF na página 139</a></div>
+                </li>
+                <li>
+                    <div id="leitura-clean-negocio" tabindex="-1"><strong>Cap. 20: entidades, casos de uso e modelos de
+                            dados</strong> - páginas 260–266 do PDF. <a class="abrir-pdf"
+                            href="../referencias/clean.pdf#page=260"
+                            data-arquivo="../Arquitetura%20Limpa%20-%20O%20Guia%20do%20Artes%C3%A3o%20para%20Estrutura%20e%20Design%20de%20Software%20-%20Autor%20(Robert%20C.%20Martin).pdf"
+                            data-pagina="260" target="_blank" rel="noopener">Abrir PDF na página 260</a></div>
+                </li>
+                <li>
+                    <div id="leitura-clean-camadas" tabindex="-1"><strong>Cap. 22: regra de dependência e
+                            adaptadores</strong> - páginas 273–282 do PDF. <a class="abrir-pdf"
+                            href="../referencias/clean.pdf#page=273"
+                            data-arquivo="../Arquitetura%20Limpa%20-%20O%20Guia%20do%20Artes%C3%A3o%20para%20Estrutura%20e%20Design%20de%20Software%20-%20Autor%20(Robert%20C.%20Martin).pdf"
+                            data-pagina="273" target="_blank" rel="noopener">Abrir PDF na página 273</a></div>
+                </li>
+                <li>
+                    <div id="leitura-clean-testes" tabindex="-1"><strong>Cap. 28: o limite teste e
+                            testabilidade</strong> - páginas 323–327 do PDF. <a class="abrir-pdf"
+                            href="../referencias/clean.pdf#page=323"
+                            data-arquivo="../Arquitetura%20Limpa%20-%20O%20Guia%20do%20Artes%C3%A3o%20para%20Estrutura%20e%20Design%20de%20Software%20-%20Autor%20(Robert%20C.%20Martin).pdf"
+                            data-pagina="323" target="_blank" rel="noopener">Abrir PDF na página 323</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-java" tabindex="-1">
+            <h2>[R04] Java para iniciantes</h2>
+            <p>Herbert Schildt. Java para iniciantes. 6. edição. Bookman, 2015.</p>
+            <p><span class="chip">Apoio</span> 703 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/java.pdf#page=1"
+                    data-arquivo="../Java%20para%20iniciantes.pdf" data-pagina="1" target="_blank"
+                    rel="noopener">Abrir PDF</a></p>
+            <p>Exemplar digitalizado, sem camada de texto extraível. Capa, ficha, sumário e páginas citadas foram
+                conferidos visualmente. Apoia compilação, execução, componentes Swing e criação da janela na EDT; o alvo
+                do projeto permanece Java 17.</p>
+            <p>Arquivo original: <code>D:\Fatec\SOA\Java para iniciantes.pdf</code></p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>f3cfd3e99110f3354847af0d3856c7c218f5234e531dfd13dadbb16cdbe3d891</code>. Ano conferido no
+                exemplar.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-java-compilacao" tabindex="-1"><strong>Cap. 1: compilação, PATH, classe e main
+                            (leitura visual)</strong> - páginas 34–36 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java.pdf#page=34"
+                            data-arquivo="../Java%20para%20iniciantes.pdf" data-pagina="34"
+                            target="_blank" rel="noopener">Abrir PDF na página 34</a></div>
+                </li>
+                <li>
+                    <div id="leitura-java-swing" tabindex="-1"><strong>Cap. 16: componentes e contêineres (leitura
+                            visual)</strong> - páginas 550–552 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java.pdf#page=550"
+                            data-arquivo="../Java%20para%20iniciantes.pdf" data-pagina="550"
+                            target="_blank" rel="noopener">Abrir PDF na página 550</a></div>
+                </li>
+                <li>
+                    <div id="leitura-java-edt" tabindex="-1"><strong>Cap. 16: primeiro programa Swing e invokeLater
+                            (leitura visual)</strong> - páginas 554–556 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java.pdf#page=554"
+                            data-arquivo="../Java%20para%20iniciantes.pdf" data-pagina="554"
+                            target="_blank" rel="noopener">Abrir PDF na página 554</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-java8" tabindex="-1">
+            <h2>[R05] Java 8 Prático: lambdas, streams e os novos recursos da linguagem</h2>
+            <p>Paulo Silveira; Rodrigo Turini. Java 8 Prático: lambdas, streams e os novos recursos da linguagem. Casa
+                do Código, [s.d.].</p>
+            <p><span class="chip">Apoio</span> 137 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/java8.pdf#page=1"
+                    data-arquivo="../Java%208%20Pratico%20Lambdas%20Streams%20e%20os%20Novos%20Recursos%20da%20Linguagem%20-%20Casa%20do%20Codigo.pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>Apoia interfaces funcionais, listeners, streams, BigDecimal e java.time. O texto corresponde a Java 8;
+                records, List.copyOf e Stream.toList do projeto atual não são atribuídos ao livro.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\Java 8 Pratico Lambdas Streams e os Novos Recursos da Linguagem - Casa do Codigo.pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>0c4db398b1bfa51f2a984f06fb48ab4d7c74c5958728162ffc1d3ed0807242b8</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-java8-funcoes" tabindex="-1"><strong>Cap. 3, §3.1–3.2: interfaces funcionais e
+                            listeners</strong> - páginas 20–23 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java8.pdf#page=20"
+                            data-arquivo="../Java%208%20Pratico%20Lambdas%20Streams%20e%20os%20Novos%20Recursos%20da%20Linguagem%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="20" target="_blank" rel="noopener">Abrir PDF na página 20</a></div>
+                </li>
+                <li>
+                    <div id="leitura-java8-streams" tabindex="-1"><strong>Cap. 7, §7.4–7.6: collect, toList e
+                            map</strong> - páginas 57–59 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java8.pdf#page=57"
+                            data-arquivo="../Java%208%20Pratico%20Lambdas%20Streams%20e%20os%20Novos%20Recursos%20da%20Linguagem%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="57" target="_blank" rel="noopener">Abrir PDF na página 57</a></div>
+                </li>
+                <li>
+                    <div id="leitura-java8-datas" tabindex="-1"><strong>Cap. 10, §10.2: java.time e
+                            imutabilidade</strong> - páginas 93–96 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java8.pdf#page=93"
+                            data-arquivo="../Java%208%20Pratico%20Lambdas%20Streams%20e%20os%20Novos%20Recursos%20da%20Linguagem%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="93" target="_blank" rel="noopener">Abrir PDF na página 93</a></div>
+                </li>
+                <li>
+                    <div id="leitura-java8-dinheiro" tabindex="-1"><strong>Cap. 11, §11.2–11.3: soma de BigDecimal por
+                            redução</strong> - páginas 110–112 do PDF. <a class="abrir-pdf"
+                            href="../referencias/java8.pdf#page=110"
+                            data-arquivo="../Java%208%20Pratico%20Lambdas%20Streams%20e%20os%20Novos%20Recursos%20da%20Linguagem%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="110" target="_blank" rel="noopener">Abrir PDF na página 110</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-oca" tabindex="-1">
+            <h2>[R06] Java SE 7 Programmer I: o guia para sua certificação Oracle Certified Associate</h2>
+            <p>Guilherme Silveira; Mário Amaral. Java SE 7 Programmer I: o guia para sua certificação Oracle Certified
+                Associate. Casa do Código, [s.d.].</p>
+            <p><span class="chip">Apoio</span> 397 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/oca.pdf#page=1"
+                    data-arquivo="../Java%20SE%207%20Programmer%20I%20O%20guia%20para%20sua%20certifica%C3%A7%C3%A3o%20Oracle%20Certified%20Associate%20-%20Casa%20do%20Codigo.pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>Apoia pacotes, classes, abstrações e exceções. As limitações de interfaces discutidas para Java 7 não
+                substituem os recursos posteriores da linguagem.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\Java SE 7 Programmer I O guia para sua certificação Oracle Certified Associate - Casa do Codigo.pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>24da6d1e3b521305d3f85ffae2f12fdf941bbb40ea65e0b5c65719d5b5a41d4b</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-oca-pacotes" tabindex="-1"><strong>Cap. 3, §3.2: estrutura da classe e
+                            pacotes</strong> - páginas 18–20 do PDF. <a class="abrir-pdf"
+                            href="../referencias/oca.pdf#page=18"
+                            data-arquivo="../Java%20SE%207%20Programmer%20I%20O%20guia%20para%20sua%20certifica%C3%A7%C3%A3o%20Oracle%20Certified%20Associate%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="18" target="_blank" rel="noopener">Abrir PDF na página 18</a></div>
+                </li>
+                <li>
+                    <div id="leitura-oca-abstracao" tabindex="-1"><strong>Cap. 9, §9.6: classes abstratas e
+                            interfaces</strong> - páginas 326–329 do PDF. <a class="abrir-pdf"
+                            href="../referencias/oca.pdf#page=326"
+                            data-arquivo="../Java%20SE%207%20Programmer%20I%20O%20guia%20para%20sua%20certifica%C3%A7%C3%A3o%20Oracle%20Certified%20Associate%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="326" target="_blank" rel="noopener">Abrir PDF na página 326</a></div>
+                </li>
+                <li>
+                    <div id="leitura-oca-excecoes" tabindex="-1"><strong>Cap. 10, §10.1–10.2: checked, runtime e
+                            tratamento</strong> - páginas 336–339 do PDF. <a class="abrir-pdf"
+                            href="../referencias/oca.pdf#page=336"
+                            data-arquivo="../Java%20SE%207%20Programmer%20I%20O%20guia%20para%20sua%20certifica%C3%A7%C3%A3o%20Oracle%20Certified%20Associate%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="336" target="_blank" rel="noopener">Abrir PDF na página 336</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-javafx" tabindex="-1">
+            <h2>[R07] JavaFX: interfaces com qualidade para aplicações desktop</h2>
+            <p>Bruno Oliveira. JavaFX: interfaces com qualidade para aplicações desktop. Casa do Código, [s.d.].</p>
+            <p><span class="chip">Comparação</span> 134 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/javafx.pdf#page=1"
+                    data-arquivo="../JavaFX%20-%20Interfaces%20com%20qualidade%20para%20aplicacoes%20desktop.pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>O capítulo 8 permite comparar Swing e JavaFX; o capítulo 11 discute trabalho em segundo plano. O projeto
+                usa SwingWorker e EDT, sem adotar JavaFX Task, Platform.runLater ou dependências JavaFX.</p>
+            <p>Arquivo original: <code>D:\Fatec\SOA\JavaFX - Interfaces com qualidade para aplicacoes desktop.pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>66f42ccebc92a55be5ac996dcd53b7872396e94d4383f2e73042a0f11c0733ea</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-javafx-comparacao" tabindex="-1"><strong>Cap. 8, §8.1: comparação com
+                            Swing</strong> - páginas 72–74 do PDF. <a class="abrir-pdf"
+                            href="../referencias/javafx.pdf#page=72"
+                            data-arquivo="../JavaFX%20-%20Interfaces%20com%20qualidade%20para%20aplicacoes%20desktop.pdf"
+                            data-pagina="72" target="_blank" rel="noopener">Abrir PDF na página 72</a></div>
+                </li>
+                <li>
+                    <div id="leitura-javafx-concorrencia" tabindex="-1"><strong>Cap. 11, §11.1–11.2: threads e
+                            tarefas</strong> - páginas 118–120 do PDF. <a class="abrir-pdf"
+                            href="../referencias/javafx.pdf#page=118"
+                            data-arquivo="../JavaFX%20-%20Interfaces%20com%20qualidade%20para%20aplicacoes%20desktop.pdf"
+                            data-pagina="118" target="_blank" rel="noopener">Abrir PDF na página 118</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-jpa" tabindex="-1">
+            <h2>[R08] JPA Eficaz: as melhores práticas de persistência de dados em Java</h2>
+            <p>Hébert Coelho. JPA Eficaz: as melhores práticas de persistência de dados em Java. Casa do Código, [s.d.].
+            </p>
+            <p><span class="chip">Comparação</span> 166 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/jpa.pdf#page=1"
+                    data-arquivo="../JPA%20Eficaz%20-%20As%20melhores%20praticas%20de%20persistencia%20de%20dados%20em%20Java%20-%20Casa%20do%20Codigo.pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>Apoia a discussão de transações, relacionamentos e concorrência. A implementação permanece
+                JDBC/Flyway/MySQL, sem EntityManager, JPA, Hibernate ou anotações ORM. Não se presume um isolamento
+                padrão do MySQL a partir dos exemplos de JPA.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\JPA Eficaz - As melhores praticas de persistencia de dados em Java - Casa do Codigo.pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>10f989f6efd0efdb078ea3c12b9d2f9b688b41d3c4347a201ef4bca7fab72142</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-jpa-transacao" tabindex="-1"><strong>Cap. 2, §2.4.1: controle manual da
+                            transação</strong> - páginas 30–32 do PDF. <a class="abrir-pdf"
+                            href="../referencias/jpa.pdf#page=30"
+                            data-arquivo="../JPA%20Eficaz%20-%20As%20melhores%20praticas%20de%20persistencia%20de%20dados%20em%20Java%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="30" target="_blank" rel="noopener">Abrir PDF na página 30</a></div>
+                </li>
+                <li>
+                    <div id="leitura-jpa-relacoes" tabindex="-1"><strong>Cap. 4, §4.1: objetos, associações e chave
+                            estrangeira</strong> - páginas 74–77 do PDF. <a class="abrir-pdf"
+                            href="../referencias/jpa.pdf#page=74"
+                            data-arquivo="../JPA%20Eficaz%20-%20As%20melhores%20praticas%20de%20persistencia%20de%20dados%20em%20Java%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="74" target="_blank" rel="noopener">Abrir PDF na página 74</a></div>
+                </li>
+                <li>
+                    <div id="leitura-jpa-concorrencia" tabindex="-1"><strong>Cap. 8, §8.4: versionamento e
+                            locks</strong> - páginas 159–164 do PDF. <a class="abrir-pdf"
+                            href="../referencias/jpa.pdf#page=159"
+                            data-arquivo="../JPA%20Eficaz%20-%20As%20melhores%20praticas%20de%20persistencia%20de%20dados%20em%20Java%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="159" target="_blank" rel="noopener">Abrir PDF na página 159</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="livro-jsf" tabindex="-1">
+            <h2>[R09] JSF Eficaz: as melhores práticas para o desenvolvedor web Java</h2>
+            <p>Hébert Coelho. JSF Eficaz: as melhores práticas para o desenvolvedor web Java. Casa do Código, [s.d.].
+            </p>
+            <p><span class="chip">Comparação</span> 202 páginas no PDF. <a class="abrir-pdf"
+                    href="../referencias/jsf.pdf#page=1"
+                    data-arquivo="../JSF%20Eficaz%20-%20As%20melhores%20pr%C3%A1ticas%20para%20o%20desenvolvedor%20web%20Java%20-%20Casa%20do%20Codigo.pdf"
+                    data-pagina="1" target="_blank" rel="noopener">Abrir PDF</a></p>
+            <p>As seções de feedback e requisições assíncronas apoiam o comportamento da interface. O cardápio é
+                HTML/CSS/JavaScript com fetch; não utiliza JSF, Facelets, ManagedBeans nem PrimeFaces.</p>
+            <p>Arquivo original:
+                <code>D:\Fatec\SOA\JSF Eficaz - As melhores práticas para o desenvolvedor web Java - Casa do Codigo.pdf</code>
+            </p>
+            <p class="foot">Identificação do exemplar (SHA-256):
+                <code>26eac2c56a57e5e0b6e868b57e19bebc5f2c166d1689b946a5db15bc2531be7b</code>. [s.d.] indica que o ano
+                de publicação não foi confirmado; datas técnicas do arquivo não foram tomadas como data de edição.
+            </p>
+            <h3>Trechos usados nas aulas</h3>
+            <ul>
+                <li>
+                    <div id="leitura-jsf-feedback" tabindex="-1"><strong>Cap. 28, §28.1–28.3: feedback e ações
+                            assíncronas</strong> - páginas 171–173 do PDF. <a class="abrir-pdf"
+                            href="../referencias/jsf.pdf#page=171"
+                            data-arquivo="../JSF%20Eficaz%20-%20As%20melhores%20pr%C3%A1ticas%20para%20o%20desenvolvedor%20web%20Java%20-%20Casa%20do%20Codigo.pdf"
+                            data-pagina="171" target="_blank" rel="noopener">Abrir PDF na página 171</a></div>
+                </li>
+            </ul>
+        </section>
+        <section id="mapa" tabindex="-1">
+            <h2>Leituras por aula</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aula</th>
+                        <th>Referências e páginas do PDF</th>
+                        <th>Aplicação ao restaurante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="../site/index.html#fundamentacao">1. Do zero até localhost</a></td>
+                        <td><a href="#leitura-soa-fundamentos">[R01] Cap. 1, §1.7–1.8: serviços e orientação a serviços,
+                                p. 27–29</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>Os serviços são capacidades do restaurante e os frameworks são ferramentas para expô-las. A
+                            construção começa na pasta vazia; os livros orientam as decisões, não fornecem um projeto do
+                            restaurante para importar.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/ambiente.html#fundamentacao">2. Planejar o ambiente local</a></td>
+                        <td><a href="#leitura-java-compilacao">[R04] Cap. 1: compilação, PATH, classe e main (leitura
+                                visual), p. 34–36</a></td>
+                        <td>Schildt distingue fonte, classe compilada e execução. Use essa distinção para conferir java,
+                            javac e PATH. Os caminhos do JDK 8 do exemplar são substituídos pela instalação real do JDK
+                            17 do laboratório.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/instalacao-java.html#fundamentacao">3. Instalar e configurar o JDK 17</a>
+                        </td>
+                        <td><a href="#leitura-java-compilacao">[R04] Cap. 1: compilação, PATH, classe e main (leitura
+                                visual), p. 34–36</a></td>
+                        <td>Schildt distingue fonte, classe compilada e execução. Use essa distinção para conferir java,
+                            javac e PATH. Os caminhos do JDK 8 do exemplar são substituídos pela instalação real do JDK
+                            17 do laboratório.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/instalacao-eclipse.html#fundamentacao">4. Instalar Eclipse e registrar o
+                                JDK</a></td>
+                        <td><a href="#leitura-oca-pacotes">[R06] Cap. 3, §3.2: estrutura da classe e pacotes, p.
+                                18–20</a><br><a href="#leitura-java-compilacao">[R04] Cap. 1: compilação, PATH, classe e
+                                main (leitura visual), p. 34–36</a></td>
+                        <td>A IDE organiza os arquivos, mas as regras de pacote e a separação entre compilar e executar
+                            continuam sendo da linguagem. O cadastro de JDK e os menus da versão atual do Eclipse seguem
+                            o roteiro desta aula.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/maven.html#fundamentacao">5. Instalar Maven e compreender o POM</a></td>
+                        <td><a href="#leitura-java-compilacao">[R04] Cap. 1: compilação, PATH, classe e main (leitura
+                                visual), p. 34–36</a><br><a href="#leitura-oca-pacotes">[R06] Cap. 3, §3.2: estrutura da
+                                classe e pacotes, p. 18–20</a></td>
+                        <td>A leitura prepara a distinção entre organização dos fontes, compilação e execução. Maven
+                            automatiza esse trabalho em módulos; coordenadas, escopos e versões do POM são ensinados
+                            pelo tutorial e pela documentação oficial, não por esses trechos dos livros.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/instalacao-mysql.html#fundamentacao">6. Instalar e testar MySQL 8.4</a>
+                        </td>
+                        <td><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da transação, p.
+                                30–32</a></td>
+                        <td>A leitura de contexto explica por que uma aplicação precisa de conexão e limites de
+                            transação. Nesta trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário
+                            e GRANT vêm do roteiro MySQL, sem criar persistence.xml.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/banco-de-dados.html#fundamentacao">7. Criar bancos e usuário no MySQL</a>
+                        </td>
+                        <td><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da transação, p.
+                                30–32</a></td>
+                        <td>A leitura de contexto explica por que uma aplicação precisa de conexão e limites de
+                            transação. Nesta trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário
+                            e GRANT vêm do roteiro MySQL, sem criar persistence.xml.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/tomcat.html#fundamentacao">8. Instalar Tomcat 10.1</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a></td>
+                        <td>O endereço concreto de um serviço liga protocolo, host, porta e contexto. Tomcat e o runtime
+                            do Eclipse ainda são preparação: um endereço no contrato não significa que o endpoint já
+                            exista. Os comandos Tomcat 10.1 são a adaptação deste laboratório.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/eclipse-servidor.html#fundamentacao">9. Registrar Tomcat no Eclipse</a>
+                        </td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a></td>
+                        <td>O endereço concreto de um serviço liga protocolo, host, porta e contexto. Tomcat e o runtime
+                            do Eclipse ainda são preparação: um endereço no contrato não significa que o endpoint já
+                            exista. Os comandos Tomcat 10.1 são a adaptação deste laboratório.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/arquitetura-soa.html#fundamentacao">10. Desenhar as fronteiras SOA</a></td>
+                        <td><a href="#leitura-soa-fundamentos">[R01] Cap. 1, §1.7–1.8: serviços e orientação a serviços,
+                                p. 27–29</a><br><a href="#leitura-soa-canonico">[R01] Cap. 7, §7.1–7.2: integração e
+                                modelo canônico, p. 200–203</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra
+                                de dependência e adaptadores, p. 273–282</a></td>
+                        <td>Saudate discute contratos e reutilização entre capacidades; Martin discute dependências
+                            internas. No restaurante, quatro serviços compartilham regras e uma base transacional por
+                            implementação. Não se conclui que quatro WSDLs constituem quatro microsserviços.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/clean-architecture.html#fundamentacao">11. Definir camadas e
+                                dependências</a></td>
+                        <td><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de dependência, p.
+                                139–144</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a><br><a href="#leitura-clean-srp">[R03] Cap. 7: princípio da
+                                responsabilidade única, p. 113–119</a></td>
+                        <td>Aplique a regra de dependência aos imports: domínio não conhece JDBC, Metro ou Spring;
+                            aplicação depende da porta Repositorio. O laboratório agrupa casos de uso em Restaurante e
+                            devolve entidades aos adaptadores internos; não reproduz todas as portas de entrada, saída e
+                            apresentadores do diagrama do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/estrutura.html#fundamentacao">12. Criar os primeiros POMs do zero</a></td>
+                        <td><a href="#leitura-oca-pacotes">[R06] Cap. 3, §3.2: estrutura da classe e pacotes, p.
+                                18–20</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>Organização de pacotes e direção das dependências ajudam a justificar os módulos Maven. O
+                            nome de uma pasta não garante uma arquitetura: o POM e os imports devem manter as
+                            dependências apontando para o núcleo.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/dominio-estados.html#fundamentacao">13. Criar o módulo domínio e seus
+                                estados</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-oca-pacotes">[R06] Cap. 3, §3.2: estrutura da classe
+                                e pacotes, p. 18–20</a></td>
+                        <td>Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os
+                            records e enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8
+                            não são apresentados como fonte da sintaxe de record.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/modelo-mesa.html#fundamentacao">14. Implementar Mesa</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-oca-pacotes">[R06] Cap. 3, §3.2: estrutura da classe
+                                e pacotes, p. 18–20</a></td>
+                        <td>Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os
+                            records e enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8
+                            não são apresentados como fonte da sintaxe de record.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/modelo-categoria.html#fundamentacao">15. Implementar Categoria</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-oca-pacotes">[R06] Cap. 3, §3.2: estrutura da classe
+                                e pacotes, p. 18–20</a></td>
+                        <td>Os dados representam conceitos do negócio, enquanto o protocolo fica fora do domínio. Os
+                            records e enums desta implementação são decisões Java 17 do tutorial; os livros de Java 7/8
+                            não são apresentados como fonte da sintaxe de record.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/modelo-produto.html#fundamentacao">16. Implementar Produto</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-java8-dinheiro">[R05] Cap. 11, §11.2–11.3: soma de
+                                BigDecimal por redução, p. 110–112</a></td>
+                        <td>A redução de BigDecimal discutida por Silveira e Turini apoia o cálculo monetário sem usar
+                            double. O restaurante acrescenta quantidade, preço histórico e validação de centavos; essas
+                            são regras próprias do exemplo, não requisitos extraídos do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/modelo-item.html#fundamentacao">17. Implementar ItemPedido</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-java8-dinheiro">[R05] Cap. 11, §11.2–11.3: soma de
+                                BigDecimal por redução, p. 110–112</a></td>
+                        <td>A redução de BigDecimal discutida por Silveira e Turini apoia o cálculo monetário sem usar
+                            double. O restaurante acrescenta quantidade, preço histórico e validação de centavos; essas
+                            são regras próprias do exemplo, não requisitos extraídos do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/modelo-pedido.html#fundamentacao">18. Implementar Pedido</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-java8-dinheiro">[R05] Cap. 11, §11.2–11.3: soma de
+                                BigDecimal por redução, p. 110–112</a><br><a href="#leitura-java8-datas">[R05] Cap. 10,
+                                §10.2: java.time e imutabilidade, p. 93–96</a></td>
+                        <td>Pedido reúne dados e comportamento do negócio: total é derivado dos itens e dataHora
+                            identifica um instante. A leitura de java.time diferencia data local de data com fuso; a
+                            escolha de Instant/UTC é explicitada no código desta trilha.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/modelos.html#fundamentacao">19. Conferir os relacionamentos do domínio</a>
+                        </td>
+                        <td><a href="#leitura-jpa-relacoes">[R08] Cap. 4, §4.1: objetos, associações e chave
+                                estrangeira, p. 74–77</a><br><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades,
+                                casos de uso e modelos de dados, p. 260–266</a></td>
+                        <td>Coelho relaciona associações de objetos com chaves estrangeiras. Use a comparação para
+                            conferir categoria/produto e pedido/item no diagrama; o laboratório guarda IDs e usa JDBC,
+                            sem anotações de relacionamento JPA.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/aplicacao-falhas.html#fundamentacao">20. Criar a aplicação e seus erros</a>
+                        </td>
+                        <td><a href="#leitura-oca-excecoes">[R06] Cap. 10, §10.1–10.2: checked, runtime e tratamento, p.
+                                336–339</a></td>
+                        <td>A hierarquia de exceções e o controle de fluxo apoiam Falha como erro de negócio. Um código
+                            estável será traduzido pelo adaptador depois; o núcleo não escolhe agora um status HTTP nem
+                            monta XML SOAP.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/aplicacao-repositorio.html#fundamentacao">21. Definir a porta de
+                                persistência</a></td>
+                        <td><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de dependência, p.
+                                139–144</a><br><a href="#leitura-oca-abstracao">[R06] Cap. 9, §9.6: classes abstratas e
+                                interfaces, p. 326–329</a></td>
+                        <td>A aplicação declara o contrato que a persistência deve implementar. O fluxo executará SQL
+                            mais tarde, mas a dependência de código aponta da infraestrutura para a interface interna;
+                            Repositorio não recebe Connection, EntityManager ou HttpServletRequest.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/aplicacao-mesas.html#fundamentacao">22. Implementar regras de mesas</a>
+                        </td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de
+                                dependência, p. 139–144</a></td>
+                        <td>As operações de cadastro pertencem ao caso de uso; transporte e formulário apenas fornecem
+                            dados. A versão intermediária de Restaurante inclui somente as capacidades apresentadas até
+                            esta aula, preservando a construção cumulativa.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/aplicacao-categorias.html#fundamentacao">23. Acrescentar regras de
+                                categorias</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de
+                                dependência, p. 139–144</a></td>
+                        <td>As operações de cadastro pertencem ao caso de uso; transporte e formulário apenas fornecem
+                            dados. A versão intermediária de Restaurante inclui somente as capacidades apresentadas até
+                            esta aula, preservando a construção cumulativa.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/aplicacao-produtos.html#fundamentacao">24. Acrescentar regras de
+                                produtos</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de
+                                dependência, p. 139–144</a></td>
+                        <td>As operações de cadastro pertencem ao caso de uso; transporte e formulário apenas fornecem
+                            dados. A versão intermediária de Restaurante inclui somente as capacidades apresentadas até
+                            esta aula, preservando a construção cumulativa.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/aplicacao-pedidos.html#fundamentacao">25. Implementar o ciclo do pedido</a>
+                        </td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual
+                                da transação, p. 30–32</a></td>
+                        <td>O caso de uso coordena abertura, itens e fechamento por uma porta transacional. A comparação
+                            com o controle manual de transação do livro de JPA ajuda a identificar o início e o fim da
+                            operação; aqui a implementação concreta será JDBC, não EntityManager.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/testes-unidade.html#fundamentacao">26. Escrever os primeiros testes de
+                                regras</a></td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a></td>
+                        <td>Os testes exercitam comportamento sem navegar por telas. A fronteira Repositorio permite
+                            testar regras como total e pedido fechado sem depender do Tomcat ou de um MySQL externo.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/infraestrutura-pom.html#fundamentacao">27. Criar o módulo de
+                                infraestrutura</a></td>
+                        <td><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de dependência, p.
+                                139–144</a><br><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da
+                                transação, p. 30–32</a></td>
+                        <td>A porta foi definida antes do driver. Esta etapa acrescenta o mecanismo de persistência fora
+                            da aplicação; Connector/J e Flyway são escolhas do laboratório, distintas da configuração
+                            JPA usada no livro de apoio.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/migracao-mysql.html#fundamentacao">28. Escrever a migração do MySQL</a>
+                        </td>
+                        <td><a href="#leitura-jpa-relacoes">[R08] Cap. 4, §4.1: objetos, associações e chave
+                                estrangeira, p. 74–77</a><br><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1:
+                                controle manual da transação, p. 30–32</a></td>
+                        <td>Compare associações do modelo com as FKs explícitas da V1. Identidade, vínculo e integridade
+                            são preocupações comuns à persistência; AUTO_INCREMENT, CHECK e Flyway são implementações
+                            MySQL/JDBC desta trilha.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/infraestrutura-banco.html#fundamentacao">29. Configurar conexões e
+                                Flyway</a></td>
+                        <td><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da transação, p.
+                                30–32</a><br><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de
+                                dependência, p. 139–144</a></td>
+                        <td>A composição da conexão fica fora dos casos de uso. Banco lê a configuração e aplica
+                            migrações; a comparação com EntityManagerFactory trata somente da responsabilidade de
+                            inicialização, sem equivalência entre as duas APIs.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/infraestrutura-jdbc.html#fundamentacao">30. Implementar o repositório
+                                JDBC</a></td>
+                        <td><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da transação, p.
+                                30–32</a><br><a href="#leitura-jpa-concorrencia">[R08] Cap. 8, §8.4: versionamento e
+                                locks, p. 159–164</a></td>
+                        <td>A transação JDBC usa commit/rollback e os bloqueios são obtidos por SQL. O livro ajuda a
+                            discutir conflitos, mas @Version e LockModeType não aparecem nesta implementação. O
+                            comportamento de leitura do MySQL não é inferido das generalizações do exemplar sobre JPA.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/infraestrutura-credenciais.html#fundamentacao">31. Implementar credenciais
+                                externas</a></td>
+                        <td><a href="#leitura-soa-http-basic">[R01] Cap. 6, §6.3: autenticação e autorização HTTP, p.
+                                152–153</a></td>
+                        <td>Separe autenticar uma identidade de autorizar uma ação. As senhas do laboratório vêm do
+                            ambiente e as identidades ADMIN/GARCOM têm permissões diferentes. Base64 é codificação
+                            reversível, não criptografia.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/testes-banco.html#fundamentacao">32. Testar repositório, histórico e
+                                concorrência</a></td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a><br><a href="#leitura-jpa-concorrencia">[R08] Cap. 8, §8.4: versionamento e
+                                locks, p. 159–164</a></td>
+                        <td>Teste as consequências de concorrência e falhas transacionais, não apenas métodos isolados.
+                            O comportamento em H2 e o comportamento no MySQL real são evidências distintas; um teste
+                            opt-in ignorado não prova a segunda.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/contrato-xsd.html#fundamentacao">33. Escrever os tipos e mensagens XSD</a>
+                        </td>
+                        <td><a href="#leitura-soa-xml">[R01] Cap. 2, §2.1–2.4: namespaces, SOAP e tipos XML, p.
+                                30–35</a><br><a href="#leitura-soa-canonico">[R01] Cap. 7, §7.1–7.2: integração e modelo
+                                canônico, p. 200–203</a></td>
+                        <td>Defina um vocabulário XML compartilhado pelos serviços antes da geração de Java. Namespaces
+                            e tipos reduzem ambiguidades; o modelo de transporte continua separado dos records de
+                            domínio, evitando que código gerado seja tratado como entidade de negócio.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/wsdl-mesas.html#fundamentacao">34. Escrever o WSDL de Mesa</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-soa-contract-first">[R01] Cap. 7, §7.3: desenvolvimento
+                                contract-first, p. 208–211</a></td>
+                        <td>No contrato de Mesa, identifique mensagem de entrada, saída e Fault, ligue as operações ao
+                            binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar
+                            uma interface Java não publica o serviço.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/wsdl-categorias.html#fundamentacao">35. Escrever o WSDL de Categoria</a>
+                        </td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-soa-contract-first">[R01] Cap. 7, §7.3: desenvolvimento
+                                contract-first, p. 208–211</a></td>
+                        <td>No contrato de Categoria, identifique mensagem de entrada, saída e Fault, ligue as operações
+                            ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint:
+                            gerar uma interface Java não publica o serviço.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/wsdl-produtos.html#fundamentacao">36. Escrever o WSDL de Produto</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-soa-contract-first">[R01] Cap. 7, §7.3: desenvolvimento
+                                contract-first, p. 208–211</a></td>
+                        <td>No contrato de Produto, identifique mensagem de entrada, saída e Fault, ligue as operações
+                            ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint:
+                            gerar uma interface Java não publica o serviço.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/wsdl-pedidos.html#fundamentacao">37. Escrever o WSDL de Pedido</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-soa-contract-first">[R01] Cap. 7, §7.3: desenvolvimento
+                                contract-first, p. 208–211</a></td>
+                        <td>No contrato de Pedido, identifique mensagem de entrada, saída e Fault, ligue as operações ao
+                            binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar
+                            uma interface Java não publica o serviço.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/contrato.html#fundamentacao">38. Gerar Java a partir dos contratos</a></td>
+                        <td><a href="#leitura-soa-contract-first">[R01] Cap. 7, §7.3: desenvolvimento contract-first, p.
+                                208–211</a><br><a href="#leitura-soa-canonico">[R01] Cap. 7, §7.1–7.2: integração e
+                                modelo canônico, p. 200–203</a></td>
+                        <td>A geração traduz o contrato que o aluno escreveu; ela não inventa os casos de uso. O livro
+                            usa ferramentas de uma geração antiga do JDK; esta trilha usa o plugin Maven/Metro e não
+                            pressupõe wsimport disponível no JDK 17.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/servidor.html#fundamentacao">39. Criar o módulo WAR do servidor</a></td>
+                        <td><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e adaptadores, p.
+                                273–282</a><br><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType,
+                                binding e service, p. 37–42</a></td>
+                        <td>O WAR e seus descritores compõem a borda SOAP. Eles conectam contexto, classes e contrato,
+                            mantendo regras no núcleo. A configuração concreta é Metro/Jakarta/Tomcat deste tutorial,
+                            não uma reprodução do servidor antigo do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/soap-contexto.html#fundamentacao">40. Compor aplicação e banco no WAR</a>
+                        </td>
+                        <td><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de dependência, p.
+                                139–144</a><br><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da
+                                transação, p. 30–32</a></td>
+                        <td>Contexto cria os mecanismos concretos e injeta o repositório na aplicação. É o ponto de
+                            composição: escolher a implementação JDBC aqui evita espalhar a criação de conexões pelos
+                            serviços.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/soap-autenticacao.html#fundamentacao">41. Autenticar requisições SOAP</a>
+                        </td>
+                        <td><a href="#leitura-soa-http-basic">[R01] Cap. 6, §6.3: autenticação e autorização HTTP, p.
+                                152–153</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>O filtro autentica a chamada HTTP e o endpoint verifica o papel para a operação. A leitura
+                            fornece os conceitos; a configuração usa credenciais externas e Basic em localhost. Basic
+                            não é WS-Security e a codificação do cabeçalho não protege seu conteúdo.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/soap-falhas.html#fundamentacao">42. Autorizar e converter SOAP Fault</a>
+                        </td>
+                        <td><a href="#leitura-soa-fault">[R01] Cap. 3, §3.2–3.4: exceções, Fault e detail, p.
+                                60–65</a><br><a href="#leitura-oca-excecoes">[R06] Cap. 10, §10.1–10.2: checked, runtime
+                                e tratamento, p. 336–339</a></td>
+                        <td>A recusa do caso de uso vira um Fault declarado com dados de erro no detail. A classe Java
+                            da exceção e o conteúdo XML de transporte têm responsabilidades diferentes; não envie a
+                            mensagem SQL ou a stacktrace ao consumidor.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/soap-dtos.html#fundamentacao">43. Mapear domínio para DTOs SOAP</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-soa-canonico">[R01] Cap. 7, §7.1–7.2: integração e
+                                modelo canônico, p. 200–203</a></td>
+                        <td>O adaptador converte records internos em tipos do contrato. O vocabulário XML é
+                            compartilhado pelos quatro serviços; isso não obriga domínio e transporte a usar a mesma
+                            classe gerada.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/servico-mesas.html#fundamentacao">44. Implementar MesaEndpoint</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>O endpoint de Mesa implementa a interface do WSDL, valida o papel e traduz os dados. As
+                            regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve
+                            duplicar essas regras.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/servico-categorias.html#fundamentacao">45. Implementar
+                                CategoriaEndpoint</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>O endpoint de Categoria implementa a interface do WSDL, valida o papel e traduz os dados. As
+                            regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve
+                            duplicar essas regras.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/servico-produtos.html#fundamentacao">46. Implementar ProdutoEndpoint</a>
+                        </td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>O endpoint de Produto implementa a interface do WSDL, valida o papel e traduz os dados. As
+                            regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve
+                            duplicar essas regras.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/servico-pedidos.html#fundamentacao">47. Implementar PedidoEndpoint</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>O endpoint de Pedido implementa a interface do WSDL, valida o papel e traduz os dados. As
+                            regras permanecem em Restaurante e o SQL em JdbcRepositorio; trocar o adaptador não deve
+                            duplicar essas regras.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/infra-qr.html#fundamentacao">48. Implementar a geração da imagem QR</a>
+                        </td>
+                        <td><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media types, p.
+                                25–28</a><br><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos
+                                e representações, p. 35–38</a></td>
+                        <td>A URL identifica o recurso público e o PNG é uma representação binária com media type
+                            próprio. A codificação QR é implementação autoral com a biblioteca do projeto, não um
+                            algoritmo retirado dos livros.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/bff-soap.html#fundamentacao">49. Criar o BFF HTTP/JSON público</a></td>
+                        <td><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e adaptadores, p.
+                                273–282</a><br><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos,
+                                métodos e representações, p. 35–38</a></td>
+                        <td>O BFF oferece uma projeção de leitura para a interface Web, usando o caso de uso interno. O
+                            nome do produto e seu preço são dados de apresentação; pedidos e credenciais não fazem parte
+                            dessa projeção pública.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/soap-descritores.html#fundamentacao">50. Registrar filtros e serviços no
+                                Tomcat</a></td>
+                        <td><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e adaptadores, p.
+                                273–282</a><br><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType,
+                                binding e service, p. 37–42</a></td>
+                        <td>O WAR e seus descritores compõem a borda SOAP. Eles conectam contexto, classes e contrato,
+                            mantendo regras no núcleo. A configuração concreta é Metro/Jakarta/Tomcat deste tutorial,
+                            não uma reprodução do servidor antigo do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/implantacao.html#fundamentacao">51. Publicar o SOAP no Tomcat localhost</a>
+                        </td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-soa-http-basic">[R01] Cap. 6, §6.3: autenticação e
+                                autorização HTTP, p. 152–153</a></td>
+                        <td>Confira o contrato concreto e teste requisições autenticadas no endereço publicado. A mesma
+                            definição de serviço pode ter endereços diferentes no laboratório; porta e contexto não são
+                            regras do restaurante.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/desktop-conexao.html#fundamentacao">52. Criar o módulo desktop e o cliente
+                                SOAP</a></td>
+                        <td><a href="#leitura-soa-wsdl">[R01] Cap. 2, §2.5–2.9: message, portType, binding e service, p.
+                                37–42</a><br><a href="#leitura-oca-abstracao">[R06] Cap. 9, §9.6: classes abstratas e
+                                interfaces, p. 326–329</a></td>
+                        <td>O consumidor usa a interface gerada e pode substituir o endereço concreto do WSDL por
+                            configuração. Credenciais e timeout pertencem ao adaptador cliente; o desktop não passa a
+                            conhecer tabelas ou JDBC.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-worker.html#fundamentacao">53. Construir a janela com SwingWorker</a>
+                        </td>
+                        <td><a href="#leitura-java-edt">[R04] Cap. 16: primeiro programa Swing e invokeLater (leitura
+                                visual), p. 554–556</a><br><a href="#leitura-javafx-concorrencia">[R07] Cap. 11,
+                                §11.1–11.2: threads e tarefas, p. 118–120</a><br><a href="#leitura-java8-funcoes">[R05]
+                                Cap. 3, §3.1–3.2: interfaces funcionais e listeners, p. 20–23</a></td>
+                        <td>Schildt mostra a criação da janela por invokeLater; Oliveira discute separar trabalho de
+                            fundo e atualização visual em JavaFX. A adaptação correta aqui é SwingWorker: rede em
+                            doInBackground e atualização na EDT em done. Task/Platform.runLater não são APIs Swing.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-cadastro.html#fundamentacao">54. Construir o painel comum de
+                                cadastro</a></td>
+                        <td><a href="#leitura-oca-abstracao">[R06] Cap. 9, §9.6: classes abstratas e interfaces, p.
+                                326–329</a><br><a href="#leitura-java-swing">[R04] Cap. 16: componentes e contêineres
+                                (leitura visual), p. 550–552</a></td>
+                        <td>A classe abstrata reúne o fluxo comum do formulário e deixa operações específicas para os
+                            painéis concretos. Componentes e contêineres são elementos da apresentação, não o local das
+                            regras transacionais.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-mesas.html#fundamentacao">55. Construir o cadastro Swing de mesas</a>
+                        </td>
+                        <td><a href="#leitura-java-swing">[R04] Cap. 16: componentes e contêineres (leitura visual), p.
+                                550–552</a><br><a href="#leitura-java8-funcoes">[R05] Cap. 3, §3.1–3.2: interfaces
+                                funcionais e listeners, p. 20–23</a></td>
+                        <td>O painel de mesas associa campos e listeners às chamadas SOAP. Os exemplos de componentes e
+                            interfaces funcionais ajudam a ler os eventos; o servidor continua responsável por validar o
+                            cadastro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-categorias.html#fundamentacao">56. Construir o cadastro Swing de
+                                categorias</a></td>
+                        <td><a href="#leitura-java-swing">[R04] Cap. 16: componentes e contêineres (leitura visual), p.
+                                550–552</a><br><a href="#leitura-java8-funcoes">[R05] Cap. 3, §3.1–3.2: interfaces
+                                funcionais e listeners, p. 20–23</a></td>
+                        <td>O painel de categorias associa campos e listeners às chamadas SOAP. Os exemplos de
+                            componentes e interfaces funcionais ajudam a ler os eventos; o servidor continua responsável
+                            por validar o cadastro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-formulario-produtos.html#fundamentacao">57. Construir o formulário
+                                Swing de produtos</a></td>
+                        <td><a href="#leitura-java-swing">[R04] Cap. 16: componentes e contêineres (leitura visual), p.
+                                550–552</a><br><a href="#leitura-java8-funcoes">[R05] Cap. 3, §3.1–3.2: interfaces
+                                funcionais e listeners, p. 20–23</a></td>
+                        <td>O painel de produtos associa campos e listeners às chamadas SOAP. Os exemplos de componentes
+                            e interfaces funcionais ajudam a ler os eventos; o servidor continua responsável por validar
+                            o cadastro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-produtos.html#fundamentacao">58. Montar a janela administrativa</a>
+                        </td>
+                        <td><a href="#leitura-java-swing">[R04] Cap. 16: componentes e contêineres (leitura visual), p.
+                                550–552</a><br><a href="#leitura-java-edt">[R04] Cap. 16: primeiro programa Swing e
+                                invokeLater (leitura visual), p. 554–556</a><br><a
+                                href="#leitura-javafx-comparacao">[R07] Cap. 8, §8.1: comparação com Swing, p. 72–74</a>
+                        </td>
+                        <td>A janela agrupa painéis já construídos e inicia na EDT. O capítulo comparativo de JavaFX
+                            esclarece a escolha de toolkit; a exigência desta trilha é Swing, sem migração de
+                            componentes para JavaFX.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/swing-pedidos.html#fundamentacao">59. Construir a janela do garçom</a></td>
+                        <td><a href="#leitura-java-swing">[R04] Cap. 16: componentes e contêineres (leitura visual), p.
+                                550–552</a><br><a href="#leitura-java8-dinheiro">[R05] Cap. 11, §11.2–11.3: soma de
+                                BigDecimal por redução, p. 110–112</a><br><a href="#leitura-jsf-feedback">[R09] Cap. 28,
+                                §28.1–28.3: feedback e ações assíncronas, p. 171–173</a></td>
+                        <td>A tela exibe o total calculado no servidor e comunica o resultado de cada ação. O princípio
+                            de feedback de uma requisição assíncrona também se aplica ao desktop; o código usa Swing e
+                            não componentes JSF.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/testes-swing.html#fundamentacao">60. Testar as duas telas contra o SOAP
+                                local</a></td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a><br><a href="#leitura-java-edt">[R04] Cap. 16: primeiro programa Swing e
+                                invokeLater (leitura visual), p. 554–556</a></td>
+                        <td>O teste funcional pela janela complementa os testes das regras. Execute o fluxo completo e
+                            observe responsividade, mensagens e estado da mesa; testes sem GUI não constituem uma
+                            inspeção visual integral do Swing.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/cardapio-imagem.html#fundamentacao">61. Criar o recurso visual do
+                                cardápio</a></td>
+                        <td><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media types, p. 25–28</a>
+                        </td>
+                        <td>Uma imagem é um recurso com tipo de conteúdo próprio, separado do JSON do catálogo. O SVG
+                            desta aula é um recurso autoral do material; os livros não são apresentados como fonte da
+                            ilustração.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/cardapio-html.html#fundamentacao">62. Escrever o HTML semântico</a></td>
+                        <td><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e adaptadores, p.
+                                273–282</a><br><a href="#leitura-jsf-feedback">[R09] Cap. 28, §28.1–28.3: feedback e
+                                ações assíncronas, p. 171–173</a></td>
+                        <td>A apresentação prepara os pontos em que dados e mensagens serão exibidos; ela não calcula a
+                            conta. O princípio de feedback do livro de JSF é aplicado ao HTML sem adotar componentes JSF
+                            ou renderização por ManagedBeans.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/cardapio-css.html#fundamentacao">63. Implementar o layout responsivo</a>
+                        </td>
+                        <td><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e adaptadores, p.
+                                273–282</a><br><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media
+                                types, p. 25–28</a></td>
+                        <td>O layout é uma decisão do adaptador visual, e a folha CSS é carregada como recurso separado.
+                            Grid, breakpoints e seletores desta aula são implementação do tutorial; a referência
+                            arquitetural justifica não misturar apresentação e regras.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/cardapio-digital.html#fundamentacao">64. Implementar busca, categorias e
+                                consulta JSON</a></td>
+                        <td><a href="#leitura-jsf-feedback">[R09] Cap. 28, §28.1–28.3: feedback e ações assíncronas, p.
+                                171–173</a><br><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media
+                                types, p. 25–28</a><br><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3:
+                                recursos, métodos e representações, p. 35–38</a></td>
+                        <td>Aplique feedback de carregamento, falha e nova tentativa à chamada fetch. A resposta JSON
+                            alimenta a apresentação e os filtros locais; não há JSF, sessão de pedido no navegador nem
+                            cálculo de conta nessa interface.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/qr-code.html#fundamentacao">65. Gerar e conferir QR em localhost</a></td>
+                        <td><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media types, p.
+                                25–28</a><br><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos
+                                e representações, p. 35–38</a></td>
+                        <td>A URL identifica o recurso público e o PNG é uma representação binária com media type
+                            próprio. A codificação QR é implementação autoral com a biblioteca do projeto, não um
+                            algoritmo retirado dos livros.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/spring-initializr.html#fundamentacao">66. Gerar a base REST no Spring
+                                Initializr</a></td>
+                        <td><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e adaptadores, p.
+                                273–282</a><br><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos,
+                                métodos e representações, p. 35–38</a></td>
+                        <td>Os livros fundamentam separação de camadas e recursos HTTP. A geração pelo Spring
+                            Initializr, Boot 4 e springdoc são complementos atuais do tutorial: o gerador fornece
+                            somente bootstrap e ferramentas, não contratos ou regras do restaurante.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-ping.html#fundamentacao">67. Escrever o primeiro endpoint HTTP</a>
+                        </td>
+                        <td><a href="#leitura-rest-http">[R02] Cap. 2, §2.2: métodos e idempotência, p. 21–23</a><br><a
+                                href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media types, p.
+                                25–28</a></td>
+                        <td>A primeira resposta HTTP/JSON verifica o adaptador mínimo. Um GET bem-sucedido não comprova
+                            conexão ao MySQL nem a implementação de regras; ping não representa um cadastro completo do
+                            restaurante.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-pom.html#fundamentacao">68. Integrar o núcleo e as dependências
+                                REST</a></td>
+                        <td><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de dependência, p.
+                                139–144</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de dependência e
+                                adaptadores, p. 273–282</a></td>
+                        <td>Spring é composto na borda e o mesmo núcleo é reutilizado por outro adaptador. A
+                            configuração de dependências e versões é do projeto atual, enquanto o princípio de isolar o
+                            framework vem da leitura.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-entradas.html#fundamentacao">69. Escrever DTOs de entrada REST</a>
+                        </td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a></td>
+                        <td>Entradas descreve os dados aceitos na borda HTTP e usa Bean Validation. A regra de negócio
+                            também é verificada pelo caso de uso, pois consumidores SOAP e outros adaptadores devem
+                            respeitá-la.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-saidas.html#fundamentacao">70. Escrever DTOs de saída REST</a></td>
+                        <td><a href="#leitura-clean-negocio">[R03] Cap. 20: entidades, casos de uso e modelos de dados,
+                                p. 260–266</a><br><a href="#leitura-java8-streams">[R05] Cap. 7, §7.4–7.6: collect,
+                                toList e map, p. 57–59</a></td>
+                        <td>Saidas converte entidades internas em representações HTTP sem expor objetos de persistência.
+                            A leitura de map/collect ajuda a acompanhar a transformação; Stream.toList utilizado em Java
+                            17 é posterior à versão Java 8 do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-erros.html#fundamentacao">71. Padronizar erros HTTP</a></td>
+                        <td><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p. 29–32</a><br><a
+                                href="#leitura-oca-excecoes">[R06] Cap. 10, §10.1–10.2: checked, runtime e tratamento,
+                                p. 336–339</a></td>
+                        <td>Traduza a falha da aplicação para semântica HTTP sem revelar detalhes internos. Leia a
+                            atualização de HTTP na bibliografia: 415 trata o conteúdo recebido incompatível; negociação
+                            de uma representação de resposta pode resultar em 406, corrigindo a associação feita no
+                            exemplar.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-configuracao.html#fundamentacao">72. Conectar REST ao MySQL</a></td>
+                        <td><a href="#leitura-clean-dip">[R03] Cap. 11: princípio da inversão de dependência, p.
+                                139–144</a><br><a href="#leitura-jpa-transacao">[R08] Cap. 2, §2.4.1: controle manual da
+                                transação, p. 30–32</a></td>
+                        <td>A classe de configuração compõe DataSource, repositório e casos de uso. Spring fornece o
+                            mecanismo de composição; a decisão de não levar esse mecanismo ao domínio é arquitetural.
+                            Não há EntityManager nessa configuração.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/seguranca.html#fundamentacao">73. Implementar autorização HTTP</a></td>
+                        <td><a href="#leitura-soa-http-basic">[R01] Cap. 6, §6.3: autenticação e autorização HTTP, p.
+                                152–153</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>Autenticação identifica o consumidor e autorização restringe a ação. A configuração atual
+                            separa leitura pública, ADMIN e GARCOM por rota/método; Basic é codificação de credenciais
+                            em HTTP e não um mecanismo de criptografia.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-mesas.html#fundamentacao">74. Implementar MesaController</a></td>
+                        <td><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos e representações,
+                                p. 35–38</a><br><a href="#leitura-rest-http">[R02] Cap. 2, §2.2: métodos e idempotência,
+                                p. 21–23</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>Modele mesas como recursos e operações HTTP, mantendo as validações no núcleo. Identifique a
+                            criação com 201/Location e escolha o status de conflito quando a operação for incompatível
+                            com o estado atual. A API usa URLs conhecidas e não implementa navegação HATEOAS.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-categorias.html#fundamentacao">75. Implementar CategoriaController</a>
+                        </td>
+                        <td><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos e representações,
+                                p. 35–38</a><br><a href="#leitura-rest-http">[R02] Cap. 2, §2.2: métodos e idempotência,
+                                p. 21–23</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>Modele categorias como recursos e operações HTTP, mantendo as validações no núcleo.
+                            Identifique a criação com 201/Location e escolha o status de conflito quando a operação for
+                            incompatível com o estado atual. A API usa URLs conhecidas e não implementa navegação
+                            HATEOAS.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-produtos.html#fundamentacao">76. Implementar ProdutoController</a>
+                        </td>
+                        <td><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos e representações,
+                                p. 35–38</a><br><a href="#leitura-rest-http">[R02] Cap. 2, §2.2: métodos e idempotência,
+                                p. 21–23</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>Modele produtos como recursos e operações HTTP, mantendo as validações no núcleo.
+                            Identifique a criação com 201/Location e escolha o status de conflito quando a operação for
+                            incompatível com o estado atual. A API usa URLs conhecidas e não implementa navegação
+                            HATEOAS.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-pedidos.html#fundamentacao">77. Implementar PedidoController</a></td>
+                        <td><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos e representações,
+                                p. 35–38</a><br><a href="#leitura-rest-http">[R02] Cap. 2, §2.2: métodos e idempotência,
+                                p. 21–23</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>Modele pedidos como recursos e operações HTTP, mantendo as validações no núcleo. Identifique
+                            a criação com 201/Location e escolha o status de conflito quando a operação for incompatível
+                            com o estado atual. A API usa URLs conhecidas e não implementa navegação HATEOAS.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-cardapio.html#fundamentacao">78. Expor cardápio e QR pela API HTTP</a>
+                        </td>
+                        <td><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media types, p.
+                                25–28</a><br><a href="#leitura-rest-recursos">[R02] Cap. 3, §3.1–3.3: recursos, métodos
+                                e representações, p. 35–38</a></td>
+                        <td>Catálogo JSON e imagem QR são recursos públicos com representações diferentes. O controller
+                            adapta a projeção existente do núcleo; nenhuma credencial de garçom precisa ser entregue ao
+                            navegador para essa leitura.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/rest-openapi.html#fundamentacao">79. Escrever a configuração OpenAPI</a>
+                        </td>
+                        <td><a href="#leitura-rest-hateoas">[R02] Cap. 3, §3.4–3.5: status e hipermídia, p.
+                                40–43</a><br><a href="#leitura-rest-media">[R02] Cap. 2, §2.4–2.5: cabeçalhos e media
+                                types, p. 25–28</a></td>
+                        <td>O livro de REST mostra que representação e hipermídia fazem parte do desenho da API. OpenAPI
+                            descreve o contrato HTTP implementado, mas não acrescenta HATEOAS nem regras
+                            automaticamente. A API didática exercita recursos/métodos/status e deixa hipermídia como
+                            extensão explícita.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/testes-rest.html#fundamentacao">80. Implementar testes REST e exportação
+                                OpenAPI</a></td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a></td>
+                        <td>Teste comportamento, autorização e o contrato de resposta sem depender da disposição de uma
+                            página. MockMvc, o processo HTTP real e MySQL real são níveis de evidência diferentes e
+                            devem ser registrados com seus limites.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/testes.html#fundamentacao">81. Implementar testes de publicação SOAP</a>
+                        </td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a><br><a href="#leitura-soa-fault">[R01] Cap. 3, §3.2–3.4: exceções, Fault e
+                                detail, p. 60–65</a></td>
+                        <td>O teste publica descritores reais e consome os serviços. Isso complementa o teste do núcleo:
+                            além do resultado de negócio, confira WSDL, autenticação, projeção pública e tradução de
+                            Fault.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/localhost.html#fundamentacao">82. Executar o sistema completo em
+                                localhost</a></td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a><br><a href="#leitura-soa-fundamentos">[R01] Cap. 1, §1.7–1.8: serviços e
+                                orientação a serviços, p. 27–29</a></td>
+                        <td>A conclusão exige observar a capacidade de negócio pelos dois contratos, com persistência
+                            real. Os livros fundamentam reutilização e testabilidade; valores da conta, portas e roteiro
+                            MySQL são os experimentos próprios deste restaurante.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/comparativo.html#fundamentacao">83. Comparar SOAP e REST construídos</a>
+                        </td>
+                        <td><a href="#leitura-soa-fundamentos">[R01] Cap. 1, §1.7–1.8: serviços e orientação a serviços,
+                                p. 27–29</a><br><a href="#leitura-rest-hateoas">[R02] Cap. 3, §3.4–3.5: status e
+                                hipermídia, p. 40–43</a><br><a href="#leitura-clean-camadas">[R03] Cap. 22: regra de
+                                dependência e adaptadores, p. 273–282</a></td>
+                        <td>Compare contratos e formas de interação sem tratar SOA, SOAP, REST e OpenAPI como sinônimos.
+                            O mesmo caso de uso é reaproveitado; a alternativa HTTP do laboratório não inclui HATEOAS,
+                            ponto importante ao compará-la com a proposta completa do livro.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/erros.html#fundamentacao">84. Resolver problemas do laboratório</a></td>
+                        <td><a href="#leitura-oca-excecoes">[R06] Cap. 10, §10.1–10.2: checked, runtime e tratamento, p.
+                                336–339</a><br><a href="#leitura-rest-status">[R02] Cap. 2, §2.6: códigos de status, p.
+                                29–32</a><br><a href="#leitura-soa-fault">[R01] Cap. 3, §3.2–3.4: exceções, Fault e
+                                detail, p. 60–65</a></td>
+                        <td>Use a evidência da camada para interpretar o problema: erro de ambiente, recusa de negócio,
+                            status HTTP e Fault XML têm significados diferentes. A referência bibliográfica não
+                            substitui a reprodução do erro no ambiente do aluno.</td>
+                    </tr>
+                    <tr>
+                        <td><a href="../site/exercicios.html#fundamentacao">85. Conferir a construção e estender o
+                                sistema</a></td>
+                        <td><a href="#leitura-clean-testes">[R03] Cap. 28: o limite teste e testabilidade, p.
+                                323–327</a><br><a href="#leitura-clean-srp">[R03] Cap. 7: princípio da responsabilidade
+                                única, p. 113–119</a><br><a href="#leitura-rest-hateoas">[R02] Cap. 3, §3.4–3.5: status
+                                e hipermídia, p. 40–43</a></td>
+                        <td>Justifique decisões e proponha uma extensão delimitada: por exemplo, acrescentar links de
+                            ações válidas em um pedido aberto e testá-los. Isso exige implementação e teste próprios;
+                            citar HATEOAS ou adicionar Swagger não conclui a extensão.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <p><a href="../site/index.html">Voltar à construção do restaurante</a></p>
+    </main>
+</body>
+
+</html>
