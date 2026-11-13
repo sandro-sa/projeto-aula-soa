@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Desenhar as fronteiras SOA · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a
+                href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a class="current" aria-current="page"
+                href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a
+                href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a
+                href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a
+                href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus
+                estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a
+                href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a
+                href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a
+                href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a
+                href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a>
+            <p class="nav-grupo">Regras de negócio</p><a href="aplicacao-falhas.html"><span
+                    aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a
+                href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de
+                persistência</a><a href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de
+                mesas</a><a href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de
+                categorias</a><a href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras
+                de produtos</a><a href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo
+                do pedido</a><a href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros
+                testes de regras</a>
+            <p class="nav-grupo">Persistência MySQL</p><a href="infraestrutura-pom.html"><span
+                    aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a
+                href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a
+                href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a
+                href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a
+                href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais
+                externas</a><a href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório,
+                histórico e concorrência</a>
+            <p class="nav-grupo">Contratos SOAP</p><a href="contrato-xsd.html"><span aria-hidden="true">33.</span>
+                Escrever os tipos e mensagens XSD</a><a href="wsdl-mesas.html"><span aria-hidden="true">34.</span>
+                Escrever o WSDL de Mesa</a><a href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o
+                WSDL de Categoria</a><a href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de
+                Produto</a><a href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de
+                Pedido</a><a href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos
+                contratos</a>
+            <p class="nav-grupo">Servidor SOAP</p><a href="servidor.html"><span aria-hidden="true">39.</span> Criar o
+                módulo WAR do servidor</a><a href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor
+                aplicação e banco no WAR</a><a href="soap-autenticacao.html"><span aria-hidden="true">41.</span>
+                Autenticar requisições SOAP</a><a href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar
+                e converter SOAP Fault</a><a href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio
+                para DTOs SOAP</a><a href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar
+                MesaEndpoint</a><a href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar
+                CategoriaEndpoint</a><a href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar
+                ProdutoEndpoint</a><a href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar
+                PedidoEndpoint</a><a href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da
+                imagem QR</a><a href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON
+                público</a><a href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e
+                serviços no Tomcat</a><a href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no
+                Tomcat localhost</a>
+            <p class="nav-grupo">Interfaces Swing</p><a href="desktop-conexao.html"><span aria-hidden="true">52.</span>
+                Criar o módulo desktop e o cliente SOAP</a><a href="swing-worker.html"><span
+                    aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a
+                href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de
+                cadastro</a><a href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de
+                mesas</a><a href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing
+                de categorias</a><a href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir
+                o formulário Swing de produtos</a><a href="swing-produtos.html"><span aria-hidden="true">58.</span>
+                Montar a janela administrativa</a><a href="swing-pedidos.html"><span aria-hidden="true">59.</span>
+                Construir a janela do garçom</a><a href="testes-swing.html"><span aria-hidden="true">60.</span> Testar
+                as duas telas contra o SOAP local</a>
+            <p class="nav-grupo">Cardápio local</p><a href="cardapio-imagem.html"><span aria-hidden="true">61.</span>
+                Criar o recurso visual do cardápio</a><a href="cardapio-html.html"><span aria-hidden="true">62.</span>
+                Escrever o HTML semântico</a><a href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar
+                o layout responsivo</a><a href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar
+                busca, categorias e consulta JSON</a><a href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e
+                conferir QR em localhost</a>
+            <p class="nav-grupo">REST desde o Initializr</p><a href="spring-initializr.html"><span
+                    aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a
+                href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a
+                href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a
+                href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a
+                href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a
+                href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a
+                href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a
+                href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a
+                href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a
+                href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a
+                href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a
+                href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a
+                href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a
+                href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a>
+            <p class="nav-grupo">Validação em localhost</p><a href="testes-rest.html"><span
+                    aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a
+                href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a
+                href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a>
+            <p class="nav-grupo">Consolidação</p><a href="comparativo.html"><span aria-hidden="true">83.</span> Comparar
+                SOAP e REST construídos</a><a href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas
+                do laboratório</a><a href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e
+                estender o sistema</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Projeto e domínio · aula 10 de 85</span>
+        <h1>Desenhar as fronteiras SOA</h1>
+        <p class="lead">Organizar capacidades do restaurante por contratos com responsabilidades claras.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+       <section id="objetivo"><h2>1. Objetivo do tutorial</h2>
+<div class="callout" data-explicacao-aula="10"><p><strong>Problema no sistema</strong></p><p>O garçom, o administrador e o cliente do cardápio têm necessidades diferentes. O diagrama mostra por onde cada chamada entra e como os transportes chegam à mesma aplicação.</p></div>
+<details class="leitura-codigo" data-leitura-arquivo="diagramas/componentes.mmd"><summary>Entenda cada parte de componentes.mmd</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>flowchart LR e nós</code></th><td>Organizam a leitura do diagrama da esquerda para a direita, dos clientes ao banco.</td></tr>
+<tr><th scope="row"><code>setas SOAP/XML e HTTP/JSON</code></th><td>Indicam quais formatos e protocolos ligam cada cliente aos adaptadores.</td></tr>
+<tr><th scope="row"><code>Tomcat + Metro, BFF Servlet e Spring Boot REST</code></th><td>Representam as entradas de rede que recebem chamadas e as traduzem para os casos de uso.</td></tr>
+<tr><th scope="row"><code>casos de uso, domínio e porta Repositorio</code></th><td>Mostram onde ficam a coordenação do fluxo, os tipos de negócio e as operações exigidas da persistência.</td></tr>
+<tr><th scope="row"><code>seta pontilhada JDBC + Flyway</code></th><td>Indica a implementação da porta e o acesso ao MySQL. O desenho permite acompanhar quem depende de quem.</td></tr>
+</tbody></table>
+</details>
+
+<p>Ao final, você deverá conseguir <strong>desenhar e entender</strong> os limites entre os clientes, protocolos, adaptadores, regras de negócio e persistência. Você também saberá por que um pedido criado na versão SOAP não aparece automaticamente na REST.</p><div class="callout"><strong>Ideia central:</strong> compartilhar código Java não significa compartilhar estado, processos em execução ou tabelas no banco de dados.</div></section>
+<section id="conceitos"><h2>2. Conceitos necessários</h2><div class="grid"><div class="tile"><h3>SOA e contrato</h3><p>SOA organiza capacidades de negócio como serviços. O contrato descreve como o consumidor interage com cada capacidade, sem expor detalhes internos de tabelas.</p></div><div class="tile"><h3>SOAP, Metro e Tomcat</h3><p>SOAP define a estrutura XML das mensagens; o WSDL descreve o contrato do serviço. O Tomcat hospeda a aplicação web e o Metro implementa a infraestrutura dos serviços SOAP.</p></div><div class="tile"><h3>REST e Spring Boot</h3><p>Na outra versão, endpoints HTTP oferecem recursos e operações em JSON. O Spring Boot executa sua própria aplicação, separada da implantação SOAP.</p></div><div class="tile"><h3>Clean Architecture</h3><p>Organiza as dependências internas: adaptadores chamam casos de uso; casos de uso aplicam as regras do domínio e dependem de interfaces (portas), não de JDBC diretamente.</p></div></div><h3>Uma aplicação, vários tipos de cliente</h3><p>Na versão SOAP, as telas Java Swing de administração e do garçom chamam serviços SOAP/XML. O cardápio acessado pelo celular chama um <abbr title="Backend for Frontend">BFF</abbr> Servlet que responde em HTTP/JSON. Na versão REST, o Swagger UI ou outro cliente HTTP acessa operações autenticadas de pedidos, enquanto o cardápio público consulta somente informações de produtos.</p><div class="callout warn"><strong>Não confunda:</strong> o cardápio do celular é apenas para consulta nesta implementação. Ele não cria pedidos, não adiciona itens e não fecha contas. A versão REST ainda não tem tela de garçom.</div></section>
+<section id="problema"><h2>3. Problema que será resolvido</h2><p>O restaurante precisa administrar mesas, categorias, produtos e pedidos sem permitir que cada interface acesse diretamente o MySQL ou implemente suas próprias regras. Além disso, queremos comparar dois estilos de integração - SOAP e REST - sem misturar os dados dos experimentos.</p><p>A solução é separar <strong>entrada</strong> (Swing, BFF, HTTP), <strong>regras de negócio</strong> (casos de uso e domínio) e <strong>saída</strong> (repositórios JDBC e MySQL).</p></section>
+<section id="arquivos"><h2>4. Arquivos a criar ou alterar</h2><p>Os caminhos partem da raiz de <code>laboratorio-restaurante-soa</code>, criada no tutorial inicial:</p><ul><li><strong>Criar:</strong> <code>diagramas/componentes.md</code> - fonte Mermaid da arquitetura.</li><li><strong>Conferir:</strong> os diretórios de cada aplicação e suas configurações de conexão com <code>restaurante_soap</code> e <code>restaurante_rest</code>, quando forem implementados nas etapas correspondentes.</li></ul><p>Este tutorial cria um <strong>diagrama e uma especificação de arquitetura</strong>; não pressupõe que todas as classes, bancos ou endpoints já estejam funcionando.</p></section>
+
+     <section id="codigo"><h2>5. Implementação passo a passo e código da etapa</h2><h3>5.1. Criar a pasta do diagrama</h3><p>No PowerShell, aberto na raiz do projeto:</p><pre><code class="language-powershell">New-Item -ItemType Directory -Path 'diagramas' -Force</code></pre><p>No Eclipse: clique com o botão direito no projeto → <strong>New → Folder</strong> → <code>diagramas</code>. Depois use <strong>New → File</strong> para criar <code>componentes.md</code>.</p><h3>5.2. Escrever o diagrama completo</h3><p>Copie para <code>diagramas/componentes.md</code>. Observe que cada versão tem seu próprio caminho de persistência e banco:</p><button class="copy" data-copy="mermaid-source" type="button">Copiar Mermaid</button><pre><code class="language-text" id="mermaid-source">flowchart LR
+    subgraph SOAP["Versão SOAP - localhost:8080/restaurante"]
+        A["Administração / Swing"] --&gt;|SOAP/XML| S["Serviços SOAP / Tomcat 10.1 + Metro"]
+        G["Garçom / Swing: registra pedidos"] --&gt;|SOAP/XML| S
+        WS["Celular: cardápio SOAP"] --&gt;|HTTP/JSON público| B["BFF Servlet no Tomcat"]
+        S --&gt; US["Casos de uso / aplicação SOAP"]
+        B --&gt; US
+        US --&gt; DS["Domínio puro Java 17"]
+        US --&gt; PS["Porta Repositório / Sessão"]
+        JS["JDBC + Flyway da versão SOAP"] -. implementa .-&gt; PS
+        JS --&gt; DBS[("MySQL: restaurante_soap")]
+    end
+
+    subgraph REST["Versão REST - localhost:8081"]
+        T["Swagger UI / cliente HTTP: testes de pedidos"] --&gt;|HTTP/JSON autenticado| R["Spring Boot REST"]
+        WR["Celular: cardápio REST"] --&gt;|HTTP/JSON público| R
+        R --&gt; UR["Casos de uso / aplicação REST"]
+        UR --&gt; DR["Domínio puro Java 17"]
+        UR --&gt; PR["Porta Repositório / Sessão"]
+        JR["JDBC + Flyway da versão REST"] -. implementa .-&gt; PR
+        JR --&gt; DBR[("MySQL: restaurante_rest")]
+    end</code></pre>
+    
+    <h3>5.3. Visualizar o desenho</h3><p>O diagrama a seguir é renderizado a partir do mesmo código. Se a biblioteca de visualização não carregar, o arquivo <code>.md</code> permanece disponível para inspeção e pode ser aberto em um editor compatível com Mermaid.</p><figure class="diagram"><div aria-label="Diagrama com versões SOAP e REST independentes" class="mermaid" id="diagrama"></div><figcaption>As caixas SOAP e REST representam implantações independentes. A seta pontilhada indica implementação de interface, não comunicação entre bancos.</figcaption></figure><div class="callout"><strong>Dependência opcional:</strong> a renderização automática usa Mermaid via CDN. Se o laboratório não tiver internet, você pode usar a extensão de pré-visualização Mermaid no editor ou um renderizador local, sem alterar o arquivo <code>.md</code>.</div></section>
+
+        <section>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>Saudate discute contratos e reutilização entre capacidades; Martin discute dependências internas. No
+                    restaurante, quatro serviços compartilham regras e uma base transacional por implementação. Não se
+                    conclui que quatro WSDLs constituem quatro microsserviços.</p>
+                <ul>
+                    <li data-referencia="soa-fundamentos"><a
+                            href="../docs/referencias.html#leitura-soa-fundamentos">[R01] Alexandre Saudate - SOA
+                            aplicado: integrando com web services e além</a>. Cap. 1, §1.7–1.8: serviços e orientação a
+                        serviços. <strong>Páginas 27–29 do PDF</strong>.</li>
+                    <li data-referencia="soa-canonico"><a href="../docs/referencias.html#leitura-soa-canonico">[R01]
+                            Alexandre Saudate - SOA aplicado: integrando com web services e além</a>. Cap. 7, §7.1–7.2:
+                        integração e modelo canônico. <strong>Páginas 200–203 do PDF</strong>.</li>
+                    <li data-referencia="clean-camadas"><a href="../docs/referencias.html#leitura-clean-camadas">[R03]
+                            Robert C. Martin - Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 22: regra de dependência e adaptadores. <strong>Páginas 273–282 do
+                            PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Desenhe a diferença entre uma chamada remota e uma dependência
+                    de código-fonte.</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </section>
+      
+        <section>
+            <h2 id="fluxo">6. Fluxo da execução</h2>
+            <div class="fluxo">Consumidor → contrato → adaptador → caso de uso → porta de persistência → banco.</div>
+        </section>
+        
+        <section>
+            <br>
+            <button class="concluir" data-aula="arquitetura-soa" type="button" aria-pressed="false">Marcar aula
+                como concluída</button>
+        </section>
+        
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">9 PDFs fornecidos e leituras por
+                aula</a>. Complementos oficiais para ferramentas e versões: <a
+                href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="eclipse-servidor.html">← Registrar Tomcat no
+                Eclipse</a><a href="clean-architecture.html">Definir camadas e dependências →</a></nav>
+    </main>
+    <script type="module">
+const source=document.getElementById('mermaid-source').textContent;
+const diagram=document.getElementById('diagrama');
+diagram.textContent=source;
+try { const {default:mermaid}=await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');mermaid.initialize({startOnLoad:false,securityLevel:'strict',theme:'neutral'});const {svg}=await mermaid.render('arquiteturaRestaurante',source);diagram.innerHTML=svg;}catch(error){const note=document.createElement('p');note.textContent='Pré-visualização indisponível. Utilize o código Mermaid acima em um visualizador compatível.';diagram.replaceChildren(note);}
+</script><script>document.addEventListener('click', function(event) { const button = event.target.closest('button[data-copy]'); if (!button) return; const source = document.getElementById(button.dataset.copy); if (!source) return; const value = source.textContent; if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(value).then(() => {button.textContent='Copiado!';setTimeout(() => button.textContent='Copiar Mermaid', 1800);}).catch(() => {button.textContent='Selecione o código para copiar';}); } else { const selection = window.getSelection(); const range = document.createRange(); range.selectNodeContents(source); selection.removeAllRanges(); selection.addRange(range); button.textContent='Código selecionado: Ctrl+C'; } });</script></body>
+
+</body>
+
+</html>

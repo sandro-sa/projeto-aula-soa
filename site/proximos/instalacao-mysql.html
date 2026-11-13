@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Instalar e testar MySQL 8.4 · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a class="current" aria-current="page" href="instalacao-mysql.html"><span
+                    aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a href="banco-de-dados.html"><span
+                    aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a href="tomcat.html"><span
+                    aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a href="eclipse-servidor.html"><span
+                    aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a
+                href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a
+                href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a>
+            <p class="nav-grupo">Regras de negócio</p><a href="aplicacao-falhas.html"><span
+                    aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a
+                href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de
+                persistência</a><a href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de
+                mesas</a><a href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de
+                categorias</a><a href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras
+                de produtos</a><a href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo
+                do pedido</a><a href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros
+                testes de regras</a>
+            <p class="nav-grupo">Persistência MySQL</p><a href="infraestrutura-pom.html"><span
+                    aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a
+                href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a
+                href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a
+                href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a
+                href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais
+                externas</a><a href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório,
+                histórico e concorrência</a>
+            <p class="nav-grupo">Contratos SOAP</p><a href="contrato-xsd.html"><span aria-hidden="true">33.</span>
+                Escrever os tipos e mensagens XSD</a><a href="wsdl-mesas.html"><span aria-hidden="true">34.</span>
+                Escrever o WSDL de Mesa</a><a href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o
+                WSDL de Categoria</a><a href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de
+                Produto</a><a href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de
+                Pedido</a><a href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos
+                contratos</a>
+            <p class="nav-grupo">Servidor SOAP</p><a href="servidor.html"><span aria-hidden="true">39.</span> Criar o
+                módulo WAR do servidor</a><a href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor
+                aplicação e banco no WAR</a><a href="soap-autenticacao.html"><span aria-hidden="true">41.</span>
+                Autenticar requisições SOAP</a><a href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar
+                e converter SOAP Fault</a><a href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio
+                para DTOs SOAP</a><a href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar
+                MesaEndpoint</a><a href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar
+                CategoriaEndpoint</a><a href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar
+                ProdutoEndpoint</a><a href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar
+                PedidoEndpoint</a><a href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da
+                imagem QR</a><a href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON
+                público</a><a href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e
+                serviços no Tomcat</a><a href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no
+                Tomcat localhost</a>
+            <p class="nav-grupo">Interfaces Swing</p><a href="desktop-conexao.html"><span aria-hidden="true">52.</span>
+                Criar o módulo desktop e o cliente SOAP</a><a href="swing-worker.html"><span
+                    aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a
+                href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de
+                cadastro</a><a href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de
+                mesas</a><a href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing
+                de categorias</a><a href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir
+                o formulário Swing de produtos</a><a href="swing-produtos.html"><span aria-hidden="true">58.</span>
+                Montar a janela administrativa</a><a href="swing-pedidos.html"><span aria-hidden="true">59.</span>
+                Construir a janela do garçom</a><a href="testes-swing.html"><span aria-hidden="true">60.</span> Testar
+                as duas telas contra o SOAP local</a>
+            <p class="nav-grupo">Cardápio local</p><a href="cardapio-imagem.html"><span aria-hidden="true">61.</span>
+                Criar o recurso visual do cardápio</a><a href="cardapio-html.html"><span aria-hidden="true">62.</span>
+                Escrever o HTML semântico</a><a href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar
+                o layout responsivo</a><a href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar
+                busca, categorias e consulta JSON</a><a href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e
+                conferir QR em localhost</a>
+            <p class="nav-grupo">REST desde o Initializr</p><a href="spring-initializr.html"><span
+                    aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a
+                href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a
+                href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a
+                href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a
+                href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a
+                href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a
+                href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a
+                href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a
+                href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a
+                href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a
+                href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a
+                href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a
+                href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a
+                href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a>
+            <p class="nav-grupo">Validação em localhost</p><a href="testes-rest.html"><span
+                    aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a
+                href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a
+                href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a>
+            <p class="nav-grupo">Consolidação</p><a href="comparativo.html"><span aria-hidden="true">83.</span> Comparar
+                SOAP e REST construídos</a><a href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas
+                do laboratório</a><a href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e
+                estender o sistema</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Preparação do laboratório · tutorial 6 de 85</span>
+        <h1>Instalar e testar MySQL 8.4</h1>
+        <p class="lead">Instalar e testar MySQL 8.4 e validar o resultado antes de avançar.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo do tutorial</h2>
+            <p>Instalar e testar MySQL 8.4 e validar o resultado antes de avançar.</p>
+           
+        </section>
+        <section>
+            <h2 id="conceitos">2. Conceitos necessários</h2>
+<div class="callout" data-explicacao-aula="6"><p><strong>Problema no sistema</strong></p><p>O restaurante precisa de um servidor de banco acessível para guardar pedidos entre execuções. Esta preparação permite identificar o motor em execução e separar problemas do servidor de problemas do cliente que se conecta a ele.</p></div>
+<details class="leitura-codigo"><summary>Entenda os componentes desta etapa</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>painel XAMPP e serviço MySQL</code></th><td>O rótulo MySQL do painel inicia o MariaDB distribuído pelo XAMPP. Confira o motor e a versão do servidor que atende à conexão.</td></tr>
+<tr><th scope="row"><code>Apache HTTP Server</code></th><td>Serve a interface web de administração neste roteiro. A publicação Java SOAP usará o Tomcat nas etapas seguintes.</td></tr>
+<tr><th scope="row"><code>phpMyAdmin</code></th><td>Oferece uma interface web para executar SQL e inspecionar bancos quando o servidor e o Apache estão disponíveis.</td></tr>
+<tr><th scope="row"><code>cliente mysql e SELECT VERSION()</code></th><td>O comando cliente abre uma conexão. A consulta VERSION() mostra a versão do servidor que realmente respondeu.</td></tr>
+<tr><th scope="row"><code>MySQL 8.4 de referência</code></th><td>É o alvo indicado para as migrações e os testes MySQL do laboratório. Registre o motor observado ao validar seu ambiente.</td></tr>
+</tbody></table>
+</details>
+
+            
+            <p> O XAMPP no ambiente de autoria contém MariaDB</p>
+            <p>Não crie tabelas manualmente neste tutorial. Primeiro confirmaremos o servidor; depois criaremos bancos e
+                usuário; o esquema da aplicação será versionado com Flyway.</p>
+        </section>
+        <section>
+            <h2 id="problema">3. Problema que será resolvido</h2>
+            <p>Construir esta responsabilidade mantendo a separação de camadas e as dependências apresentadas.</p>
+        </section>
+        <section>
+            <h2 id="arquivos">4. Arquivos a criar ou alterar</h2>
+            <p>Caminhos relativos à pasta vazia laboratorio-restaurante-soa, e depois ao projeto que você está construindo:</p>
+            <p>Este tutorial configura ferramentas ou exercita o projeto já construído. Nenhuma classe futura é pressuposta.
+            </p>
+        </section>
+        <section>
+            <h2 id="codigo">5. Implementação passo a passo e código da etapa</h2>
+           
+<section>
+    <h3>Passo 1: Baixar o instalador do XAMPP</h3>
+    <p>
+        O XAMPP é um ambiente de desenvolvimento que reúne
+        ferramentas como Apache HTTP Server, MariaDB, PHP
+        e phpMyAdmin. Ele permite desenvolver e testar
+        aplicações web e bancos de dados localmente.
+    </p>
+
+    <ol>
+        <li>
+            Acesse o site oficial do Apache Friends:
+            <a href="https://www.apachefriends.org/pt_br/download.html"
+               target="_blank" rel="noopener noreferrer">
+                Baixar XAMPP
+            </a>.
+        </li>
+        <li>
+            Localize a seção <strong>XAMPP para Windows</strong>.
+        </li>
+        <li>
+            Escolha uma versão disponível compatível
+            com seu sistema operacional.
+        </li>
+        <li>
+            Clique em <strong>Download (64 bit)</strong>
+            para baixar o instalador executável.
+        </li>
+        <li>
+            Aguarde a conclusão do download.
+            O arquivo terá um nome semelhante a
+            <code>xampp-windows-x64-VERSAO-installer.exe</code>.
+        </li>
+    </ol>
+
+    <h3>Passo 2: Executar o instalador</h3>
+    <ol>
+        <li>
+            Acesse a pasta Downloads do Windows.
+        </li>
+        <li>
+            Localize o arquivo executável do XAMPP.
+        </li>
+        <li>
+            Clique duas vezes no arquivo para iniciar
+            a instalação.
+        </li>
+        <li>
+            Caso o Windows solicite autorização
+            para executar o programa, confirme
+            somente após verificar sua origem.
+        </li>
+        <li>
+            Na tela inicial do assistente,
+            clique em <strong>Next</strong>.
+        </li>
+        <li>
+            Se aparecer algum aviso relacionado
+            ao Controle de Conta de Usuário (UAC),
+            leia a mensagem antes de prosseguir.
+        </li>
+    </ol>
+
+    <h3>Passo 3: Selecionar os componentes</h3>
+    <p>
+        O instalador poderá apresentar uma lista
+        de componentes. Para este tutorial,
+        utilizaremos principalmente Apache,
+        MariaDB e phpMyAdmin.
+    </p>
+
+    <ol>
+        <li>
+            Mantenha selecionado
+            <strong>Apache</strong>, responsável
+            por atender requisições HTTP.
+        </li>
+        <li>
+            Mantenha selecionado
+            <strong>MySQL</strong>. No painel
+            do XAMPP, esse nome normalmente
+            identifica o MariaDB incluído
+            na distribuição.
+        </li>
+        <li>
+            Selecione <strong>PHP</strong>,
+            utilizado pelo phpMyAdmin
+            e por aplicações PHP.
+        </li>
+        <li>
+            Selecione <strong>phpMyAdmin</strong>,
+            ferramenta web para administrar
+            bancos de dados.
+        </li>
+        <li>
+            Os demais componentes são opcionais
+            e podem variar conforme a versão
+            instalada.
+        </li>
+        <li>
+            Clique em <strong>Next</strong>
+            para continuar.
+        </li>
+    </ol>
+
+    <h3>Passo 4: Escolher a pasta de instalação</h3>
+    <ol>
+        <li>
+            Na tela de destino, escolha
+            a pasta onde o XAMPP será instalado.
+        </li>
+        <li>
+            Recomenda-se utilizar:
+            <code>C:\xampp</code>
+        </li>
+        <li>
+            Evite instalar em diretórios
+            com restrições de escrita,
+            como <code>C:\Program Files</code>.
+        </li>
+        <li>
+            Clique em <strong>Next</strong>.
+        </li>
+        <li>
+            Conclua as etapas restantes
+            do assistente e clique em
+            <strong>Install</strong>
+            quando solicitado.
+        </li>
+        <li>
+            Após a instalação, clique em
+            <strong>Finish</strong>.
+        </li>
+    </ol>
+
+    <h3>Passo 5: Abrir o XAMPP Control Panel</h3>
+    <p>
+        O XAMPP Control Panel permite iniciar,
+        interromper e administrar os serviços
+        instalados.
+    </p>
+
+    <ol>
+        <li>
+            Abra o menu Iniciar do Windows.
+        </li>
+        <li>
+            Procure por <strong>XAMPP Control Panel</strong>.
+        </li>
+        <li>
+            Alternativamente, acesse a pasta
+            de instalação e execute:
+            <code>C:\xampp\xampp-control.exe</code>
+        </li>
+        <li>
+            Localize as linhas correspondentes
+            ao Apache e ao MySQL.
+        </li>
+        <li>
+            Clique em <strong>Start</strong>
+            na linha Apache.
+        </li>
+        <li>
+            Clique em <strong>Start</strong>
+            na linha MySQL.
+        </li>
+        <li>
+            Verifique se os serviços foram
+            iniciados sem mensagens de erro.
+        </li>
+    </ol>
+
+    <h3>Passo 6: Testar o servidor Apache</h3>
+    <p>
+        Com o serviço Apache iniciado,
+        abra seu navegador de internet.
+    </p>
+
+    <ol>
+        <li>
+            Digite o endereço:
+            <a href="http://localhost/"
+               target="_blank" rel="noopener noreferrer">
+                http://localhost/
+            </a>
+        </li>
+        <li>
+            Pressione Enter.
+        </li>
+        <li>
+            Se a instalação estiver funcionando,
+            a página inicial do XAMPP
+            deverá ser exibida.
+        </li>
+        <li>
+            Caso o endereço não funcione,
+            confira se o Apache foi iniciado
+            e se a porta 80 está disponível.
+        </li>
+    </ol>
+
+    <h3>Passo 7: Acessar o phpMyAdmin</h3>
+    <p>
+        O phpMyAdmin permite criar bancos,
+        tabelas, usuários e executar comandos
+        SQL através do navegador.
+    </p>
+
+    <ol>
+        <li>
+            Verifique se Apache e MySQL
+            estão iniciados.
+        </li>
+        <li>
+            No navegador, acesse:
+            <a href="http://localhost/phpmyadmin/"
+               target="_blank" rel="noopener noreferrer">
+                http://localhost/phpmyadmin/
+            </a>
+        </li>
+        <li>
+            Aguarde a abertura da interface.
+        </li>
+        <li>
+            Localize a aba <strong>SQL</strong>.
+        </li>
+        <li>
+            Utilize essa aba para executar
+            os comandos SQL dos exercícios.
+        </li>
+    </ol>
+
+   
+
+    <h3>Passo 8: Resolver problemas comuns</h3>
+
+    <h4>Apache não inicia</h4>
+    <p>
+        Verifique se a porta 80 ou 443 já está
+        sendo utilizada por outro servidor,
+        como IIS ou outra instalação do Apache.
+        Consulte os logs do XAMPP.
+    </p>
+
+    <h4>MySQL não inicia</h4>
+    <p>
+        Verifique se a porta 3306 já está
+        sendo utilizada por outra instalação
+        do MySQL ou MariaDB.
+        Não exclua arquivos da pasta de dados
+        para tentar corrigir o problema.
+    </p>
+
+    <h4>phpMyAdmin não abre</h4>
+    <p>
+        Confira se Apache e MySQL estão ativos.
+        Utilize o endereço local correto e
+        verifique os logs dos serviços.
+    </p>
+
+    <h4>Erro de acesso negado ao banco</h4>
+    <p>
+        Confirme o usuário, a senha e as
+        permissões configuradas. Para aplicações,
+        crie uma conta própria com privilégios
+        limitados, evitando utilizar root.
+    </p>
+
+    <h3>Passo 11: Encerrar os serviços</h3>
+    <ol>
+        <li>
+            Abra o XAMPP Control Panel.
+        </li>
+        <li>
+            Clique em <strong>Stop</strong>
+            na linha MySQL.
+        </li>
+        <li>
+            Clique em <strong>Stop</strong>
+            na linha Apache.
+        </li>
+        <li>
+            Aguarde a interrupção completa
+            antes de fechar o painel.
+        </li>
+    </ol>
+
+    <h3>Observações importantes</h3>
+    <p>
+        O XAMPP é destinado principalmente
+        ao desenvolvimento e aos testes locais.
+        Não deve ser publicado diretamente
+        na internet com as configurações padrão.
+    </p>
+
+    <p>
+        O phpMyAdmin deve permanecer acessível
+        somente localmente, e as contas
+        administrativas devem ser protegidas.
+    </p>
+
+    <p>
+        Nos projetos Java SOAP e REST, o XAMPP
+        pode fornecer o banco MariaDB.
+        Para executar aplicações Java WAR,
+        utilizaremos o Apache Tomcat 10.1
+        instalado separadamente.
+    </p>
+</section>
+
+        </section>
+        <section>
+            <h2 id="explicacao">6. Explicação do código e das decisões</h2>
+            <ul>
+                <li>Leia o conteúdo exibido antes de digitar; cada instrução pertence ao assunto desta tutorial.</li>
+                <li>As alterações desta página são cumulativas: preserve os arquivos criados nas etapas anteriores.</li>
+                <li>O comando de verificação usa somente os módulos já introduzidos; o build completo fica para o
+                    encerramento.</li>
+            </ul>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>A leitura de contexto explica por que uma aplicação precisa de conexão e limites de transação. Nesta
+                    trilha o banco é MySQL e o acesso será JDBC; instalação, criação de usuário e GRANT vêm do roteiro
+                    MySQL, sem criar persistence.xml.</p>
+                <ul>
+                    <li data-referencia="jpa-transacao"><a href="../docs/referencias.html#leitura-jpa-transacao">[R08]
+                            Hébert Coelho — JPA Eficaz: as melhores práticas de persistência de dados em Java</a>. Cap.
+                        2, §2.4.1: controle manual da transação. <strong>Páginas 30–32 do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Por que a identidade administrativa do banco não deve ser a
+                    identidade usada pela aplicação?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </section>
+    
+      
+       
+        <section>
+           
+            </ul><button class="concluir" data-aula="instalacao-mysql" type="button" aria-pressed="false">Marcar tutorial
+                como concluída</button>
+        </section>
+       
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para ferramentas e versões: <a
+                href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="maven.html">← Instalar Maven e compreender o
+                POM</a><a href="banco-de-dados.html">Criar bancos e usuário no MySQL →</a></nav>
+    </main>
+</body>
+
+</html>

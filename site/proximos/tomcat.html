@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Instalar Tomcat 10.1 · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a class="current" aria-current="page" href="tomcat.html"><span aria-hidden="true">08.</span>
+                Instalar Tomcat 10.1</a><a href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar
+                Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a
+                href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a
+                href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a>
+            <p class="nav-grupo">Regras de negócio</p><a href="aplicacao-falhas.html"><span
+                    aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a
+                href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de
+                persistência</a><a href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de
+                mesas</a><a href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de
+                categorias</a><a href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras
+                de produtos</a><a href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo
+                do pedido</a><a href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros
+                testes de regras</a>
+            <p class="nav-grupo">Persistência MySQL</p><a href="infraestrutura-pom.html"><span
+                    aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a
+                href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a
+                href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a
+                href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a
+                href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais
+                externas</a><a href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório,
+                histórico e concorrência</a>
+            <p class="nav-grupo">Contratos SOAP</p><a href="contrato-xsd.html"><span aria-hidden="true">33.</span>
+                Escrever os tipos e mensagens XSD</a><a href="wsdl-mesas.html"><span aria-hidden="true">34.</span>
+                Escrever o WSDL de Mesa</a><a href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o
+                WSDL de Categoria</a><a href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de
+                Produto</a><a href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de
+                Pedido</a><a href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos
+                contratos</a>
+            <p class="nav-grupo">Servidor SOAP</p><a href="servidor.html"><span aria-hidden="true">39.</span> Criar o
+                módulo WAR do servidor</a><a href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor
+                aplicação e banco no WAR</a><a href="soap-autenticacao.html"><span aria-hidden="true">41.</span>
+                Autenticar requisições SOAP</a><a href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar
+                e converter SOAP Fault</a><a href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio
+                para DTOs SOAP</a><a href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar
+                MesaEndpoint</a><a href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar
+                CategoriaEndpoint</a><a href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar
+                ProdutoEndpoint</a><a href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar
+                PedidoEndpoint</a><a href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da
+                imagem QR</a><a href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON
+                público</a><a href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e
+                serviços no Tomcat</a><a href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no
+                Tomcat localhost</a>
+            <p class="nav-grupo">Interfaces Swing</p><a href="desktop-conexao.html"><span aria-hidden="true">52.</span>
+                Criar o módulo desktop e o cliente SOAP</a><a href="swing-worker.html"><span
+                    aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a
+                href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de
+                cadastro</a><a href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de
+                mesas</a><a href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing
+                de categorias</a><a href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir
+                o formulário Swing de produtos</a><a href="swing-produtos.html"><span aria-hidden="true">58.</span>
+                Montar a janela administrativa</a><a href="swing-pedidos.html"><span aria-hidden="true">59.</span>
+                Construir a janela do garçom</a><a href="testes-swing.html"><span aria-hidden="true">60.</span> Testar
+                as duas telas contra o SOAP local</a>
+            <p class="nav-grupo">Cardápio local</p><a href="cardapio-imagem.html"><span aria-hidden="true">61.</span>
+                Criar o recurso visual do cardápio</a><a href="cardapio-html.html"><span aria-hidden="true">62.</span>
+                Escrever o HTML semântico</a><a href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar
+                o layout responsivo</a><a href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar
+                busca, categorias e consulta JSON</a><a href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e
+                conferir QR em localhost</a>
+            <p class="nav-grupo">REST desde o Initializr</p><a href="spring-initializr.html"><span
+                    aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a
+                href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a
+                href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a
+                href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a
+                href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a
+                href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a
+                href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a
+                href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a
+                href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a
+                href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a
+                href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a
+                href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a
+                href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a
+                href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a>
+            <p class="nav-grupo">Validação em localhost</p><a href="testes-rest.html"><span
+                    aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a
+                href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a
+                href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a>
+            <p class="nav-grupo">Consolidação</p><a href="comparativo.html"><span aria-hidden="true">83.</span> Comparar
+                SOAP e REST construídos</a><a href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas
+                do laboratório</a><a href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e
+                estender o sistema</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Preparação do laboratório · tutorial 8 de 85</span>
+        <h1>Instalar Tomcat 10.1</h1>
+        <p class="lead">Instalar, iniciar e parar o container Servlet que hospedará os serviços..</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo da tutorial</h2>
+<div class="callout" data-explicacao-aula="8"><p><strong>Problema no sistema</strong></p><p>A versão SOAP será publicada como uma aplicação web Java. Iniciar o Tomcat agora permite confirmar a JVM, a configuração e a porta antes de introduzir o WAR e a conexão ao banco.</p></div>
+<details class="leitura-codigo"><summary>Entenda os componentes desta etapa</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>CATALINA_HOME</code></th><td>Aponta para a instalação com as bibliotecas e scripts do Tomcat.</td></tr>
+<tr><th scope="row"><code>CATALINA_BASE</code></th><td>Identifica a instância com suas configurações, logs e aplicações publicadas.</td></tr>
+<tr><th scope="row"><code>JAVA_HOME</code></th><td>Fornece ao script de inicialização o caminho da instalação Java prevista para o servidor.</td></tr>
+<tr><th scope="row"><code>startup, catalina e shutdown</code></th><td>Iniciam, executam com saída na Console ou encerram a instância de acordo com o comando usado na etapa.</td></tr>
+<tr><th scope="row"><code>Connector e porta 8080</code></th><td>Definem o endereço HTTP. A resposta do navegador confirma que uma instância está atendendo na porta escolhida.</td></tr>
+</tbody></table>
+</details>
+
+            <p>Instalar, iniciar e parar o container Servlet que hospedará os serviços.</p>
+
+        </section>
+
+        <h2 id="codigo">1. Implementação passo a passo e código da etapa</h2>
+
+
+        <h3>Passo 1: Verificar a instalação do Java 17</h3>
+
+        <p>
+            O Apache Tomcat é um servidor de aplicações web
+            Java, utilizado para executar aplicações que
+            implementam tecnologias como Jakarta Servlet
+            e Jakarta Server Pages (JSP).
+        </p>
+
+        <p>
+            Antes de instalar o Tomcat, é necessário
+            verificar se o Java está instalado.
+            Neste tutorial, utilizaremos Java 17.
+        </p>
+
+        <ol>
+            <li>Abra o PowerShell do Windows.</li>
+            <li>Execute os comandos abaixo:</li>
+        </ol>
+
+        <pre><code class="language-powershell">java -version
+
+javac -version
+
+$env:JAVA_HOME</code></pre>
+
+        <p><strong>Explicação dos comandos:</strong></p>
+
+        <ul>
+            <li>
+                <code>java -version</code>:
+                apresenta a versão do Java utilizada
+                pelo terminal.
+            </li>
+            <li>
+                <code>javac -version</code>:
+                mostra a versão do compilador Java.
+            </li>
+            <li>
+                <code>$env:JAVA_HOME</code>:
+                apresenta o caminho configurado para
+                a instalação do JDK.
+            </li>
+        </ul>
+
+        <p>
+            O resultado deve indicar o Java 17.
+            Se houver outra versão ativa, revise
+            as variáveis JAVA_HOME e Path.
+        </p>
+
+        <h3>Passo 2: Baixar o Apache Tomcat</h3>
+
+        <ol>
+            <li>
+                Acesse o site oficial:
+                <a href="https://tomcat.apache.org/download-10.cgi" target="_blank" rel="noopener noreferrer">
+                    Apache Tomcat 10 Downloads
+                </a>.
+            </li>
+            <li>
+                Localize a versão estável da série
+                <strong>Apache Tomcat 10.1.x</strong>.
+            </li>
+            <li>
+                Na seção <strong>Binary Distributions</strong>,
+                localize a categoria <strong>Core</strong>.
+            </li>
+            <li>
+                Selecione a opção <strong>zip</strong>,
+                que contém a distribuição binária
+                do Tomcat.
+            </li>
+            <li>
+                Baixe um arquivo semelhante a:
+                <code>apache-tomcat-10.1.61.zip</code>.
+            </li>
+            <li>
+                Evite baixar a opção Source Code,
+                pois ela contém o código-fonte
+                e não a distribuição pronta para execução.
+            </li>
+        </ol>
+
+        <p>
+            <strong>Observação:</strong> o número da versão
+            pode mudar conforme novas atualizações
+            são publicadas.
+        </p>
+
+        <h3>Passo 3: Extrair os arquivos</h3>
+
+        <ol>
+            <li>
+                Crie uma pasta para organizar
+                os servidores Java:
+                <code>C:\tomcat</code>.
+            </li>
+            <li>
+                Acesse a pasta Downloads.
+            </li>
+            <li>
+                Clique com o botão direito no ZIP
+                e escolha <strong>Extrair Tudo</strong>.
+            </li>
+            <li>
+                Extraia a pasta do Tomcat para:
+                <code>C:\tomcat\apache-tomcat-10.1.61</code>.
+            </li>
+            <li>
+                Verifique se a pasta contém
+                os diretórios bin, conf, lib,
+                logs, temp, webapps e work.
+            </li>
+        </ol>
+
+        <p>
+            A estrutura da instalação será
+            semelhante a:
+        </p>
+
+        <pre><code class="language-text">C:\tomcat\
+  apache-tomcat-10.1.61\
+    bin\
+    conf\
+    lib\
+    logs\
+    temp\
+    webapps\
+    work\
+    RUNNING.txt</code></pre>
+
+        <p><strong>Função dos principais diretórios:</strong></p>
+
+        <ul>
+            <li>
+                <code>bin</code>:
+                contém os scripts para iniciar,
+                interromper e configurar o Tomcat.
+            </li>
+            <li>
+                <code>conf</code>:
+                contém os arquivos de configuração,
+                incluindo server.xml.
+            </li>
+            <li>
+                <code>lib</code>:
+                contém bibliotecas utilizadas pelo Tomcat.
+            </li>
+            <li>
+                <code>logs</code>:
+                armazena registros de execução e erros.
+            </li>
+            <li>
+                <code>webapps</code>:
+                pasta padrão de publicação
+                das aplicações web.
+            </li>
+            <li>
+                <code>work</code>:
+                armazena arquivos temporários
+                produzidos durante o processamento.
+            </li>
+        </ul>
+
+        <h3>Passo 4: Configurar variáveis de ambiente</h3>
+
+        <p>
+            A configuração do CATALINA_HOME facilita
+            a localização da instalação do Tomcat.
+            O JAVA_HOME indica qual JDK será utilizado.
+        </p>
+
+        <ol>
+            <li>
+                No menu Iniciar do Windows,
+                pesquise por "Variáveis de ambiente".
+            </li>
+            <li>
+                Abra <strong>Editar as variáveis
+                    de ambiente do sistema</strong>.
+            </li>
+            <li>
+                Clique em <strong>Variáveis de Ambiente</strong>.
+            </li>
+            <li>
+                Verifique se JAVA_HOME aponta para
+                o diretório do JDK 17, por exemplo:
+                <code>C:\Java\jdk-17</code>.
+            </li>
+            <li>
+                Em Variáveis do Sistema,
+                clique em <strong>Novo</strong>.
+            </li>
+            <li>
+                Configure:
+                <ul>
+                    <li>
+                        Nome:
+                        <code>CATALINA_HOME</code>
+                    </li>
+                    <li>
+                        Valor:
+                        <code>C:\tomcat\apache-tomcat-10.1.61</code>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Clique em OK para salvar.
+            </li>
+        </ol>
+
+        <p>
+            A variável CATALINA_HOME é opcional
+            quando os scripts conseguem identificar
+            automaticamente a instalação.
+            Porém, sua utilização facilita a administração.
+        </p>
+
+        <h3>Passo 5: Verificar as configurações</h3>
+
+        <p>
+            Feche o PowerShell e abra uma nova janela.
+            Em seguida, execute:
+        </p>
+
+        <pre><code class="language-powershell">$env:JAVA_HOME
+
+$env:CATALINA_HOME
+
+Test-Path "$env:CATALINA_HOME\bin\startup.bat"
+
+Test-Path "$env:CATALINA_HOME\bin\catalina.bat"</code></pre>
+
+        <p>
+            Os comandos Test-Path devem retornar
+            <strong>True</strong> quando os arquivos
+            forem encontrados.
+        </p>
+
+        <p>
+            Também podemos consultar a versão do Tomcat:
+        </p>
+
+        <pre><code class="language-powershell">&amp; "$env:CATALINA_HOME\bin\version.bat"</code></pre>
+
+        <p>
+            O comando deve apresentar informações
+            sobre a versão do servidor, sistema
+            operacional e ambiente Java.
+        </p>
+
+        <h3>Passo 6: Iniciar o Apache Tomcat</h3>
+
+        <p>
+            O servidor pode ser iniciado pelo PowerShell
+            utilizando os scripts disponíveis
+            na pasta bin.
+        </p>
+
+        <pre><code class="language-powershell">cd "$env:CATALINA_HOME\bin"
+
+.\startup.bat</code></pre>
+
+        <p><strong>Explicação:</strong></p>
+
+        <ul>
+            <li>
+                <code>cd</code>:
+                altera o diretório atual do terminal.
+            </li>
+            <li>
+                <code>startup.bat</code>:
+                executa o script responsável
+                por iniciar o servidor.
+            </li>
+        </ul>
+
+        <p>
+            Alternativamente, para acompanhar
+            a execução diretamente no terminal:
+        </p>
+
+        <pre><code class="language-powershell">.\catalina.bat run</code></pre>
+
+        <p>
+            Esse comando mantém a execução associada
+            à janela atual, facilitando a visualização
+            das mensagens e dos erros do servidor.
+        </p>
+
+        <h3>Passo 7: Testar o Tomcat no navegador</h3>
+
+        <ol>
+            <li>
+                Abra o navegador.
+            </li>
+            <li>
+                Acesse:
+                <a href="http://localhost:8080/" target="_blank" rel="noopener noreferrer">
+                    http://localhost:8080/
+                </a>.
+            </li>
+            <li>
+                Verifique se a página inicial
+                do Apache Tomcat aparece.
+            </li>
+            <li>
+                Se a página estiver disponível,
+                o servidor está respondendo
+                às requisições HTTP.
+            </li>
+        </ol>
+
+        <p>
+            A porta 8080 é a configuração HTTP
+            padrão do Tomcat.
+        </p>
+
+        <h3>Passo 8: Verificar a porta 8080</h3>
+
+        <p>
+            Caso a página não abra, verifique
+            se a porta 8080 está sendo utilizada.
+        </p>
+
+        <pre><code class="language-powershell">netstat -ano | findstr :8080</code></pre>
+
+        <p>
+            O comando apresenta conexões e processos
+            associados à porta informada.
+        </p>
+
+        <p>
+            Para identificar um processo pelo PID:
+        </p>
+
+        <pre><code class="language-powershell">Get-Process -Id 1234</code></pre>
+
+        <p>
+            Substitua 1234 pelo identificador
+            apresentado no resultado do netstat.
+        </p>
+
+        <p>
+            Se outra aplicação estiver ocupando
+            a porta 8080, escolha uma porta livre
+            ou encerre o serviço conflitante
+            de maneira apropriada.
+        </p>
+
+        <h3>Passo 9: Alterar a porta do Tomcat</h3>
+
+        <p>
+            Para modificar a porta HTTP,
+            abra o arquivo:
+        </p>
+
+        <pre><code class="language-text">C:\tomcat\apache-tomcat-10.1.61\conf\server.xml</code></pre>
+
+        <p>
+            Localize o conector HTTP,
+            que poderá ser semelhante a:
+        </p>
+
+        <pre><code class="language-xml">&lt;Connector port="8080"
+           protocol="HTTP/1.1"
+           connectionTimeout="20000" /&gt;</code></pre>
+
+        <p>
+            Para utilizar a porta 8081,
+            altere somente o atributo port:
+        </p>
+
+        <pre><code class="language-xml">&lt;Connector port="8081"
+           protocol="HTTP/1.1"
+           connectionTimeout="20000" /&gt;</code></pre>
+
+        <p>
+            Salve o arquivo e reinicie o Tomcat.
+            O endereço passará a ser:
+        </p>
+
+        <pre><code class="language-text">http://localhost:8081/</code></pre>
+
+        <h3>Passo 10: Encerrar o Apache Tomcat</h3>
+
+        <p>
+            Se o servidor foi iniciado utilizando
+            startup.bat, execute:
+        </p>
+
+        <pre><code class="language-powershell">&amp; "$env:CATALINA_HOME\bin\shutdown.bat"</code></pre>
+
+        <p>
+            Se estiver utilizando catalina.bat run,
+            pressione Ctrl+C na janela do terminal
+            para solicitar o encerramento.
+        </p>
+
+        <p>
+            Aguarde a finalização do processo
+            antes de iniciar outra instância.
+        </p>
+
+
+        <h3>Passo 11: Resolver problemas comuns</h3>
+
+        <h4>startup.bat não foi encontrado</h4>
+        <p>
+            Confirme se a pasta bin existe
+            e se CATALINA_HOME aponta para
+            a raiz correta da instalação.
+        </p>
+
+        <h4>JAVA_HOME não foi definido</h4>
+        <p>
+            Configure JAVA_HOME apontando
+            para a pasta do JDK 17.
+            Abra um novo terminal e tente novamente.
+        </p>
+
+        <h4>Porta 8080 já está sendo utilizada</h4>
+        <p>
+            Verifique se existe outro Tomcat
+            ou servidor executando na mesma porta.
+            Altere a porta HTTP ou encerre
+            a instância conflitante.
+        </p>
+
+        <h4>Erro HTTP 404</h4>
+        <p>
+            Verifique o nome do WAR, o contexto
+            da aplicação, o caminho do endpoint
+            e as mensagens de publicação.
+        </p>
+
+        <h4>Erro HTTP 500</h4>
+        <p>
+            Consulte os logs do Tomcat.
+            O problema pode estar no código,
+            nas dependências, na configuração
+            da aplicação ou na conexão com o banco.
+        </p>
+
+        <h4>O Eclipse não mostra o menu Server</h4>
+        <p>
+            Instale o Eclipse Web Tools Platform
+            e os adaptadores de servidor ou utilize
+            a edição Enterprise Java and Web Developers.
+        </p>
+
+        <h4>Erro de compatibilidade javax/jakarta</h4>
+        <p>
+            O Tomcat 10.1 utiliza APIs Jakarta.
+            Aplicações antigas baseadas
+            em javax.servlet podem exigir migração.
+            Verifique as versões das bibliotecas
+            utilizadas pelo projeto.
+        </p>
+
+        <h3>Observações importantes</h3>
+
+        <p>
+            O Tomcat será responsável por executar
+            as aplicações Java SOAP e REST
+            empacotadas em WAR.
+        </p>
+
+        <p>
+            O XAMPP será utilizado separadamente
+            para disponibilizar o MariaDB
+            e o phpMyAdmin.
+        </p>
+
+        <p>
+            O Maven gerencia dependências
+            e automatiza a compilação,
+            os testes e o empacotamento.
+        </p>
+
+        <p>
+            O Eclipse será utilizado para desenvolver,
+            depurar e administrar os projetos.
+        </p>
+
+        <p>
+            Este tutorial utiliza o Tomcat
+            em ambiente local de desenvolvimento.
+            Antes de disponibilizar aplicações
+            na internet, é necessário realizar
+            configurações adicionais de segurança.
+        </p>
+
+        <section>
+            <button class="concluir" data-aula="tomcat" type="button" aria-pressed="false">Marcar tutorial como
+                concluída</button>
+        </section>
+
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para
+            ferramentas e versões: <a href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="banco-de-dados.html">← Criar bancos e usuário
+                no MySQL</a><a href="eclipse-servidor.html">Registrar Tomcat no Eclipse →</a></nav>
+    </main>
+</body>
+
+</html>

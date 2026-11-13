@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Instalar Maven e compreender o POM · Restaurante do zero</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="tutorial.js" defer></script>
+</head>
+
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+    <aside><span class="chip">Do zero até localhost</span>
+        <h2>Restaurante<br>SOAP + REST</h2>
+        <p>Java 17 · MySQL · Spring Initializr</p>
+        <nav aria-label="Trilha de construção">
+            <p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a class="current" aria-current="page" href="maven.html"><span aria-hidden="true">05.</span>
+                Instalar Maven e compreender o POM</a><a href="instalacao-mysql.html"><span
+                    aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a href="banco-de-dados.html"><span
+                    aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a href="tomcat.html"><span
+                    aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a href="eclipse-servidor.html"><span
+                    aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+            <p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a
+                href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a
+                href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a
+                href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a>
+            <p class="nav-grupo">Regras de negócio</p><a href="aplicacao-falhas.html"><span
+                    aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a
+                href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de
+                persistência</a><a href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de
+                mesas</a><a href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de
+                categorias</a><a href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras
+                de produtos</a><a href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo
+                do pedido</a><a href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros
+                testes de regras</a>
+            <p class="nav-grupo">Persistência MySQL</p><a href="infraestrutura-pom.html"><span
+                    aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a
+                href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a
+                href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a
+                href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a
+                href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais
+                externas</a><a href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório,
+                histórico e concorrência</a>
+            <p class="nav-grupo">Contratos SOAP</p><a href="contrato-xsd.html"><span aria-hidden="true">33.</span>
+                Escrever os tipos e mensagens XSD</a><a href="wsdl-mesas.html"><span aria-hidden="true">34.</span>
+                Escrever o WSDL de Mesa</a><a href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o
+                WSDL de Categoria</a><a href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de
+                Produto</a><a href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de
+                Pedido</a><a href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos
+                contratos</a>
+            <p class="nav-grupo">Servidor SOAP</p><a href="servidor.html"><span aria-hidden="true">39.</span> Criar o
+                módulo WAR do servidor</a><a href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor
+                aplicação e banco no WAR</a><a href="soap-autenticacao.html"><span aria-hidden="true">41.</span>
+                Autenticar requisições SOAP</a><a href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar
+                e converter SOAP Fault</a><a href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio
+                para DTOs SOAP</a><a href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar
+                MesaEndpoint</a><a href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar
+                CategoriaEndpoint</a><a href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar
+                ProdutoEndpoint</a><a href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar
+                PedidoEndpoint</a><a href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da
+                imagem QR</a><a href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON
+                público</a><a href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e
+                serviços no Tomcat</a><a href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no
+                Tomcat localhost</a>
+            <p class="nav-grupo">Interfaces Swing</p><a href="desktop-conexao.html"><span aria-hidden="true">52.</span>
+                Criar o módulo desktop e o cliente SOAP</a><a href="swing-worker.html"><span
+                    aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a
+                href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de
+                cadastro</a><a href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de
+                mesas</a><a href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing
+                de categorias</a><a href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir
+                o formulário Swing de produtos</a><a href="swing-produtos.html"><span aria-hidden="true">58.</span>
+                Montar a janela administrativa</a><a href="swing-pedidos.html"><span aria-hidden="true">59.</span>
+                Construir a janela do garçom</a><a href="testes-swing.html"><span aria-hidden="true">60.</span> Testar
+                as duas telas contra o SOAP local</a>
+            <p class="nav-grupo">Cardápio local</p><a href="cardapio-imagem.html"><span aria-hidden="true">61.</span>
+                Criar o recurso visual do cardápio</a><a href="cardapio-html.html"><span aria-hidden="true">62.</span>
+                Escrever o HTML semântico</a><a href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar
+                o layout responsivo</a><a href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar
+                busca, categorias e consulta JSON</a><a href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e
+                conferir QR em localhost</a>
+            <p class="nav-grupo">REST desde o Initializr</p><a href="spring-initializr.html"><span
+                    aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a
+                href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a
+                href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a
+                href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a
+                href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a
+                href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a
+                href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a
+                href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a
+                href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a
+                href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a
+                href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a
+                href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a
+                href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a
+                href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a>
+            <p class="nav-grupo">Validação em localhost</p><a href="testes-rest.html"><span
+                    aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a
+                href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a
+                href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a>
+            <p class="nav-grupo">Consolidação</p><a href="comparativo.html"><span aria-hidden="true">83.</span> Comparar
+                SOAP e REST construídos</a><a href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas
+                do laboratório</a><a href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e
+                estender o sistema</a>
+        </nav>
+    </aside>
+    <main id="conteudo" tabindex="-1"><span class="chip">Preparação do laboratório · tutorial 5 de 85</span>
+        <h1>Instalar Maven e compreender o POM</h1>
+        <p class="lead">Entender coordenadas, escopos, reator, plugins e resolução de dependências.</p>
+        <p id="progresso" class="foot" aria-live="polite"></p>
+        <section>
+            <h2 id="objetivo">1. Objetivo do tutorial</h2>
+            <p>Entender coordenadas, escopos, reator, plugins e resolução de dependências.</p>
+           
+        </section>
+        <section>
+            <h2 id="conceitos">2. Conceitos necessários</h2>
+<div class="callout" data-explicacao-aula="5"><p><strong>Problema no sistema</strong></p><p>Cada aluno precisa obter as mesmas dependências e executar as fases de build na ordem correta. O Maven lê a configuração do POM e oferece uma forma repetível de construir o projeto.</p></div>
+<details class="leitura-codigo"><summary>Entenda os componentes desta etapa</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>MAVEN_HOME e Path</code></th><td>Identificam a instalação e permitem encontrar mvn na pasta bin quando o comando é digitado.</td></tr>
+<tr><th scope="row"><code>mvn -version</code></th><td>Mostra a instalação Maven e o Java realmente usados por essa execução.</td></tr>
+<tr><th scope="row"><code>pom.xml e coordenadas</code></th><td>Identificam o projeto e descrevem suas dependências, plugins e tipo de artefato.</td></tr>
+<tr><th scope="row"><code>compile, test, package e verify</code></th><td>Compilam, executam testes, produzem o artefato ou percorrem o build até as verificações configuradas.</td></tr>
+<tr><th scope="row"><code>repositório local</code></th><td>Guarda bibliotecas e plugins resolvidos. Os módulos do próprio laboratório também podem participar juntos do mesmo build Maven.</td></tr>
+</tbody></table>
+</details>
+
+            <p>Maven automatiza o ciclo de build e resolve artefatos a partir de um Project Object Model (POM). O POM
+                descreve o projeto; não é uma lista arbitrária de JARs.</p>
+            <p>Maven lê o POM e executa o ciclo de build. groupId identifica o grupo, artifactId identifica o módulo e
+                version identifica a versão. Dependências fornecem APIs/bibliotecas; plugins executam tarefas como
+                compilar e empacotar. Um POM organiza versões compatíveis sem adicionar todas as bibliotecas ao projeto.
+            </p>
+            <p>compile participa da compilação e execução; runtime é necessário para executar, como Connector/J;
+                provided é fornecido pelo container, como Servlet no Tomcat; test fica restrito aos testes, como JUnit e
+                H2. JAR distribui classes; WAR inclui recursos e descritores para um container; packaging pom agrega
+                módulos.</p>
+            <p>Instale o binário do Maven pelo <a href="https://maven.apache.org/download.cgi">site oficial</a>, extraia
+                e adicione a pasta bin ao PATH. Use Maven Central para localizar coordenadas e a documentação oficial
+                para confirmar compatibilidade. Neste ponto apenas verifique a ferramenta: não há POM para executar
+                clean install.</p>
+            <p>Mais adiante, dependency:tree mostrará dependências transitivas; effective-pom mostrará o resultado da
+                herança. Não resolva conflitos copiando JARs para Eclipse ou Tomcat.</p>
+        </section>
+        <section>
+            <h2 id="problema">3. Problema que será resolvido</h2>
+            <p>Compilar módulos em ordem, gerar clientes SOAP e empacotar somente as bibliotecas adequadas.</p>
+        </section>
+        <section>
+            <h2 id="arquivos">4. Arquivos a criar ou alterar</h2>
+            <p>Caminhos relativos à pasta vazia do laboratorio-restaurante-soa, e depois ao projeto que você está construindo:</p>
+            <p>Este tutorial configura ferramentas ou exercita o projeto já construído. Nenhuma classe futura é pressuposta.
+            </p>
+        </section>
+        <section>
+            <h2 id="codigo">5. Implementação passo a passo e código da etapa</h2>
+         
+<section>
+    <h3>Passo 1: Verificar se o Java está instalado</h3>
+    <p>
+        O Apache Maven é uma ferramenta de automação de compilação
+        e gerenciamento de dependências para projetos Java.
+        Para funcionar, é necessário ter um JDK instalado.
+        Neste tutorial, utilizaremos o Java 17.
+    </p>
+    <ol>
+        <li>Abra o PowerShell do Windows.</li>
+        <li>Execute o comando abaixo para verificar a instalação do Java.</li>
+    </ol>
+
+    <pre><code class="language-powershell">java -version
+javac -version</code></pre>
+
+    <p>
+        Os comandos devem apresentar a versão instalada do Java.
+        Se o Java não estiver disponível, instale e configure o
+        JDK 17 antes de continuar.
+    </p>
+
+    <h3>Passo 2: Baixar o arquivo ZIP do Maven</h3>
+    <ol>
+        <li>
+            Acesse o site oficial do Apache Maven:
+            <a href="https://maven.apache.org/download.cgi"
+               target="_blank" rel="noopener noreferrer">
+                https://maven.apache.org/download.cgi
+            </a>
+        </li>
+        <li>
+            Localize a seção de downloads da versão estável
+            do Apache Maven.
+        </li>
+        <li>
+            Procure pela opção <strong>Binary zip archive</strong>.
+        </li>
+        <li>
+            Baixe o arquivo ZIP, por exemplo:
+            <strong>apache-maven-3.10.0-bin.zip</strong>.
+        </li>
+        <li>
+            Não selecione o arquivo Source zip archive,
+            pois ele contém o código-fonte do Maven,
+            não a distribuição binária pronta para uso.
+        </li>
+    </ol>
+
+    <h3>Passo 3: Extrair os arquivos</h3>
+    <ol>
+        <li>
+            Crie uma pasta para organizar as ferramentas
+            de desenvolvimento, por exemplo:
+            <code>C:\Meus_programas\</code>.
+        </li>
+        <li>
+            Clique com o botão direito no arquivo ZIP
+            baixado e selecione <strong>Extrair Tudo</strong>.
+        </li>
+        <li>
+            Extraia a distribuição do Maven para a pasta
+            criada.
+        </li>
+        <li>
+            O caminho final poderá ser:
+            <code>C:\Meus_programas\apache-maven-3.10.0</code>.
+        </li>
+        <li>
+            Verifique se dentro dessa pasta existe
+            o diretório <code>bin</code>, contendo
+            o arquivo <code>mvn.cmd</code>.
+        </li>
+    </ol>
+
+    <h3>Passo 4: Configurar as variáveis de ambiente</h3>
+    <p>
+        Como o arquivo ZIP não possui instalador automático,
+        é necessário configurar o Windows para localizar
+        o Maven pelo terminal.
+    </p>
+
+    <ol>
+        <li>
+            No menu Iniciar do Windows, digite
+            <strong>Variáveis de ambiente</strong>.
+        </li>
+        <li>
+            Clique em <strong>Editar as variáveis
+            de ambiente do sistema</strong>.
+        </li>
+        <li>
+            Na janela aberta, clique em
+            <strong>Variáveis de Ambiente...</strong>.
+        </li>
+        <li>
+            Em <strong>Variáveis do Sistema</strong>,
+            clique em <strong>Novo...</strong>.
+        </li>
+        <li>
+            Crie a variável de ambiente do Maven:
+            <ol>
+                <li>
+                    Nome da variável:
+                    <code>MAVEN_HOME</code>
+                </li>
+                <li>
+                    Valor da variável:
+                    <code>C:\Meus_programas\apache-maven-3.10.0</code>
+                </li>
+                <li>
+                    Clique em <strong>OK</strong>.
+                </li>
+            </ol>
+        </li>
+        <li>
+            Ainda em <strong>Variáveis do Sistema</strong>,
+            localize a variável <strong>Path</strong>
+            e clique em <strong>Editar...</strong>.
+        </li>
+        <li>
+            Clique em <strong>Novo</strong>
+            e adicione:
+            <code>%MAVEN_HOME%\bin</code>
+        </li>
+        <li>
+            Verifique se a variável
+            <code>JAVA_HOME</code> aponta para
+            a pasta do JDK 17, sem incluir
+            o diretório <code>bin</code>.
+        </li>
+        <li>
+            Clique em <strong>OK</strong>
+            em todas as janelas para salvar.
+        </li>
+    </ol>
+
+    <h3>Passo 5: Testar a instalação do Maven</h3>
+    <p>
+        Feche o PowerShell e abra uma nova janela
+        para carregar as variáveis de ambiente.
+    </p>
+
+    <pre><code class="language-powershell">mvn -version</code></pre>
+
+    <p>Ou utilize:</p>
+
+    <pre><code class="language-powershell">mvn -v</code></pre>
+
+    <p>
+        O resultado deverá mostrar informações
+        semelhantes às seguintes:
+    </p>
+
+    <pre><code class="language-text">Apache Maven 3.10.0
+Maven home: C:\Meus_programas\apache-maven-3.10.0
+Java version: 17
+OS name: "windows"</code></pre>
+
+    <p>
+        Verifique especialmente se o Maven está utilizando
+        o Java 17 configurado para o projeto.
+    </p>
+
+    <h3>Passo 6: Verificar as variáveis de ambiente</h3>
+    <p>
+        No PowerShell, execute os comandos abaixo
+        para conferir as configurações.
+    </p>
+
+    <pre><code class="language-powershell">$env:JAVA_HOME
+$env:MAVEN_HOME
+
+where.exe java
+where.exe mvn</code></pre>
+
+    <p>
+        O comando <code>where.exe mvn</code> deve
+        localizar o executável do Maven dentro
+        da pasta <code>bin</code>.
+    </p>
+
+    <h3>Passo 7: Testar o Maven em um projeto Java</h3>
+    <p>
+        Abra o PowerShell na pasta de um projeto
+        que contenha o arquivo <code>pom.xml</code>.
+    </p>
+
+    <p>
+        Por exemplo, para acessar o projeto
+        restaurante SOAP:
+    </p>
+
+    <pre><code class="language-powershell">cd C:\workspace\Java\restaurante-soap
+
+mvn validate
+
+mvn clean package</code></pre>
+
+    <p>
+        O comando <code>mvn validate</code> verifica
+        se o projeto possui uma configuração Maven válida.
+    </p>
+
+    <p>
+        O comando <code>mvn clean package</code>
+        limpa os arquivos gerados anteriormente,
+        compila o projeto, executa os testes configurados
+        e gera o pacote da aplicação.
+    </p>
+
+    <p>
+        Dependendo da configuração do
+        <code>pom.xml</code>, o resultado poderá ser
+        um arquivo <code>.jar</code> ou <code>.war</code>.
+    </p>
+
+    <h3>Como resolver problemas comuns?</h3>
+
+    <h4>Erro: mvn não é reconhecido</h4>
+    <p>
+        Verifique se a variável <code>MAVEN_HOME</code>
+        aponta para a pasta correta e se
+        <code>%MAVEN_HOME%\bin</code> está no Path.
+        Abra um novo terminal após as alterações.
+    </p>
+
+    <h4>Erro: JAVA_HOME não está configurado</h4>
+    <p>
+        Configure <code>JAVA_HOME</code> com o caminho
+        do JDK 17. Não inclua a pasta bin no valor
+        dessa variável.
+    </p>
+
+    <h4>O Maven está usando outra versão do Java</h4>
+    <p>
+        Execute <code>mvn -version</code> e confira
+        a linha Java version. Se estiver incorreta,
+        revise JAVA_HOME e a ordem dos diretórios
+        Java presentes no Path.
+    </p>
+</section>
+
+        </section>
+        <section>
+            <h2 id="explicacao">6. Explicação do código e das decisões</h2>
+            <ul>
+                <li>O pai define release, codificação, POM e versões de plugins; cada filho declara somente suas
+                    necessidades.</li>
+                <li>O servidor usa provided para Servlet e inclui o runtime Metro; o WAR não carrega H2.</li>
+                <li>wsimport lê contratos locais, gera 72 arquivos Java em target e os compila no mesmo build.</li>
+                <li>install permite que exec:java no desktop encontre contrato e núcleo já construídos.</li>
+            </ul>
+            <div class="callout referencias-aula" aria-labelledby="fundamentacao">
+                <h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+                <p>A leitura prepara a distinção entre organização dos fontes, compilação e execução. Maven automatiza
+                    esse trabalho em módulos; coordenadas, escopos e versões do POM são ensinados pelo tutorial e pela
+                    documentação oficial, não por esses trechos dos livros.</p>
+                <ul>
+                    <li data-referencia="java-compilacao"><a
+                            href="../docs/referencias.html#leitura-java-compilacao">[R04] Herbert Schildt — Java para
+                            iniciantes</a>. Cap. 1: compilação, PATH, classe e main (leitura visual). <strong>Páginas
+                            34–36 do PDF</strong>.</li>
+                    <li data-referencia="oca-pacotes"><a href="../docs/referencias.html#leitura-oca-pacotes">[R06]
+                            Guilherme Silveira; Mário Amaral — Java SE 7 Programmer I: o guia para sua certificação
+                            Oracle Certified Associate</a>. Cap. 3, §3.2: estrutura da classe e pacotes. <strong>Páginas
+                            18–20 do PDF</strong>.</li>
+                </ul>
+                <p><strong>Confira na leitura:</strong> Qual parte do comando Maven seleciona o módulo e qual parte
+                    seleciona a etapa de construção?</p>
+                <p class="foot">A página é contada no arquivo PDF desde a capa. <a
+                        href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+            </div>
+        </section>
+        <section>
+            <h2 id="eclipse">7. Como implementar no Eclipse e executar</h2>
+            <ol>
+                <li>Continue na pasta do laboratorio-restaurante-soa criada no tutorial inicial. Conclua <a
+                        href="instalacao-eclipse.html">Instalar Eclipse e registrar o JDK</a> antes desta etapa.</li>
+                <li>Execute a configuração/experimento descrito acima e registre o resultado.</li>
+                <li>Execute somente os comandos desta página. Use outro terminal quando um comando mantiver um servidor
+                    em execução.</li>
+            </ol>
+            <pre><code class="language-powershell">mvn -version</code></pre>
+        </section>
+        <section>
+            <h2 id="fluxo">8. Fluxo da execução</h2>
+            <div class="fluxo">POM → resolução do POM/dependências → reator → generate-sources → compile → test →
+                package → install.</div>
+        </section>
+        <section>
+            <h2 id="resultado">9. Resultado esperado nesta etapa</h2>
+            <p>Maven disponível; os POMs serão escritos no tutorial de estrutura.</p>
+            <p>O resultado é um checkpoint para você executar. O <a href="../docs/validacao.md">registro de validação do
+                    material</a> distingue testes automatizados, reconstrução da trilha e execução real no MySQL.
+                Consulte também a <a href="../docs/revisao-html.md">revisão passo a passo dos HTMLs</a>.</p>
+        </section>
+        <section>
+            <h2 id="problemas">10. Problemas frequentes</h2>
+            <ul>
+                <li>Erro de pacote: compare a declaração package com a pasta src/main/java.</li>
+                <li>Dependência não resolvida: confirme o POM e o módulo criados nesta etapa; não copie JARs
+                    manualmente.</li>
+                <li>Não execute um tutorial posterior para compensar um erro: retorne ao último checkpoint aprovado.</li>
+            </ul>
+        </section>
+        <section>
+            <h2 id="checkpoint">11. Checkpoint antes de continuar</h2>
+            <ul>
+                <li>Maven informa Java 17.</li>
+                <li>Explicar os quatro escopos sem decorar uma lista de bibliotecas.</li>
+            </ul><button class="concluir" data-aula="maven" type="button" aria-pressed="false">Marcar tutorial como
+                concluída</button>
+        </section>
+        <section>
+            <h2 id="exercicio">12. Exercício</h2>
+            <p>Remova temporariamente provided da API Servlet, examine WEB-INF/lib e explique por que essa alteração
+                deve ser revertida.</p>
+        </section>
+        <p class="foot">Base bibliográfica: <a href="../docs/referencias.html">Livros</a>. Complementos oficiais para ferramentas e versões: <a
+                href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4</a> · <a
+                href="https://start.spring.io/">Spring Initializr</a> · <a
+                href="https://docs.spring.io/spring-boot/system-requirements.html">Spring Boot</a> · <a
+                href="https://springdoc.org/">springdoc</a> · <a
+                href="https://eclipse-ee4j.github.io/metro-jax-ws/">Metro</a> · <a
+                href="https://tomcat.apache.org/tomcat-10.1-doc/">Tomcat 10.1</a> · <a
+                href="https://maven.apache.org/guides/">Maven</a>.</p>
+        <nav class="links" aria-label="Aulas anterior e seguinte"><a href="instalacao-eclipse.html">← Instalar Eclipse e
+                registrar o JDK</a><a href="instalacao-mysql.html">Instalar e testar MySQL 8.4 →</a></nav>
+    </main>
+</body>
+
+</html>

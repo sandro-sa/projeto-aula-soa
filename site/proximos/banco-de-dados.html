@@ -120,6 +120,19 @@
         <p id="progresso" class="foot" aria-live="polite"></p>
         <section>
             <h2 id="objetivo">1. Objetivo do tutorial</h2>
+<div class="callout" data-explicacao-aula="7"><p><strong>Problema no sistema</strong></p><p>As versões SOAP e REST precisam de bancos separados para que seus testes possam ser comparados sem misturar mesas e pedidos. O SQL prepara os esquemas e as permissões usadas pelos processos Java.</p></div>
+<details class="leitura-codigo" data-leitura-arquivo="banco/criar-bancos-mysql.sql"><summary>Entenda cada parte de criar-bancos-mysql.sql</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>CREATE DATABASE restaurante_soap e restaurante_rest</code></th><td>Cria um esquema para cada implantação. As URLs de conexão escolherão o esquema correspondente.</td></tr>
+<tr><th scope="row"><code>CHARACTER SET e COLLATE</code></th><td>Configuram a codificação Unicode do banco e a forma usada para comparar textos.</td></tr>
+<tr><th scope="row"><code>CREATE USER restaurante@localhost</code></th><td>O exemplo interativo prepara a identidade do banco para conexões locais com a senha escolhida pelo aluno.</td></tr>
+<tr><th scope="row"><code>GRANT SELECT, INSERT, UPDATE e DELETE</code></th><td>Permite ao usuário da aplicação ler e manter os dados dos dois esquemas.</td></tr>
+<tr><th scope="row"><code>GRANT CREATE, ALTER, INDEX e REFERENCES</code></th><td>Concede as operações de estrutura previstas para as migrações e suas restrições.</td></tr>
+<tr><th scope="row"><code>conferência de conexão</code></th><td>Use o usuário e o esquema da execução para validar a configuração que será passada ao JDBC.</td></tr>
+</tbody></table>
+</details>
+
+
             <p>Criar os bancos e entender constraints, transações e evolução do esquema.</p>
            
         </section>

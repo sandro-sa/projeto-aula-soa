@@ -1,0 +1,498 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Criar a aplicação e seus erros · Restaurante do zero</title><link rel="stylesheet" href="style.css"><script src="tutorial.js" defer></script></head><body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a><aside><span class="chip">Do zero até localhost</span><h2>Restaurante<br>SOAP + REST</h2><p>Java 17 · MySQL · Spring Initializr</p><nav aria-label="Trilha de construção"><p class="nav-grupo">Preparação do laboratório</p><a  href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a  href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a  href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK 17</a><a  href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar o JDK</a><a  href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o POM</a><a  href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a  href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a  href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a  href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a><p class="nav-grupo">Projeto e domínio</p><a  href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a  href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a  href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a  href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a  href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a  href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a  href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a  href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a  href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a  href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a><p class="nav-grupo">Regras de negócio</p><a class="current" aria-current="page" href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a  href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de persistência</a><a  href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de mesas</a><a  href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a  href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de produtos</a><a  href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo do pedido</a><a  href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a><p class="nav-grupo">Persistência MySQL</p><a  href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a  href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a  href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a  href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a  href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais externas</a><a  href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a><p class="nav-grupo">Contratos SOAP</p><a  href="contrato-xsd.html"><span aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a  href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a  href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de Categoria</a><a  href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de Produto</a><a  href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de Pedido</a><a  href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos contratos</a><p class="nav-grupo">Servidor SOAP</p><a  href="servidor.html"><span aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a  href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco no WAR</a><a  href="soap-autenticacao.html"><span aria-hidden="true">41.</span> Autenticar requisições SOAP</a><a  href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a  href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs SOAP</a><a  href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar MesaEndpoint</a><a  href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar CategoriaEndpoint</a><a  href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a  href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar PedidoEndpoint</a><a  href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da imagem QR</a><a  href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a  href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e serviços no Tomcat</a><a  href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no Tomcat localhost</a><p class="nav-grupo">Interfaces Swing</p><a  href="desktop-conexao.html"><span aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a  href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a  href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de cadastro</a><a  href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a  href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing de categorias</a><a  href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a  href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela administrativa</a><a  href="swing-pedidos.html"><span aria-hidden="true">59.</span> Construir a janela do garçom</a><a  href="testes-swing.html"><span aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a><p class="nav-grupo">Cardápio local</p><a  href="cardapio-imagem.html"><span aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a  href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML semântico</a><a  href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar o layout responsivo</a><a  href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar busca, categorias e consulta JSON</a><a  href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR em localhost</a><p class="nav-grupo">REST desde o Initializr</p><a  href="spring-initializr.html"><span aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a  href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a  href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a  href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a  href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a  href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a  href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a  href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a  href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a  href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a  href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a  href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a  href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a  href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a><p class="nav-grupo">Validação em localhost</p><a  href="testes-rest.html"><span aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a  href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a  href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a><p class="nav-grupo">Consolidação</p><a  href="comparativo.html"><span aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a  href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do laboratório</a><a  href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e estender o sistema</a></nav></aside><main id="conteudo" tabindex="-1">
+<span class="chip">Regras de negócio · aula 20 de 85</span>
+<h1>Criar a aplicação e seus erros</h1>
+<p class="lead">Prepare o módulo das regras de negócio e crie uma forma comum de informar por que uma operação do restaurante foi recusada.</p>
+<p id="progresso" class="foot" aria-live="polite"></p>
+
+<section>
+<h2 id="objetivo">1. O que fazer nesta etapa</h2>
+<div class="callout">
+<p><strong>Sua entrega é criar o módulo <code>aplicacao</code>, registrá-lo no pai e escrever <code>Falha.java</code>.</strong></p>
+<ol>
+<li>Criar o módulo Maven <code>aplicacao</code> e conferir seu <code>pom.xml</code>.</li>
+<li>Conferir a entrada <code>&lt;module&gt;aplicacao&lt;/module&gt;</code> no POM <code>restaurante-soap/pom.xml</code>.</li>
+<li>Criar <code>Falha.java</code> no pacote <code>br.edu.soa.restaurante.aplicacao</code>.</li>
+<li>Compilar pelo Maven dentro do Eclipse e obter <code>BUILD SUCCESS</code>.</li>
+</ol>
+</div>
+<p>Continue após a <a href="modelos.html">aula 19</a>, com o módulo <code>dominio</code> pronto. As regras de mesas, produtos e pedidos serão implementadas nas próximas aulas; agora você prepara o módulo e o formato das suas falhas.</p>
+<p><strong>Dois arquivos com funções diferentes:</strong> o <code>pom.xml</code> configura como o Maven constrói o módulo; <code>Falha.java</code> será usado pelo código Java enquanto uma operação estiver sendo executada.</p>
+</section>
+
+<section>
+<h2 id="conceitos">2. Qual problema Falha resolve no restaurante?</h2>
+<p>Imagine que o garçom tente alterar um pedido que já foi fechado. O sistema precisa recusar a alteração e explicar o motivo. Uma mensagem como “deu erro” não identifica o problema para a tela nem para os testes.</p>
+<p><code>Falha</code> reúne <strong>três informações sobre o mesmo problema</strong>:</p>
+<table><thead><tr><th scope="col">Informação</th><th scope="col">Exemplo</th><th scope="col">Para que serve</th></tr></thead><tbody><tr><td><code>codigo</code></td><td><code>PEDIDO_FECHADO</code></td><td>Identifica a situação específica. Consumidores e testes podem comparar esse identificador.</td></tr><tr><td><code>tipo</code></td><td><code>CONFLITO</code></td><td>Classifica o problema: a operação não pode ocorrer no estado atual do pedido.</td></tr><tr><td><code>mensagem</code></td><td>“Pedido fechado não permite alterações.”</td><td>Explica o motivo em linguagem compreensível para a pessoa que usa o sistema.</td></tr></tbody></table>
+<p>O código permite reconhecer o problema mesmo que o texto da mensagem seja melhorado. O tipo agrupa várias situações: <code>MESA_OCUPADA</code> e <code>PEDIDO_FECHADO</code>, por exemplo, são conflitos diferentes.</p>
+<div class="fluxo">
+<p><strong>Como isso será usado nas próximas aulas:</strong></p>
+<ol>
+<li>O garçom solicita a alteração de um pedido.</li>
+<li><code>Restaurante</code> verifica o estado do pedido e, ao encontrar um impedimento, lança uma <code>Falha</code>.</li>
+<li>O fluxo normal daquela chamada é interrompido e chega ao tratamento de erro.</li>
+<li>O adaptador SOAP ou REST converte a falha para a resposta do serviço. A interface pode apresentar a mensagem.</li>
+</ol>
+</div>
+<p><strong>Quem faz a verificação?</strong> A classe <code>Restaurante</code>, que você escreverá a partir da <a href="aplicacao-mesas.html">aula 22</a>. <code>Falha</code> representa o problema encontrado; criar essa classe, sozinho, ainda não verifica um pedido nem impede uma gravação.</p>
+<p>Ela fica no módulo <code>aplicacao</code> para ser compartilhada pelos casos de uso. Mais adiante, <a href="soap-falhas.html">Acesso.java</a> usará código e mensagem na resposta SOAP; <a href="rest-erros.html">Erros.java</a> usará também o tipo para escolher o status HTTP. A regra de negócio comunica o motivo sem precisar construir XML ou uma resposta HTTP.</p>
+</section>
+
+<section>
+<h2 id="codigo">3. Faça o passo a passo no Eclipse</h2>
+
+<h3 id="passo-1">Passo 1: Criar o módulo aplicacao</h3>
+<ol>
+<li>No <strong>Project Explorer</strong>, selecione <code>restaurante-soap</code>.</li>
+<li>Abra <strong>File → New → Other… → Maven → Maven Module</strong>.</li>
+<li>Marque <strong>Create a simple project</strong>. Informe <code>aplicacao</code> em <strong>Module Name</strong> e confira <code>restaurante-soap</code> em <strong>Parent Project</strong>.</li>
+<li>Confira <strong>Group Id</strong> <code>br.edu.soa</code>, <strong>Artifact Id</strong> <code>aplicacao</code>, <strong>Version</strong> <code>2.0.0</code> e <strong>Packaging</strong> <code>jar</code>. Conclua o assistente.</li>
+</ol>
+<p><strong>Confira:</strong> o projeto está na pasta <code>source/restaurante-soap/aplicacao</code> e possui um <code>pom.xml</code>. Se o módulo já existir, abra o projeto existente para continuar.</p>
+
+<article class="etapa-arquivo" data-path="source/restaurante-soap/aplicacao/pom.xml">
+<h3 id="passo-2">Passo 2: Entender e conferir o POM do módulo</h3>
+<p><strong>Abra:</strong> <code>source/restaurante-soap/aplicacao/pom.xml</code>. O assistente já criou esse arquivo. Selecione a aba <strong>pom.xml</strong> do editor, confira o conteúdo abaixo e salve com <strong>Ctrl+S</strong>.</p>
+<p>POM significa <em>Project Object Model</em>. Este XML informa o nome do módulo, de quem ele herda configurações, qual artefato produzirá e quais dependências utiliza.</p>
+<pre><code class="language-xml">&lt;!-- Finalidade: configurar aplicacao; [1] este XML descreve seu projeto Maven. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;!-- Formato do POM; este 4.0.0 não indica a versão do Maven instalado. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;!-- [2] Herda configurações do POM ../pom.xml: restaurante-soap. --&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+    &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+    &lt;!-- Versão dos artefatos deste laboratório, alinhada com o pai. --&gt;
+    &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;/parent&gt;
+
+  &lt;!-- [3] O groupId e a version deste módulo são herdados do pai. --&gt;
+  &lt;artifactId&gt;aplicacao&lt;/artifactId&gt;
+  &lt;!-- A fase package produzirá um JAR com as classes compiladas. --&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+
+  &lt;!-- [4] Bibliotecas e módulos que este módulo utiliza. --&gt;
+  &lt;dependencies&gt;
+    &lt;!-- A aplicação poderá trabalhar com Mesa, Produto, Pedido etc. --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+      &lt;artifactId&gt;dominio&lt;/artifactId&gt;
+      &lt;!-- Usa a versão atual de aplicacao, herdada do pai: 2.0.0. --&gt;
+      &lt;version&gt;${project.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- [5] JUnit executará os testes das regras na aula 26. --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+      &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+      &lt;!-- Disponível para compilar/executar testes; fora do escopo principal. --&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Mockito criará substitutos do repositório para os testes. --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+      &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- As versões de JUnit e Mockito vêm do BOM importado pelo pai. --&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+<h4>Leia o arquivo por partes</h4>
+<table><thead><tr><th scope="col">Parte do POM</th><th scope="col">O que faz neste módulo</th></tr></thead><tbody><tr><td><code>project</code>, <code>xmlns</code> e <code>xsi:schemaLocation</code></td><td><code>project</code> é a raiz do XML. O namespace identifica o vocabulário do POM; <code>schemaLocation</code> associa esse namespace ao XSD que auxilia a validação do editor.</td></tr><tr><td><code>modelVersion</code></td><td><code>4.0.0</code> é a versão do formato do documento POM. Não corresponde à versão do Maven instalado nem à do Java.</td></tr><tr><td><code>parent</code></td><td>Identifica o pai por grupo, nome e versão. O módulo herda dele configurações de compilação, plugins e versões gerenciadas. Como não declaramos <code>relativePath</code>, o caminho relativo padrão procurado é <code>../pom.xml</code>.</td></tr><tr><td><code>artifactId</code> e <code>packaging</code></td><td>O nome deste artefato é <code>aplicacao</code>. O empacotamento <code>jar</code> fará a fase <code>package</code> produzir um JAR com suas classes. Nesta aula executaremos somente até <code>compile</code>.</td></tr><tr><td><code>dependencies</code> e <code>dependency</code></td><td>A primeira tag reúne a lista; cada <code>dependency</code> identifica um módulo ou biblioteca necessário. <code>groupId</code>, <code>artifactId</code> e <code>version</code> são suas coordenadas.</td></tr><tr><td>Dependência de <code>dominio</code></td><td>Permite que as futuras regras importem <code>Mesa</code>, <code>Produto</code> e <code>Pedido</code>. Sem <code>scope</code> explícito, vale o escopo padrão <code>compile</code>. A classe <code>Falha</code>, isoladamente, usa somente o Java; a dependência prepara o restante do módulo.</td></tr><tr><td><code>junit-jupiter</code></td><td>Fornece o JUnit para escrever e executar os testes das regras na <a href="testes-unidade.html">aula 26</a>.</td></tr><tr><td><code>mockito-core</code> e <code>scope test</code></td><td>Mockito criará substitutos do repositório nos testes. O escopo <code>test</code> mantém JUnit e Mockito na compilação/execução dos testes, fora do classpath principal da aplicação.</td></tr></tbody></table>
+<h4>Por que algumas versões aparecem e outras não?</h4>
+<ul>
+<li><code>2.0.0</code> identifica a versão dos artefatos do restaurante neste material. Deve coincidir com o pai e com os módulos usados; não indica uma versão de Java ou do Maven.</li>
+<li><code>&#36;{project.version}</code> consulta a versão do módulo atual. Como <code>aplicacao</code> herda <code>2.0.0</code>, a dependência de <code>dominio</code> também usa <code>2.0.0</code>.</li>
+<li>JUnit e Mockito não repetem uma tag <code>version</code>: recebem as versões gerenciadas pelo BOM importado no pai. O BOM é um catálogo de versões compatíveis entre si, adotado pelo laboratório.</li>
+</ul>
+<p><strong>Problema que este POM resolve:</strong> o Maven consegue localizar as dependências certas e compilar <code>aplicacao</code> com a mesma configuração dos demais módulos.</p>
+</article>
+
+<article class="etapa-arquivo" data-path="source/restaurante-soap/pom.xml">
+<h3 id="passo-3">Passo 3: Registrar aplicacao no POM pai</h3>
+<p><strong>Abra:</strong> <code>source/restaurante-soap/pom.xml</code>, no projeto <code>restaurante-soap</code>. O assistente pode ter incluído a entrada automaticamente; confira se cada módulo aparece uma única vez.</p>
+<pre><code class="language-xml">&lt;modules&gt;
+  &lt;module&gt;dominio&lt;/module&gt;
+  &lt;module&gt;aplicacao&lt;/module&gt;
+&lt;/modules&gt;</code></pre>
+<table><thead><tr><th scope="col">Configuração</th><th scope="col">Pergunta que ela responde</th></tr></thead><tbody><tr><td><code>modules</code>, no pai</td><td>Quais projetos participam do build executado por este POM? Agora são <code>dominio</code> e <code>aplicacao</code>.</td></tr><tr><td><code>parent</code>, no filho</td><td>De qual POM este módulo herda configurações? De <code>restaurante-soap</code>.</td></tr><tr><td><code>dependencies</code>, no filho</td><td>De quais classes/bibliotecas o módulo precisa? A aplicação depende do domínio; listar ambos em <code>modules</code> não cria essa dependência.</td></tr></tbody></table>
+<details>
+<summary>Entender as outras partes do POM pai</summary>
+<table><thead><tr><th scope="col">Bloco</th><th scope="col">Função no laboratório</th></tr></thead><tbody><tr><td>Identificação e <code>packaging pom</code></td><td><code>br.edu.soa:restaurante-soap:2.0.0</code> identifica o pai. O empacotamento <code>pom</code> permite organizar e configurar os módulos.</td></tr><tr><td><code>properties</code></td><td>Centraliza Java 17, preservação dos nomes de parâmetros, codificação UTF-8 e números reutilizados para Metro e o BOM. Java 17 é a base do código deste curso; UTF-8 preserva os acentos.</td></tr><tr><td><code>dependencyManagement</code></td><td>Define versões padrão para dependências que os módulos declararem. Não acrescenta automaticamente todas essas bibliotecas a cada módulo.</td></tr><tr><td><code>spring-boot-dependencies</code>, <code>type pom</code> e <code>scope import</code></td><td>Importa o catálogo de versões <code>3.5.16</code> adotado no pai. É a origem das versões de JUnit e Mockito. Essa importação configura versões; não inicia uma aplicação Spring Boot.</td></tr><tr><td>Metro e APIs Jakarta</td><td><code>jaxws-rt</code> usa Metro <code>4.0.5</code>; as APIs Jakarta declaradas apoiam os serviços SOAP das aulas posteriores. Mantemos os números fixados do material para reproduzir o conjunto de dependências.</td></tr><tr><td><code>build</code> e <code>pluginManagement</code></td><td>Centralizam configurações e versões das ferramentas: Compiler compila, Surefire executa testes, WAR empacota a aplicação web e Exec pode executar uma classe <code>main</code>. A configuração gerenciada é usada quando o plugin é acionado pelo ciclo ou declarado.</td></tr><tr><td><code>plugins</code> e <code>useModulePath false</code></td><td>Declaram o Surefire com as opções gerenciadas. Os testes usam classpath, conforme a organização do projeto sem módulos JPMS. Um módulo Maven, como <code>aplicacao</code>, não exige um <code>module-info.java</code>.</td></tr></tbody></table>
+<p>A explicação das versões e propriedades iniciais está na <a href="estrutura.html#passo-3">aula 12</a>. Nesta etapa, o acréscimo funcional ao pai é a entrada de <code>aplicacao</code> em <code>modules</code>.</p>
+</details>
+<details>
+<summary>Abrir o POM pai completo para comparar e salvar</summary>
+<pre><code class="language-xml">&lt;!-- Finalidade: Configurar o módulo e suas dependências. --&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;&gt;
+  &lt;!-- Versão do formato do documento POM, não do Maven instalado. --&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;!-- Identifica o grupo dos artefatos do laboratório. --&gt;
+  &lt;groupId&gt;br.edu.soa&lt;/groupId&gt;
+  &lt;!-- Este é o POM pai dos módulos SOAP e do núcleo compartilhado. --&gt;
+  &lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;
+  &lt;!-- Versão interna do projeto, mantida igual nos módulos deste conjunto. --&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
+  &lt;!-- Este pai organiza/configura módulos e não produz um JAR de aplicação. --&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  &lt;!-- Lista os módulos que já foram criados nesta etapa. --&gt;
+  &lt;modules&gt;
+    &lt;module&gt;dominio&lt;/module&gt;
+    &lt;!-- Inclui o novo módulo no build executado por este POM. --&gt;
+    &lt;module&gt;aplicacao&lt;/module&gt;
+  &lt;/modules&gt;
+  &lt;!-- Centraliza valores reutilizados no restante do POM. --&gt;
+  &lt;properties&gt;
+    &lt;!-- Compila fontes e APIs para Java 17, base adotada no laboratório. --&gt;
+    &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+    &lt;!-- Preserva nomes de parâmetros para uso por reflexão. --&gt;
+    &lt;maven.compiler.parameters&gt;true&lt;/maven.compiler.parameters&gt;
+    &lt;!-- Lê o código-fonte em UTF-8, inclusive nomes e mensagens com acentos. --&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;!-- Fixa o runtime SOAP Metro; será utilizado pelos adaptadores SOAP. --&gt;
+    &lt;metro.version&gt;4.0.5&lt;/metro.version&gt;
+    &lt;!-- Fixa o catálogo de versões (BOM) usado por este pai. --&gt;
+    &lt;spring-boot.version&gt;3.5.16&lt;/spring-boot.version&gt;
+  &lt;/properties&gt;
+  &lt;!-- Define versões padrão sem incluir automaticamente bibliotecas no módulo. --&gt;
+  &lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;!-- BOM: lista de versões gerenciadas; o módulo declara as dependências que realmente usa. --&gt;
+        &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+        &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+        &lt;type&gt;pom&lt;/type&gt;
+        &lt;scope&gt;import&lt;/scope&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;!-- Runtime Metro utilizado por serviços e clientes SOAP. --&gt;
+        &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+        &lt;version&gt;${metro.version}&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.xml.ws&lt;/groupId&gt;
+        &lt;!-- API Jakarta XML Web Services usada na integração SOAP. --&gt;
+        &lt;artifactId&gt;jakarta.xml.ws-api&lt;/artifactId&gt;
+        &lt;version&gt;4.0.2&lt;/version&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.jws&lt;/groupId&gt;
+        &lt;!-- API de anotações dos serviços SOAP, como WebService. --&gt;
+        &lt;artifactId&gt;jakarta.jws-api&lt;/artifactId&gt;
+        &lt;version&gt;3.0.0&lt;/version&gt;
+      &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+  &lt;/dependencyManagement&gt;
+  &lt;!-- Configura as ferramentas e recursos do build. --&gt;
+  &lt;build&gt;
+    &lt;!-- Centraliza versões e opções dos plugins usados pelo build. --&gt;
+    &lt;pluginManagement&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Ferramenta de compilação; usa o alvo Java definido no POM. --&gt;
+          &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.14.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Executa os testes automatizados durante a fase test. --&gt;
+          &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.5.3&lt;/version&gt;
+          &lt;configuration&gt;
+            &lt;useModulePath&gt;false&lt;/useModulePath&gt;
+          &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+          &lt;!-- Empacota os recursos e classes da aplicação web em WAR. --&gt;
+          &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.4.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+          &lt;!-- Permite executar uma classe main por um goal Maven. --&gt;
+          &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+          &lt;version&gt;3.5.0&lt;/version&gt;
+        &lt;/plugin&gt;
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;!-- Executa os testes automatizados durante a fase test. --&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+</details>
+<p><strong>Confira:</strong> o pai lista os dois módulos. Depois de salvar os dois POMs, selecione os projetos envolvidos e use <strong>Maven → Update Project… → OK</strong>.</p>
+</article>
+
+<article class="etapa-arquivo" data-path="source/restaurante-soap/aplicacao/src/main/java/br/edu/soa/restaurante/aplicacao/Falha.java">
+<h3 id="passo-4">Passo 4: Criar Falha.java e entender cada parte</h3>
+<ol>
+<li>No projeto <code>aplicacao</code>, selecione <code>src/main/java</code>. Se necessário, crie essa pasta com <strong>New → Source Folder</strong>.</li>
+<li>Use <strong>New → Package</strong> para criar <code>br.edu.soa.restaurante.aplicacao</code>.</li>
+<li>Selecione o pacote e use <strong>File → New → Other… → General → File</strong>. Informe <code>Falha.java</code>.</li>
+<li>Cole a classe completa abaixo, confira a declaração <code>package</code> e salve em UTF-8.</li>
+</ol>
+<p><strong>Caminho completo na pasta do laboratório:</strong> <code>source/restaurante-soap/aplicacao/src/main/java/br/edu/soa/restaurante/aplicacao/Falha.java</code>.</p>
+<pre><code class="language-java">// Finalidade: representar uma falha da aplicação com código, tipo e mensagem.
+// [1] O pacote corresponde às pastas br/edu/soa/restaurante/aplicacao.
+package br.edu.soa.restaurante.aplicacao;
+
+// [2] public: outros módulos podem usar esta classe.
+// final: não permite criar subclasses de Falha.
+// extends RuntimeException: permite lançar e capturar uma Falha como exceção.
+public final class Falha extends RuntimeException {
+
+    // [3] Categoria geral do problema. Para usar fora da classe: Falha.Tipo.
+    public enum Tipo {
+        VALIDACAO,       // A entrada não atende a uma regra.
+        NAO_ENCONTRADO,   // O registro solicitado não existe.
+        CONFLITO,        // O estado atual impede a operação.
+        INTERNO          // Um problema técnico impediu a operação.
+    }
+
+    // [4] Dados adicionais da exceção.
+    // private: acesso por métodos; final: atribuídos no construtor uma única vez.
+    private final String codigo;
+    private final Tipo tipo;
+
+    // [5] Construtor: recebe os três dados de uma falha.
+    public Falha(String codigo, Tipo tipo, String mensagem) {
+        // Guarda a mensagem na parte herdada de RuntimeException.
+        // Por isso podemos recuperá-la depois com getMessage().
+        super(mensagem);
+        // this.codigo é o campo; codigo é o argumento recebido.
+        this.codigo = codigo;
+        this.tipo = tipo;
+    }
+
+    // [6] Métodos de consulta dos campos privados.
+    public String codigo() {
+        return codigo;
+    }
+
+    public Tipo tipo() {
+        return tipo;
+    }
+
+    // [7] Método de criação: chamado diretamente por Falha.invalido(...).
+    // O chamador informa a mensagem; código e tipo são preenchidos aqui.
+    public static Falha invalido(String mensagem) {
+        return new Falha(&quot;ENTRADA_INVALIDA&quot;, Tipo.VALIDACAO, mensagem);
+    }
+
+    // [8] Um conflito pode ter códigos diferentes: MESA_OCUPADA, PEDIDO_FECHADO...
+    // O tipo é fixo; o chamador informa o código específico e a mensagem.
+    public static Falha conflito(String codigo, String mensagem) {
+        return new Falha(codigo, Tipo.CONFLITO, mensagem);
+    }
+}
+</code></pre>
+<h4>O que significa cada parte numerada?</h4>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">Explicação</th></tr></thead><tbody><tr><td>1. <code>package</code></td><td>Identifica o pacote da classe e corresponde às pastas dentro de <code>src/main/java</code>. É por esse nome que outros módulos poderão importá-la.</td></tr><tr><td>2. <code>public final class Falha extends RuntimeException</code></td><td><code>public</code> permite o uso fora do pacote; <code>final</code> impede criar subclasses de <code>Falha</code>. A herança de <code>RuntimeException</code> faz dela uma exceção não verificada: os métodos não precisam declarar <code>throws Falha</code> para propagá-la. O lançamento ainda deve chegar a um tratamento adequado.</td></tr><tr><td>3. <code>enum Tipo</code></td><td>Define um conjunto de categorias permitidas. Por estar dentro da classe, é referenciado como <code>Falha.Tipo</code>, por exemplo <code>Falha.Tipo.CONFLITO</code>.</td></tr><tr><td>4. <code>private final</code></td><td><code>private</code> protege o acesso direto aos campos. <code>final</code> impede reatribuir <code>codigo</code> e <code>tipo</code> depois da construção do objeto.</td></tr><tr><td>5. Construtor, <code>super</code> e <code>this</code></td><td>O construtor recebe os três dados. <code>super(mensagem)</code> entrega o texto ao construtor da superclasse. <code>this.codigo = codigo</code> copia o argumento para o campo do objeto; o mesmo vale para <code>tipo</code>.</td></tr><tr><td>6. <code>codigo()</code>, <code>tipo()</code> e <code>getMessage()</code></td><td>Os dois primeiros métodos devolvem os campos privados. <code>getMessage()</code> é herdado e recupera o texto enviado a <code>super</code>; por isso não criamos outro campo <code>mensagem</code>.</td></tr><tr><td>7. <code>static Falha invalido(...)</code></td><td>É um método de criação: pode ser chamado como <code>Falha.invalido(...)</code>. Ele devolve uma nova falha com código <code>ENTRADA_INVALIDA</code>, tipo <code>VALIDACAO</code> e a mensagem recebida.</td></tr><tr><td>8. <code>static Falha conflito(...)</code></td><td>Também devolve um objeto, fixando o tipo <code>CONFLITO</code>. O código e a mensagem são argumentos porque há conflitos diferentes no restaurante.</td></tr></tbody></table>
+<h4>Quando usar cada Tipo?</h4>
+<table><thead><tr><th scope="col">Tipo</th><th scope="col">Situação do restaurante</th></tr></thead><tbody><tr><td><code>VALIDACAO</code></td><td>Quantidade zero ou número de mesa fora do intervalo permitido. A entrada precisa ser corrigida.</td></tr><tr><td><code>NAO_ENCONTRADO</code></td><td>O ID consultado não corresponde a um registro existente.</td></tr><tr><td><code>CONFLITO</code></td><td>Um pedido já está fechado ou uma mesa já possui pedido aberto. A situação atual impede a operação.</td></tr><tr><td><code>INTERNO</code></td><td>Um problema técnico na persistência impede concluir a operação. A mensagem destinada ao cliente deve ser controlada.</td></tr></tbody></table>
+<p>Para as categorias sem um método de criação específico, o código poderá usar o construtor, como <code>new Falha("NAO_ENCONTRADO", Falha.Tipo.NAO_ENCONTRADO, "Registro não encontrado.")</code>.</p>
+<p><strong>Confira:</strong> o nome do arquivo e da classe é <code>Falha</code>, o pacote está correto e o editor não aponta erro de sintaxe.</p>
+</article>
+
+<details>
+<summary>Acompanhar um exemplo: criar uma Falha e lançá-la são ações diferentes</summary>
+<p><strong>Exemplo de leitura para as próximas aulas.</strong> Este trecho pertence à futura regra que altera um pedido:</p>
+<pre><code class="language-java">if (atual.situacao() != SituacaoPedido.ABERTO) {
+    throw Falha.conflito(
+        &quot;PEDIDO_&quot; + atual.situacao(),
+        &quot;Pedido &quot; + atual.situacao().name().toLowerCase()
+            + &quot; não permite alterações.&quot;
+    );
+}</code></pre>
+<ol>
+<li>Se o pedido estiver <code>ABERTO</code>, essa condição será falsa e o processamento continuará.</li>
+<li>Se estiver <code>FECHADO</code>, a condição será verdadeira. <code>Falha.conflito(...)</code> criará o objeto com código <code>PEDIDO_FECHADO</code>, tipo <code>CONFLITO</code> e a mensagem correspondente.</li>
+<li><code>throw</code> lançará esse objeto. O fluxo normal sairá desse ponto até encontrar um tratamento compatível.</li>
+<li>O tratamento poderá consultar <code>e.codigo()</code>, <code>e.tipo()</code> e <code>e.getMessage()</code>. No sistema completo, essa tradução será feita pelos adaptadores.</li>
+</ol>
+<p><strong>Guarde a diferença:</strong> <code>new Falha(...)</code> e os métodos de criação produzem um objeto; <code>throw</code> é a instrução que o lança. Essa classe não elimina uma indisponibilidade do banco nem decide automaticamente qual operação é válida: ela padroniza como o problema é comunicado.</p>
+</details>
+
+<h3 id="passo-5">Passo 5: Compilar pelo Maven dentro do Eclipse</h3>
+<ol>
+<li>Use <strong>File → Save All</strong>.</li>
+<li>No projeto <code>restaurante-soap</code>, escolha <strong>Run As → Maven build…</strong>. Nomeie a configuração <code>Verificar aula 20</code>.</li>
+<li>Em <strong>Base directory</strong>, use <strong>Browse Workspace…</strong> e selecione <code>restaurante-soap</code>. Confira a pasta física: <code>…/source/restaurante-soap</code>, onde estão o POM pai e as subpastas <code>dominio</code> e <code>aplicacao</code>.</li>
+<li>Em <strong>Goals</strong>, informe o conteúdo abaixo. Na aba <strong>JRE</strong>, confira o JDK 17.</li>
+<li>Clique em <strong>Apply → Run</strong> e leia a aba <strong>Console</strong>.</li>
+</ol>
+<p><strong>Base directory</strong> define de qual POM o Maven parte para reunir os módulos. Nesta aula, use o projeto pai <code>restaurante-soap</code>; selecionar somente o filho <code>aplicacao</code> não reúne o módulo irmão <code>dominio</code>.</p>
+<pre><code class="language-text">-pl :aplicacao -am compile</code></pre>
+<table><thead><tr><th scope="col">Parte do comando</th><th scope="col">O que o Maven fará</th></tr></thead><tbody><tr><td><code>-pl :aplicacao</code></td><td>Seleciona pelo <code>artifactId</code> <code>aplicacao</code>. Os dois-pontos distinguem o nome do artefato de um caminho de pasta.</td></tr><tr><td><code>-am</code></td><td>Inclui os projetos necessários à seleção, como <code>dominio</code>.</td></tr><tr><td><code>compile</code></td><td>Executa as fases necessárias até compilar os arquivos Java. Os testes JUnit serão executados em outra etapa.</td></tr></tbody></table>
+
+<p><strong>Antes da compilação, procure esta ordem na Console:</strong></p>
+<pre><code class="language-text">Reactor Build Order:
+
+restaurante-soap    [pom]
+dominio             [jar]
+aplicacao           [jar]</code></pre>
+<p>Se a saída mostrar apenas <code>Building aplicacao 2.0.0</code>, confira o projeto pai em <strong>Base directory</strong> e a opção <code>-am</code> em <strong>Goals</strong>. Veja o diagnóstico de <a href="#erro-dependencia-dominio">dependência de dominio não encontrada</a>.</p>
+
+<p><strong>Confira:</strong> a Console termina em <code>BUILD SUCCESS</code>. O arquivo compilado deve estar em <code>aplicacao/target/classes/br/edu/soa/restaurante/aplicacao/Falha.class</code>; pressione <strong>F5</strong> se precisar atualizar a visualização.</p>
+
+<h3 id="passo-6">Passo 6: Conferir se você compreendeu a entrega</h3>
+<ol>
+<li>No POM pai, localize a entrada do módulo <code>aplicacao</code>.</li>
+<li>No POM do filho, localize a dependência que permitirá usar as classes de <code>dominio</code>.</li>
+<li>Em <code>Falha.java</code>, localize onde código e tipo são guardados e explique como recuperar a mensagem.</li>
+<li>Explique por que <code>Falha.conflito(...)</code> cria um objeto, enquanto <code>throw Falha.conflito(...)</code> interrompe o fluxo normal.</li>
+</ol>
+</section>
+
+<section>
+<h2 id="resultado">4. Resultado esperado</h2>
+<p>O módulo <code>aplicacao</code> está registrado no pai, depende de <code>dominio</code> e compila a classe <code>Falha</code>. Você preparou a estrutura que será usada para recusar operações com um motivo identificável.</p>
+<details><summary>Estrutura de diretórios acumulada até esta aula</summary><p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta árvore.</p><pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── aplicacao/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── aplicacao/
+        │                                   └── Falha.java
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        └── pom.xml</code></pre></details>
+<details>
+<summary>Se a compilação não der certo</summary>
+
+
+
+
+<h4 id="erro-cache-dominio">Se aparecer “dominio … was not found … during a previous attempt”</h4>
+<p>Essa mensagem registra no repositório local uma tentativa anterior de obter o artefato no Central. Confira o início da saída: se aparecer somente <code>Building aplicacao</code>, o módulo local <code>dominio</code> não está sendo construído junto.</p>
+<p><strong>Para fixar explicitamente qual POM deve ser usado:</strong></p>
+<ol>
+<li>Abra <strong>Run → Run Configurations… → Maven Build</strong> e selecione a configuração que você vai executar.</li>
+<li>Substitua todo o campo <strong>Goals</strong> pelo exemplo abaixo, ajustando o caminho para o POM pai do seu computador. O destino precisa ser o POM <code>restaurante-soap</code>, que lista os dois módulos.</li>
+<li>Clique em <strong>Apply</strong> e depois em <strong>Run</strong> nessa mesma janela.</li>
+</ol>
+<pre><code class="language-text">-f C:/workspace/SOA/laboratorio-restaurante-soa/source/restaurante-soap/pom.xml -pl :aplicacao -am compile</code></pre>
+<p><code>-f</code> escolhe diretamente o arquivo POM. <code>-pl :aplicacao</code> seleciona o artefato da aplicação e <code>-am</code> inclui as dependências presentes no reator, como o domínio. Assim, a seleção do POM pai fica explícita mesmo que a configuração tenha sido aberta a partir do filho. <a href="https://maven.apache.org/ref/3.9.10/maven-embedder/cli.html">Referência oficial das opções Maven</a>.</p>
+<p>Na Console, confira <code>restaurante-soap</code>, <code>dominio</code> e <code>aplicacao</code> em <strong>Reactor Build Order</strong>. Se sua pasta se chama <code>domino</code>, mantenha <code>&lt;module&gt;domino&lt;/module&gt;</code> no pai e confira <code>&lt;artifactId&gt;dominio&lt;/artifactId&gt;</code> no filho, conforme o <a href="#erro-pasta-modulo">diagnóstico do nome da pasta</a>.</p>
+
+<h4 id="erro-pasta-modulo">Se aparecer “Child module …/dominio … does not exist”</h4>
+<p>O Maven já localizou o POM pai, mas não encontrou um dos módulos no caminho declarado. Cada entrada de <code>modules</code> aponta para uma pasta ou POM relativo ao pai. Confira a localização física do projeto no Eclipse: botão direito → <strong>Properties → Resource → Location</strong>. <a href="https://eclipse.dev/escet/use/projects.html">Como localizar projetos no Eclipse</a>.</p>
+<p><strong>Exemplo: a pasta foi criada como domino, mas o POM declara dominio.</strong> São nomes diferentes; falta o segundo “i” em <code>domino</code>. Se você mantiver essa pasta, o pai deve apontar para o nome que existe:</p>
+<pre><code class="language-xml">&lt;modules&gt;
+    &lt;module&gt;domino&lt;/module&gt;
+    &lt;module&gt;aplicacao&lt;/module&gt;
+&lt;/modules&gt;</code></pre>
+<p><strong>Confira também o filho:</strong> em <code>domino/pom.xml</code>, mantenha <code>&lt;artifactId&gt;dominio&lt;/artifactId&gt;</code>, com grupo <code>br.edu.soa</code> e versão <code>2.0.0</code> herdados do pai. A dependência de <code>aplicacao</code> continua sendo <code>br.edu.soa:dominio:2.0.0</code>.</p>
+<table><thead><tr><th scope="col">Valor</th><th scope="col">O que identifica</th></tr></thead><tbody>
+<tr><td><code>&lt;module&gt;domino&lt;/module&gt;</code></td><td>A pasta real do módulo, relativa ao POM pai.</td></tr>
+<tr><td><code>&lt;artifactId&gt;dominio&lt;/artifactId&gt;</code></td><td>O nome do artefato produzido pelo módulo e usado nas dependências.</td></tr>
+</tbody></table>
+<p>Salve os POMs, use <strong>Maven → Update Project…</strong> e execute novamente <code>-pl :aplicacao -am compile</code> a partir do pai.</p>
+<p>Os exemplos completos do curso usam a pasta <code>dominio</code>. Se você mantiver a pasta <code>domino</code>, preserve essa grafia na lista <code>modules</code> dos próximos POMs e adapte os caminhos correspondentes. Se padronizar a pasta como <code>dominio</code>, volte a entrada do pai para <code>&lt;module&gt;dominio&lt;/module&gt;</code>. Apenas mudar o nome exibido no Eclipse pode não alterar a localização física; confira novamente <strong>Location</strong>.</p>
+<p>Se o módulo ainda não tiver sido criado, retome a <a href="dominio-estados.html#passo-1">aula 13</a> e depois confira as classes construídas nas aulas 14–18. Uma pasta vazia não substitui o POM e os fontes do domínio.</p>
+<details>
+<summary>E o aviso do Jansi sobre acesso nativo?</summary>
+<p>Na saída apresentada, o aviso identifica uma biblioteca usada pelo Maven e a execução continua até ler os POMs. O erro que interrompe esse build é o módulo ausente no caminho declarado. Confira também o JDK 17 na aba <strong>JRE</strong> da configuração Maven, conforme o ambiente adotado no curso.</p>
+</details>
+
+<h4 id="erro-dependencia-dominio">Se aparecer “Could not find artifact br.edu.soa:dominio:jar:2.0.0 in central”</h4>
+<p><code>dominio</code> é um artefato construído pelo seu projeto. Se somente <code>aplicacao</code> entrar no build e o domínio ainda não estiver no repositório local, o Maven tentará resolver essa dependência nos repositórios configurados e poderá procurar no Central.</p>
+<p><strong>Para a aula, compile os módulos juntos a partir do pai:</strong></p>
+<ol>
+<li>Use <strong>File → Save All</strong>. No <strong>Project Explorer</strong>, selecione o projeto cujo POM contém <code>&lt;artifactId&gt;restaurante-soap&lt;/artifactId&gt;</code> e <code>&lt;packaging&gt;pom&lt;/packaging&gt;</code>.</li>
+<li>Clique com o botão direito nesse pai e escolha <strong>Run As → Maven build…</strong>. Confira novamente <strong>Base directory</strong>: deve ser a pasta que contém o POM pai e as pastas irmãs <code>dominio</code> e <code>aplicacao</code>.</li>
+<li>Confira <code>&lt;module&gt;dominio&lt;/module&gt;</code> e <code>&lt;module&gt;aplicacao&lt;/module&gt;</code> na lista <code>modules</code> desse POM.</li>
+<li>Use exatamente <code>-pl :aplicacao -am compile</code> em <strong>Goals</strong> e clique em <strong>Apply → Run</strong>. A opção <code>-am</code> inclui as dependências que pertencem ao mesmo reator; ela não reúne automaticamente módulos irmãos quando a execução parte somente do filho.</li>
+<li>Confirme a presença de <code>dominio</code> em <strong>Reactor Build Order</strong>, antes de <code>aplicacao</code>.</li>
+</ol>
+<p><strong>Se dominio continuar ausente:</strong> confira suas coordenadas. O POM de <code>dominio</code> deve resultar em <code>br.edu.soa:dominio:2.0.0</code>, o mesmo grupo, nome e versão exigidos pela dependência de <code>aplicacao</code>. Grupo e versão podem ser herdados do pai; o <code>artifactId</code> do filho precisa ser <code>dominio</code>.</p>
+<details>
+<summary>Por que compilar dominio sozinho não resolveu?</summary>
+<p><code>compile</code> produz classes em <code>target/classes</code>. <code>package</code> produz o JAR em <code>target</code>. A fase <code>install</code> também coloca o JAR e o POM no repositório local, para uso por outras execuções. Na configuração desta aula, <code>-am</code> reúne domínio e aplicação na mesma execução, permitindo compilar sem depender de uma instalação anterior do domínio. <a href="https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html">Referência: fases do Maven</a>.</p>
+</details>
+
+<h4 id="erro-reator">Se aparecer “Could not find the selected project in the reactor: aplicacao”</h4>
+<p><strong>O Maven ainda não começou a compilar.</strong> O <em>reator</em> é o conjunto de projetos reunidos a partir do POM escolhido para essa execução. Esse erro informa que a seleção não correspondeu a um projeto desse conjunto.</p>
+<ol>
+<li>Em <strong>Run → Run Configurations… → Maven Build</strong>, abra a configuração desta aula. Em <strong>Base directory → Browse Workspace…</strong>, escolha <code>restaurante-soap</code>, a pasta que contém o POM pai e as subpastas <code>dominio</code> e <code>aplicacao</code>.</li>
+<li>Abra o <code>pom.xml</code> dessa pasta e confira o <code>artifactId</code> <code>restaurante-soap</code>, o <code>packaging</code> <code>pom</code> e as duas entradas de <code>modules</code> mostradas no <a href="#passo-3">passo 3</a>. Ter o projeto visível no Eclipse, sozinho, não registra o módulo no build do pai.</li>
+<li>Confira a existência de <code>aplicacao/pom.xml</code> e o <code>artifactId</code> <code>aplicacao</code> nesse filho. O caminho da entrada <code>module</code> é relativo à pasta do POM pai.</li>
+<li>Salve com <strong>File → Save All</strong>, use <strong>Maven → Update Project…</strong> nos projetos envolvidos e repita com <code>-pl :aplicacao -am compile</code>. Se houver <code>-N</code> em Goals, remova-o: essa opção impede percorrer os módulos.</li>
+</ol>
+<p>Sem os dois-pontos, <code>-pl aplicacao</code> procura o caminho relativo <code>aplicacao</code>. Com <code>-pl :aplicacao</code>, a seleção usa o <code>artifactId</code>. Em ambos os casos, o módulo precisa participar do reator da execução. <a href="https://maven.apache.org/guides/mini/guide-multiple-modules.html">Referência oficial: seleção de módulos no Maven</a>.</p>
+
+<ul>
+<li><strong>Módulo não encontrado:</strong> confira a pasta <code>aplicacao</code>, seu POM, a lista <code>modules</code> e o projeto selecionado em <strong>Base directory</strong>.</li>
+<li><strong>Pai ou domínio não localizado:</strong> confira as coordenadas e a versão <code>2.0.0</code>. Na configuração Maven desta aula, mantenha <code>-am</code>.</li>
+<li><strong>Versão ausente para JUnit/Mockito:</strong> confira a herança de <code>restaurante-soap</code> e a importação do BOM em <code>dependencyManagement</code>.</li>
+<li><strong>Erro em Falha.java:</strong> confira pacote, nome do arquivo e a chamada <code>super(mensagem)</code> no construtor.</li>
+<li>Após mudar um POM, salve e use <strong>Maven → Update Project…</strong>. Leia a mensagem específica em <strong>Problems</strong> ou na <strong>Console</strong>.</li>
+</ul>
+</details>
+</section>
+
+<section>
+<h2 id="checkpoint">5. Confira e continue</h2>
+<ul>
+<li>Criei os três arquivos/alterações indicados e obtive <code>BUILD SUCCESS</code>.</li>
+<li>Sei distinguir <code>modules</code>, <code>parent</code> e <code>dependencies</code>.</li>
+<li>Consigo explicar código, tipo e mensagem usando o exemplo de um pedido fechado.</li>
+<li>Sei quem verifica a regra, quem representa a falha e quem a transforma na resposta SOAP/REST.</li>
+</ul>
+<button class="concluir" data-aula="aplicacao-falhas" type="button" aria-pressed="false">Marcar aula como concluída</button>
+<p>Depois, avance para <a href="aplicacao-repositorio.html">definir a porta de persistência</a>.</p>
+</section>
+<details class="base"><summary>Fundamentação e leitura complementar</summary><div class="callout referencias-aula" aria-labelledby="fundamentacao"><h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3><p>A hierarquia de exceções e o controle de fluxo apoiam Falha como erro de negócio. Um código estável será traduzido pelo adaptador depois; o núcleo não escolhe agora um status HTTP nem monta XML SOAP.</p><ul><li data-referencia="oca-excecoes"><a href="../docs/referencias.html#leitura-oca-excecoes">[R06] Guilherme Silveira; Mário Amaral — Java SE 7 Programmer I: o guia para sua certificação Oracle Certified Associate</a>. Cap. 10, §10.1–10.2: checked, runtime e tratamento. <strong>Páginas 336–339 do PDF</strong>.</li></ul><p><strong>Confira na leitura:</strong> Qual diferença existe entre validar uma entrada e expor uma stacktrace ao cliente?</p><p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.</p></div><h3>Documentação oficial para consultar os conceitos</h3><ul>
+<li><a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Maven: POM, herança e agregação</a>.</li>
+<li><a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">Maven: dependências, escopos e versões gerenciadas</a>.</li>
+<li><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html">Java 17: RuntimeException e seus construtores</a>.</li>
+</ul></details>
+<nav class="links" aria-label="Aulas anterior e seguinte"><a href="modelos.html">← Conferir os relacionamentos do domínio</a><a href="aplicacao-repositorio.html">Definir a porta de persistência →</a></nav>
+</main></body></html>

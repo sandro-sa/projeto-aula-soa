@@ -1,0 +1,247 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Escrever o WSDL de Mesa · Restaurante do zero</title><link rel="stylesheet" href="style.css"><script src="tutorial.js" defer></script></head><body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a><aside><span class="chip">Do zero até localhost</span><h2>Restaurante<br>SOAP + REST</h2><p>Java 17 · MySQL · Spring Initializr</p><nav aria-label="Trilha de construção"><p class="nav-grupo">Preparação do laboratório</p><a  href="index.html"><span aria-hidden="true">01.</span> Do zero até localhost</a><a  href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente local</a><a  href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK 17</a><a  href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar o JDK</a><a  href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o POM</a><a  href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL 8.4</a><a  href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no MySQL</a><a  href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a  href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a><p class="nav-grupo">Projeto e domínio</p><a  href="arquitetura-soa.html"><span aria-hidden="true">10.</span> Desenhar as fronteiras SOA</a><a  href="clean-architecture.html"><span aria-hidden="true">11.</span> Definir camadas e dependências</a><a  href="estrutura.html"><span aria-hidden="true">12.</span> Criar os primeiros POMs do zero</a><a  href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o módulo domínio e seus estados</a><a  href="modelo-mesa.html"><span aria-hidden="true">14.</span> Implementar Mesa</a><a  href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar Categoria</a><a  href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a  href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a  href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a  href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a><p class="nav-grupo">Regras de negócio</p><a  href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a  href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de persistência</a><a  href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de mesas</a><a  href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de categorias</a><a  href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras de produtos</a><a  href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo do pedido</a><a  href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros testes de regras</a><p class="nav-grupo">Persistência MySQL</p><a  href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a  href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a  href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a  href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a  href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais externas</a><a  href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a><p class="nav-grupo">Contratos SOAP</p><a  href="contrato-xsd.html"><span aria-hidden="true">33.</span> Escrever os tipos e mensagens XSD</a><a class="current" aria-current="page" href="wsdl-mesas.html"><span aria-hidden="true">34.</span> Escrever o WSDL de Mesa</a><a  href="wsdl-categorias.html"><span aria-hidden="true">35.</span> Escrever o WSDL de Categoria</a><a  href="wsdl-produtos.html"><span aria-hidden="true">36.</span> Escrever o WSDL de Produto</a><a  href="wsdl-pedidos.html"><span aria-hidden="true">37.</span> Escrever o WSDL de Pedido</a><a  href="contrato.html"><span aria-hidden="true">38.</span> Gerar Java a partir dos contratos</a><p class="nav-grupo">Servidor SOAP</p><a  href="servidor.html"><span aria-hidden="true">39.</span> Criar o módulo WAR do servidor</a><a  href="soap-contexto.html"><span aria-hidden="true">40.</span> Compor aplicação e banco no WAR</a><a  href="soap-autenticacao.html"><span aria-hidden="true">41.</span> Autenticar requisições SOAP</a><a  href="soap-falhas.html"><span aria-hidden="true">42.</span> Autorizar e converter SOAP Fault</a><a  href="soap-dtos.html"><span aria-hidden="true">43.</span> Mapear domínio para DTOs SOAP</a><a  href="servico-mesas.html"><span aria-hidden="true">44.</span> Implementar MesaEndpoint</a><a  href="servico-categorias.html"><span aria-hidden="true">45.</span> Implementar CategoriaEndpoint</a><a  href="servico-produtos.html"><span aria-hidden="true">46.</span> Implementar ProdutoEndpoint</a><a  href="servico-pedidos.html"><span aria-hidden="true">47.</span> Implementar PedidoEndpoint</a><a  href="infra-qr.html"><span aria-hidden="true">48.</span> Implementar a geração da imagem QR</a><a  href="bff-soap.html"><span aria-hidden="true">49.</span> Criar o BFF HTTP/JSON público</a><a  href="soap-descritores.html"><span aria-hidden="true">50.</span> Registrar filtros e serviços no Tomcat</a><a  href="implantacao.html"><span aria-hidden="true">51.</span> Publicar o SOAP no Tomcat localhost</a><p class="nav-grupo">Interfaces Swing</p><a  href="desktop-conexao.html"><span aria-hidden="true">52.</span> Criar o módulo desktop e o cliente SOAP</a><a  href="swing-worker.html"><span aria-hidden="true">53.</span> Construir a janela com SwingWorker</a><a  href="swing-cadastro.html"><span aria-hidden="true">54.</span> Construir o painel comum de cadastro</a><a  href="swing-mesas.html"><span aria-hidden="true">55.</span> Construir o cadastro Swing de mesas</a><a  href="swing-categorias.html"><span aria-hidden="true">56.</span> Construir o cadastro Swing de categorias</a><a  href="swing-formulario-produtos.html"><span aria-hidden="true">57.</span> Construir o formulário Swing de produtos</a><a  href="swing-produtos.html"><span aria-hidden="true">58.</span> Montar a janela administrativa</a><a  href="swing-pedidos.html"><span aria-hidden="true">59.</span> Construir a janela do garçom</a><a  href="testes-swing.html"><span aria-hidden="true">60.</span> Testar as duas telas contra o SOAP local</a><p class="nav-grupo">Cardápio local</p><a  href="cardapio-imagem.html"><span aria-hidden="true">61.</span> Criar o recurso visual do cardápio</a><a  href="cardapio-html.html"><span aria-hidden="true">62.</span> Escrever o HTML semântico</a><a  href="cardapio-css.html"><span aria-hidden="true">63.</span> Implementar o layout responsivo</a><a  href="cardapio-digital.html"><span aria-hidden="true">64.</span> Implementar busca, categorias e consulta JSON</a><a  href="qr-code.html"><span aria-hidden="true">65.</span> Gerar e conferir QR em localhost</a><p class="nav-grupo">REST desde o Initializr</p><a  href="spring-initializr.html"><span aria-hidden="true">66.</span> Gerar a base REST no Spring Initializr</a><a  href="rest-ping.html"><span aria-hidden="true">67.</span> Escrever o primeiro endpoint HTTP</a><a  href="rest-pom.html"><span aria-hidden="true">68.</span> Integrar o núcleo e as dependências REST</a><a  href="rest-entradas.html"><span aria-hidden="true">69.</span> Escrever DTOs de entrada REST</a><a  href="rest-saidas.html"><span aria-hidden="true">70.</span> Escrever DTOs de saída REST</a><a  href="rest-erros.html"><span aria-hidden="true">71.</span> Padronizar erros HTTP</a><a  href="rest-configuracao.html"><span aria-hidden="true">72.</span> Conectar REST ao MySQL</a><a  href="seguranca.html"><span aria-hidden="true">73.</span> Implementar autorização HTTP</a><a  href="rest-mesas.html"><span aria-hidden="true">74.</span> Implementar MesaController</a><a  href="rest-categorias.html"><span aria-hidden="true">75.</span> Implementar CategoriaController</a><a  href="rest-produtos.html"><span aria-hidden="true">76.</span> Implementar ProdutoController</a><a  href="rest-pedidos.html"><span aria-hidden="true">77.</span> Implementar PedidoController</a><a  href="rest-cardapio.html"><span aria-hidden="true">78.</span> Expor cardápio e QR pela API HTTP</a><a  href="rest-openapi.html"><span aria-hidden="true">79.</span> Escrever a configuração OpenAPI</a><p class="nav-grupo">Validação em localhost</p><a  href="testes-rest.html"><span aria-hidden="true">80.</span> Implementar testes REST e exportação OpenAPI</a><a  href="testes.html"><span aria-hidden="true">81.</span> Implementar testes de publicação SOAP</a><a  href="localhost.html"><span aria-hidden="true">82.</span> Executar o sistema completo em localhost</a><p class="nav-grupo">Consolidação</p><a  href="comparativo.html"><span aria-hidden="true">83.</span> Comparar SOAP e REST construídos</a><a  href="erros.html"><span aria-hidden="true">84.</span> Resolver problemas do laboratório</a><a  href="exercicios.html"><span aria-hidden="true">85.</span> Conferir a construção e estender o sistema</a></nav></aside><main id="conteudo" tabindex="-1"><span class="chip">Contratos SOAP · aula 34 de 85</span><h1>Escrever o WSDL de Mesa</h1><p class="lead">Criar MesaService.wsdl usando o XSD da aula 33.</p><p id="progresso" class="foot" aria-live="polite"></p>
+<section><h2 id="objetivo">1. O que fazer nesta etapa</h2><div class="callout"><p><strong>Criar MesaService.wsdl usando o XSD da aula 33.</strong></p><ol><li>Criar: <code>source/restaurante-soap/contrato/src/main/resources/wsdl/MesaService.wsdl</code></li></ol><p><strong>A aula termina quando:</strong> O arquivo está salvo, a referência restaurante.xsd é encontrada e você localiza serviço, porta e operações.</p></div><p>Continue no Eclipse após <a href="contrato-xsd.html">Escrever os tipos e mensagens XSD</a>. Use os projetos e os arquivos que você construiu nas etapas anteriores.</p></section>
+<section><h2 id="conceitos">2. Entenda o que será feito</h2>
+<div class="callout" data-explicacao-aula="34"><p><strong>Problema no sistema</strong></p><p>A tela de cadastro precisa chamar mesas pelo contrato de rede. O WSDL estabelece como enviar um número de mesa, consultar por ID e receber uma falha de negócio.</p></div>
+<p>O WSDL descreve mensagens, operações, binding SOAP e o endereço de MesaService.</p><ul><li>O endereço escrito no WSDL não significa que o servidor já esteja publicado.</li><li>Os nomes e namespaces deverão coincidir com as classes e os descritores do servidor.</li></ul><details><summary>Pontos para observar no código</summary><ul><li>O serviço MesaService tem uma porta MesaPort.</li><li>O endereço localhost será usado quando o servidor for publicado; o desktop poderá substituí-lo.</li><li>Cada operação declara ErroNegocio para recusas de negócio previsíveis.</li></ul></details></section>
+<section><h2 id="codigo">3. Faça o passo a passo</h2><h3 id="passo-1">Passo 1: Localizar o ponto de trabalho no Eclipse</h3><p>No <em>Project Explorer</em>, selecione o projeto <code>restaurante-soap</code>. Confira os arquivos que vieram da aula anterior e localize o caminho da primeira edição abaixo. Os diretórios são relativos à pasta do laboratório, já importada na IDE.</p><article class="etapa-arquivo" data-path="source/restaurante-soap/contrato/src/main/resources/wsdl/MesaService.wsdl"><h3 id="passo-2">Passo 2: Criar <code>MesaService.wsdl</code></h3><p><strong>Caminho na pasta do laboratório:</strong> <code>source/restaurante-soap/contrato/src/main/resources/wsdl/MesaService.wsdl</code>.</p><ol><li>No projeto <code>restaurante-soap</code>, selecione a pasta <code>contrato/src/main/resources/wsdl</code>. Para preparar o caminho, use <strong>New → Folder</strong> a partir da raiz e informe as pastas que faltarem.</li><li>Use <strong>File → New → Other… → General → File</strong>, informe <code>MesaService.wsdl</code> e confira o diretório de destino.</li><li>Abra o arquivo no editor de texto/código do Eclipse e salve em UTF-8. Para XML e POM, selecione a aba de fonte do editor quando houver uma visão de formulário.</li></ol><p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com <strong>Ctrl+S</strong>.</p><pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!-- Finalidade: Criar MesaService.wsdl usando o XSD da aula 33. --&gt;
+&lt;definitions xmlns=&quot;http://schemas.xmlsoap.org/wsdl/&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:tns=&quot;http://restaurante.soa.edu.br/v2&quot; xmlns:soap=&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot; targetNamespace=&quot;http://restaurante.soa.edu.br/v2&quot; name=&quot;MesaService&quot;&gt;
+  &lt;!-- Relaciona os tipos XML usados pelas mensagens. --&gt;
+  &lt;types&gt;
+    &lt;xs:schema&gt;
+      &lt;xs:import namespace=&quot;http://restaurante.soa.edu.br/v2&quot; schemaLocation=&quot;restaurante.xsd&quot;/&gt;
+    &lt;/xs:schema&gt;
+  &lt;/types&gt;
+  &lt;message name=&quot;ErroNegocio&quot;&gt;
+    &lt;part name=&quot;fault&quot; element=&quot;tns:ErroNegocio&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;criarMesa&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:criarMesa&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;criarMesaResponse&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:criarMesaResponse&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;consultarMesa&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:consultarMesa&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;consultarMesaResponse&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:consultarMesaResponse&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;listarMesas&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:listarMesas&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;listarMesasResponse&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:listarMesasResponse&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;atualizarMesa&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:atualizarMesa&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;atualizarMesaResponse&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:atualizarMesaResponse&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;excluirMesa&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:excluirMesa&quot;/&gt;
+  &lt;/message&gt;
+  &lt;message name=&quot;excluirMesaResponse&quot;&gt;
+    &lt;part name=&quot;parameters&quot; element=&quot;tns:excluirMesaResponse&quot;/&gt;
+  &lt;/message&gt;
+  &lt;!-- Define as operações do contrato abstrato. --&gt;
+  &lt;portType name=&quot;MesaServicePortType&quot;&gt;
+    &lt;operation name=&quot;criarMesa&quot;&gt;
+      &lt;input message=&quot;tns:criarMesa&quot;/&gt;
+      &lt;output message=&quot;tns:criarMesaResponse&quot;/&gt;
+      &lt;fault name=&quot;ErroNegocio&quot; message=&quot;tns:ErroNegocio&quot;/&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;consultarMesa&quot;&gt;
+      &lt;input message=&quot;tns:consultarMesa&quot;/&gt;
+      &lt;output message=&quot;tns:consultarMesaResponse&quot;/&gt;
+      &lt;fault name=&quot;ErroNegocio&quot; message=&quot;tns:ErroNegocio&quot;/&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;listarMesas&quot;&gt;
+      &lt;input message=&quot;tns:listarMesas&quot;/&gt;
+      &lt;output message=&quot;tns:listarMesasResponse&quot;/&gt;
+      &lt;fault name=&quot;ErroNegocio&quot; message=&quot;tns:ErroNegocio&quot;/&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;atualizarMesa&quot;&gt;
+      &lt;input message=&quot;tns:atualizarMesa&quot;/&gt;
+      &lt;output message=&quot;tns:atualizarMesaResponse&quot;/&gt;
+      &lt;fault name=&quot;ErroNegocio&quot; message=&quot;tns:ErroNegocio&quot;/&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;excluirMesa&quot;&gt;
+      &lt;input message=&quot;tns:excluirMesa&quot;/&gt;
+      &lt;output message=&quot;tns:excluirMesaResponse&quot;/&gt;
+      &lt;fault name=&quot;ErroNegocio&quot; message=&quot;tns:ErroNegocio&quot;/&gt;
+    &lt;/operation&gt;
+  &lt;/portType&gt;
+  &lt;!-- Relaciona as operações ao protocolo e ao formato SOAP. --&gt;
+  &lt;binding name=&quot;MesaServiceBinding&quot; type=&quot;tns:MesaServicePortType&quot;&gt;
+    &lt;soap:binding style=&quot;document&quot; transport=&quot;http://schemas.xmlsoap.org/soap/http&quot;/&gt;
+    &lt;operation name=&quot;criarMesa&quot;&gt;
+      &lt;soap:operation soapAction=&quot;http://restaurante.soa.edu.br/v2/criarMesa&quot;/&gt;
+      &lt;input&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/output&gt;
+      &lt;fault name=&quot;ErroNegocio&quot;&gt;
+        &lt;soap:fault name=&quot;ErroNegocio&quot; use=&quot;literal&quot;/&gt;
+      &lt;/fault&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;consultarMesa&quot;&gt;
+      &lt;soap:operation soapAction=&quot;http://restaurante.soa.edu.br/v2/consultarMesa&quot;/&gt;
+      &lt;input&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/output&gt;
+      &lt;fault name=&quot;ErroNegocio&quot;&gt;
+        &lt;soap:fault name=&quot;ErroNegocio&quot; use=&quot;literal&quot;/&gt;
+      &lt;/fault&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;listarMesas&quot;&gt;
+      &lt;soap:operation soapAction=&quot;http://restaurante.soa.edu.br/v2/listarMesas&quot;/&gt;
+      &lt;input&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/output&gt;
+      &lt;fault name=&quot;ErroNegocio&quot;&gt;
+        &lt;soap:fault name=&quot;ErroNegocio&quot; use=&quot;literal&quot;/&gt;
+      &lt;/fault&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;atualizarMesa&quot;&gt;
+      &lt;soap:operation soapAction=&quot;http://restaurante.soa.edu.br/v2/atualizarMesa&quot;/&gt;
+      &lt;input&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/output&gt;
+      &lt;fault name=&quot;ErroNegocio&quot;&gt;
+        &lt;soap:fault name=&quot;ErroNegocio&quot; use=&quot;literal&quot;/&gt;
+      &lt;/fault&gt;
+    &lt;/operation&gt;
+    &lt;operation name=&quot;excluirMesa&quot;&gt;
+      &lt;soap:operation soapAction=&quot;http://restaurante.soa.edu.br/v2/excluirMesa&quot;/&gt;
+      &lt;input&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use=&quot;literal&quot;/&gt;
+      &lt;/output&gt;
+      &lt;fault name=&quot;ErroNegocio&quot;&gt;
+        &lt;soap:fault name=&quot;ErroNegocio&quot; use=&quot;literal&quot;/&gt;
+      &lt;/fault&gt;
+    &lt;/operation&gt;
+  &lt;/binding&gt;
+  &lt;!-- Agrupa as portas e o endereço de publicação. --&gt;
+  &lt;service name=&quot;MesaService&quot;&gt;
+    &lt;port name=&quot;MesaPort&quot; binding=&quot;tns:MesaServiceBinding&quot;&gt;
+      &lt;soap:address location=&quot;http://localhost:8080/restaurante/soap/mesas&quot;/&gt;
+    &lt;/port&gt;
+  &lt;/service&gt;
+&lt;/definitions&gt;
+</code></pre><p><strong>Confira:</strong> o arquivo pertence ao projeto <code>restaurante-soap</code>, no caminho indicado e com o conteúdo completo desta etapa.</p>
+<details class="leitura-codigo" data-leitura-arquivo="source/restaurante-soap/contrato/src/main/resources/wsdl/MesaService.wsdl"><summary>Entenda cada parte de MesaService.wsdl</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>definitions e namespace</code></th><td>Identificam MesaService no vocabulário do contrato do restaurante.</td></tr>
+<tr><th scope="row"><code>types e xs:import</code></th><td>Referenciam restaurante.xsd. O caminho relativo permite que os quatro serviços usem a mesma definição de tipos.</td></tr>
+<tr><th scope="row"><code>message e part</code></th><td>Conectam as mensagens de operação aos elementos XML definidos no esquema.</td></tr>
+<tr><th scope="row"><code>portType / operation / input / output</code></th><td>Declara criarMesa, consultarMesa, listarMesas, atualizarMesa e excluirMesa. A atualização combina o ID existente com MesaEntrada.</td></tr>
+<tr><th scope="row"><code>fault e ErroNegocio</code></th><td>Declaram que a operação pode retornar uma falha de negócio com detalhe estruturado.</td></tr>
+<tr><th scope="row"><code>binding e soap:body</code></th><td>Relacionam as operações abstratas ao protocolo SOAP e à representação XML de suas mensagens.</td></tr>
+<tr><th scope="row"><code>service / port / soap:address</code></th><td>Identificam a porta e publicam o endereço esperado /restaurante/soap/mesas. A implantação do WAR disponibiliza esse endereço.</td></tr>
+</tbody></table>
+</details>
+</article><h3 id="passo-3">Passo 3: Conferir o XML e suas referências</h3><ol><li>Salve o arquivo e abra a aba <strong>Problems</strong>. Use a validação XML/WSDL disponível no Eclipse para conferir a estrutura.</li><li>Confira o namespace e o caminho relativo de <code>restaurante.xsd</code>. A documentação exibida ao passar o cursor em um atributo é uma ajuda do editor; leia a mensagem específica do marcador para diagnosticar um erro.</li><li>Na aula 38, wsimport verificará os contratos ao gerar e compilar os tipos Java.</li></ol><h3 id="passo-4">Passo 4: Conferir a entrega na IDE</h3><ol><li>Abra os arquivos salvos nos caminhos indicados e compare com a versão desta etapa.</li><li>Leia a aba <strong>Problems</strong> e a saída da verificação. Corrija os erros relacionados aos projetos desta aula antes de avançar.</li><li>Confira o resultado esperado: O arquivo está salvo, a referência restaurante.xsd é encontrada e você localiza serviço, porta e operações.</li></ol></section>
+<section><h2 id="resultado">4. Resultado esperado</h2><p>O arquivo está salvo, a referência restaurante.xsd é encontrada e você localiza serviço, porta e operações.</p><details><summary>Estrutura de diretórios acumulada até esta aula</summary><p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta árvore.</p><pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── aplicacao/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   └── java/
+        │       │       └── br/
+        │       │           └── edu/
+        │       │               └── soa/
+        │       │                   └── restaurante/
+        │       │                       └── aplicacao/
+        │       │                           ├── Falha.java
+        │       │                           ├── Repositorio.java
+        │       │                           └── Restaurante.java
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── aplicacao/
+        │                                   └── RestauranteTest.java
+        ├── contrato/
+        │   └── src/
+        │       └── main/
+        │           └── resources/
+        │               └── wsdl/
+        │                   ├── MesaService.wsdl
+        │                   └── restaurante.xsd
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        ├── infraestrutura/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   ├── java/
+        │       │   │   └── br/
+        │       │   │       └── edu/
+        │       │   │           └── soa/
+        │       │   │               └── restaurante/
+        │       │   │                   └── infraestrutura/
+        │       │   │                       ├── Banco.java
+        │       │   │                       ├── Credenciais.java
+        │       │   │                       └── JdbcRepositorio.java
+        │       │   └── resources/
+        │       │       └── db/
+        │       │           └── migration/
+        │       │               └── V1__restaurante.sql
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── infraestrutura/
+        │                                   ├── ErrosMySqlTest.java
+        │                                   ├── MySqlLocalTest.java
+        │                                   └── RestauranteBancoTest.java
+        └── pom.xml</code></pre></details><details><summary>Se a verificação não der certo</summary><ul><li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>; confira o projeto, o caminho do arquivo e o pacote.</li><li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo listado já possui seu POM.</li><li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em erro de download, confira a conexão e o repositório informado.</li><li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li></ul></details></section>
+<section><h2 id="checkpoint">5. Confira e continue</h2><ul><li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li><li>O arquivo está salvo, a referência restaurante.xsd é encontrada e você localiza serviço, porta e operações.</li><li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li><li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li></ul><button class="concluir" data-aula="wsdl-mesas" type="button" aria-pressed="false">Marcar aula como concluída</button><p>Depois, avance para <a href="wsdl-categorias.html">Escrever o WSDL de Categoria</a>.</p></section>
+<details class="base"><summary>Fundamentação e leitura complementar</summary><div class="callout referencias-aula" aria-labelledby="fundamentacao"><h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3><p>No contrato de Mesa, identifique mensagem de entrada, saída e Fault, ligue as operações ao binding document/literal e confira service/port. O WSDL é escrito antes do endpoint: gerar uma interface Java não publica o serviço.</p><ul><li data-referencia="soa-wsdl"><a href="../docs/referencias.html#leitura-soa-wsdl">[R01] Alexandre Saudate — SOA aplicado: integrando com web services e além</a>. Cap. 2, §2.5–2.9: message, portType, binding e service. <strong>Páginas 37–42 do PDF</strong>.</li><li data-referencia="soa-contract-first"><a href="../docs/referencias.html#leitura-soa-contract-first">[R01] Alexandre Saudate — SOA aplicado: integrando com web services e além</a>. Cap. 7, §7.3: desenvolvimento contract-first. <strong>Páginas 208–211 do PDF</strong>.</li></ul><p><strong>Confira na leitura:</strong> Localize uma operação de Mesa desde o elemento XSD até o endereço concreto do serviço.</p><p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.</p></div></details><nav class="links" aria-label="Aulas anterior e seguinte"><a href="contrato-xsd.html">← Escrever os tipos e mensagens XSD</a><a href="wsdl-categorias.html">Escrever o WSDL de Categoria →</a></nav></main></body></html>

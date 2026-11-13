@@ -154,6 +154,17 @@
 
                 <section>
                         <h2 id="conceitos">2. Entenda o que será registrado</h2>
+<div class="callout" data-explicacao-aula="11"><p><strong>Problema no sistema</strong></p><p>Uma regra como impedir a edição de um pedido fechado precisa ser aplicada a qualquer cliente. O documento de camadas atribui um lugar para essa decisão e para as conversões de cada protocolo.</p></div>
+<details class="leitura-codigo"><summary>Entenda os componentes desta etapa</summary>
+<table><thead><tr><th scope="col">Parte</th><th scope="col">O que faz e por que importa</th></tr></thead><tbody>
+<tr><th scope="row"><code>docs/camadas.md</code></th><td>Registra a responsabilidade de cada camada e ajuda a escolher onde criar os arquivos das aulas seguintes.</td></tr>
+<tr><th scope="row"><code>dominio</code></th><td>Reúne os dados de negócio e cálculos como subtotal e total.</td></tr>
+<tr><th scope="row"><code>aplicacao e porta Repositorio</code></th><td>Coordenam operações e descrevem as ações de persistência de que precisam.</td></tr>
+<tr><th scope="row"><code>infraestrutura</code></th><td>Fornece a implementação JDBC e prepara o banco com migrações.</td></tr>
+<tr><th scope="row"><code>adaptadores SOAP e REST</code></th><td>Leem a chamada do cliente, acionam a aplicação e transformam o resultado ou a falha em resposta de rede.</td></tr>
+</tbody></table>
+</details>
+
                         <p>Na <a href="arquitetura-soa.html">aula anterior</a>, desenhamos as partes do sistema. Agora vamos definir como organizar o código dentro do servidor:</p>
                         <table>
                                 <caption>Quatro responsabilidades do restaurante</caption>
