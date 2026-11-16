@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Testar repositório, histórico e concorrência · Restaurante do zero</title>
+<link href="style.css" rel="stylesheet"/>
+<script defer="" src="tutorial.js"></script>
+</head>
+<body data-total="85"><a class="skip-link" href="#conteudo">Ir ao conteúdo</a>
+<aside><span class="chip">Do zero até localhost</span>
+<h2>Restaurante<br/>SOAP + REST</h2>
+<p>Java 17 · MySQL · Spring Initializr</p>
+<nav aria-label="Trilha de construção">
+<p class="nav-grupo">Preparação do laboratório</p><a href="index.html"><span aria-hidden="true">01.</span>
+                Do zero até localhost</a><a href="ambiente.html"><span aria-hidden="true">02.</span> Planejar o ambiente
+                local</a><a href="instalacao-java.html"><span aria-hidden="true">03.</span> Instalar e configurar o JDK
+                17</a><a href="instalacao-eclipse.html"><span aria-hidden="true">04.</span> Instalar Eclipse e registrar
+                o JDK</a><a href="maven.html"><span aria-hidden="true">05.</span> Instalar Maven e compreender o
+                POM</a><a href="instalacao-mysql.html"><span aria-hidden="true">06.</span> Instalar e testar MySQL
+                8.4</a><a href="banco-de-dados.html"><span aria-hidden="true">07.</span> Criar bancos e usuário no
+                MySQL</a><a href="tomcat.html"><span aria-hidden="true">08.</span> Instalar Tomcat 10.1</a><a href="eclipse-servidor.html"><span aria-hidden="true">09.</span> Registrar Tomcat no Eclipse</a>
+<p class="nav-grupo">Projeto e domínio</p><a href="arquitetura-soa.html"><span aria-hidden="true">10.</span>
+                Desenhar as fronteiras SOA</a><a href="clean-architecture.html"><span aria-hidden="true">11.</span>
+                Definir camadas e dependências</a><a href="estrutura.html"><span aria-hidden="true">12.</span> Criar os
+                primeiros POMs do zero</a><a href="dominio-estados.html"><span aria-hidden="true">13.</span> Criar o
+                módulo domínio e seus estados</a><a href="modelo-mesa.html"><span aria-hidden="true">14.</span>
+                Implementar Mesa</a><a href="modelo-categoria.html"><span aria-hidden="true">15.</span> Implementar
+                Categoria</a><a href="modelo-produto.html"><span aria-hidden="true">16.</span> Implementar Produto</a><a href="modelo-item.html"><span aria-hidden="true">17.</span> Implementar ItemPedido</a><a href="modelo-pedido.html"><span aria-hidden="true">18.</span> Implementar Pedido</a><a href="modelos.html"><span aria-hidden="true">19.</span> Conferir os relacionamentos do domínio</a>
+<p class="nav-grupo">Regras de negócio</p><a href="aplicacao-falhas.html"><span aria-hidden="true">20.</span> Criar a aplicação e seus erros</a><a href="aplicacao-repositorio.html"><span aria-hidden="true">21.</span> Definir a porta de
+                persistência</a><a href="aplicacao-mesas.html"><span aria-hidden="true">22.</span> Implementar regras de
+                mesas</a><a href="aplicacao-categorias.html"><span aria-hidden="true">23.</span> Acrescentar regras de
+                categorias</a><a href="aplicacao-produtos.html"><span aria-hidden="true">24.</span> Acrescentar regras
+                de produtos</a><a href="aplicacao-pedidos.html"><span aria-hidden="true">25.</span> Implementar o ciclo
+                do pedido</a><a href="testes-unidade.html"><span aria-hidden="true">26.</span> Escrever os primeiros
+                testes de regras</a>
+<p class="nav-grupo">Persistência MySQL</p><a href="infraestrutura-pom.html"><span aria-hidden="true">27.</span> Criar o módulo de infraestrutura</a><a href="migracao-mysql.html"><span aria-hidden="true">28.</span> Escrever a migração do MySQL</a><a href="infraestrutura-banco.html"><span aria-hidden="true">29.</span> Configurar conexões e Flyway</a><a href="infraestrutura-jdbc.html"><span aria-hidden="true">30.</span> Implementar o repositório JDBC</a><a href="infraestrutura-credenciais.html"><span aria-hidden="true">31.</span> Implementar credenciais
+                externas</a><a aria-current="page" class="current" href="testes-banco.html"><span aria-hidden="true">32.</span> Testar repositório, histórico e concorrência</a>
+<p class="nav-grupo">Contratos SOAP</p><a href="contrato-xsd.html"><span aria-hidden="true">33.</span>
+                Escrever os tipos e mensagens XSD</a>
+</nav>
+</aside>
+<main id="conteudo" tabindex="-1"><span class="chip">Persistência MySQL · aula 32 de 85</span>
+<h1>Testar repositório, histórico e concorrência</h1>
+<p class="lead">Criar os três testes de persistência e executar a suíte da infraestrutura.</p>
+<p aria-live="polite" class="foot" id="progresso"></p>
+<section>
+<h2 id="objetivo">1. O que fazer nesta etapa</h2>
+<div class="callout">
+<p><strong>Criar os três testes de persistência e executar a suíte da infraestrutura.</strong></p>
+<ol>
+<li>Criar:
+                        <code>source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/RestauranteBancoTest.java</code>
+</li>
+<li>Criar:
+                        <code>source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/ErrosMySqlTest.java</code>
+</li>
+<li>Criar:
+                        <code>source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/MySqlLocalTest.java</code>
+</li>
+</ol>
+<p><strong>A aula termina quando:</strong> Os testes habilitados passam; o relatório distingue o teste
+                    MySQL executado do teste ignorado.</p>
+</div>
+<p>Continue no Eclipse após <a href="infraestrutura-credenciais.html">Implementar credenciais externas</a>.
+                Use os projetos e os arquivos que você construiu nas etapas anteriores.</p>
+</section>
+<section>
+<h2 id="conceitos">2. Entenda o que será feito</h2>
+<div class="callout" data-explicacao-aula="32">
+<p><strong>Problema no sistema</strong></p>
+<p>As regras podem funcionar com um repositório simulado e ainda falhar ao gravar, reverter ou disputar
+                    uma mesa no banco. A suíte separa a integração SQL, a classificação de erros e a verificação
+                    opcional com o MySQL local.</p>
+</div>
+<p>Os cenários verificam transações, histórico e concorrência com H2 e classificam os códigos de erro MySQL.
+            </p>
+<ul>
+<li>MySqlLocalTest é opt-in: exige MYSQL_TEST_URL para restaurante_teste em localhost e MYSQL_TEST_USER; MYSQL_TEST_PASSWORD pode estar ausente somente quando o código usar getOrDefault e a conta de laboratório estiver sem senha.</li>
+<li>Para habilitá-lo, primeiro crie o banco e o usuário de teste no XAMPP, depois configure Environment na mesma execução Maven do Eclipse.</li>
+<li>H2 em modo MySQL não comprova uma execução no servidor MySQL real.</li>
+</ul>
+<details>
+<summary>Pontos para observar no código</summary>
+<ul>
+<li>Os 18 testes comportamentais usam bancos H2 independentes por teste.</li>
+<li>ErrosMySqlTest verifica códigos específicos mesmo quando SQLState é igual.</li>
+<li>MySqlLocalTest faz uma conta de 110,00 no banco real e a relê por outro repositório; depende de
+                        configuração explícita.</li>
+</ul>
+</details>
+</section><section id="preparar-xampp">
+<h2>3. Preparar o banco de testes no XAMPP (MySQL/MariaDB)</h2>
+<div class="callout"><p><strong>Antes de executar o teste opcional:</strong> mantenha o módulo de banco de dados iniciado no painel XAMPP e prepare um banco separado chamado <code>restaurante_teste</code>. A preparação abaixo é <strong>exclusiva para laboratório local</strong>; não use contas sem senha em servidores de produção, compartilhados ou acessíveis pela rede.</p></div>
+<h3>Passo A: identificar o servidor e a porta no phpMyAdmin</h3>
+<ol><li>No XAMPP Control Panel, inicie o módulo <strong>MySQL</strong> e clique em <strong>Admin</strong>.</li><li>No phpMyAdmin, abra a aba <strong>SQL</strong> e execute a consulta a seguir.</li><li>Anote a versão e a porta. O painel do XAMPP pode fornecer <strong>MariaDB</strong> em vez de MySQL; nesse caso, o nome exibido no painel não comprova que o servidor seja MySQL 8.4.</li></ol>
+<pre><code class="language-sql">SELECT VERSION() AS versao_banco,
+       @@version_comment AS tipo_servidor,
+       @@port AS porta;</code></pre>
+<p>O teste Java original aceita URLs com <code>localhost:3306</code> ou <code>localhost:13306</code>. Se a porta exibida for diferente, ajuste também a expressão da anotação <code>@EnabledIfEnvironmentVariable</code> no arquivo de teste, antes de executar.</p>
+<h3>Passo B: criar o banco e um usuário dedicado sem senha (somente localhost)</h3>
+<p>Na aba <strong>SQL</strong> do phpMyAdmin, conectado como administrador, execute o script abaixo. Ele mantém intacta a senha do usuário <code>restaurante</code> utilizado pelos outros bancos, criando uma conta própria <code>restaurante_tester</code> para a aula.</p>
+<pre><code class="language-sql">-- LABORATÓRIO LOCAL SOMENTE: não use sem senha em produção.
+CREATE DATABASE IF NOT EXISTS restaurante_teste
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+-- Conta separada para testes; se já existir, o ALTER redefine sua senha vazia.
+CREATE USER IF NOT EXISTS 'restaurante_tester'@'localhost'
+  IDENTIFIED BY '';
+ALTER USER 'restaurante_tester'@'localhost'
+  IDENTIFIED BY '';
+
+GRANT SELECT, INSERT, UPDATE, DELETE,
+      CREATE, ALTER, INDEX, REFERENCES
+ON restaurante_teste.*
+TO 'restaurante_tester'@'localhost';
+
+-- Conferência: privilégios restritos ao banco de teste.
+SHOW GRANTS FOR 'restaurante_tester'@'localhost';</code></pre>
+<p><strong>Explicação:</strong> <code>CREATE DATABASE</code> cria um banco isolado; <code>CREATE USER</code> e <code>ALTER USER</code> deixam a senha vazia apenas na conta de laboratório; <code>GRANT</code> limita os privilégios ao banco <code>restaurante_teste</code>. Não é necessário criar manualmente as tabelas de domínio, pois <code>Banco.configurar(...)</code> aplica a migração <code>V1__restaurante.sql</code> por Flyway.</p>
+<p><strong>Segurança:</strong> o host <code>localhost</code> restringe a identidade da conta ao acesso local, mas não substitui uma senha e não garante, sozinho, que o servidor esteja inacessível pela rede. Prefira uma senha forte sempre que possível. Caso já tenha atribuído uma senha vazia ao usuário <code>restaurante</code>, restaure uma senha segura naquela conta separadamente.</p>
+<h3>Passo C: configurar as variáveis de ambiente da execução Maven no Eclipse</h3>
+<ol><li>Acesse <strong>Run → Run Configurations… → Maven Build</strong> e selecione a configuração específica da aula 32.</li><li>Na aba <strong>Environment</strong>, use <strong>New…/Add…</strong> e preencha os dois valores da tabela.</li><li>Não precisa criar <code>MYSQL_TEST_PASSWORD</code> na interface quando você aplicar a alteração de código abaixo: se a variável estiver ausente, o teste utilizará uma string vazia.</li><li>Clique em <strong>Apply</strong> e execute <strong>essa mesma configuração</strong> com o botão <strong>Run</strong>, para não perder as variáveis.</li></ol>
+<table><thead><tr><th>Nome</th><th>Valor para o exemplo</th></tr></thead><tbody>
+<tr><td><code>MYSQL_TEST_URL</code></td><td><code>jdbc:mysql://localhost:3306/restaurante_teste</code></td></tr>
+<tr><td><code>MYSQL_TEST_USER</code></td><td><code>restaurante_tester</code></td></tr>
+<tr><td><code>MYSQL_TEST_PASSWORD</code></td><td><em>Não cadastrar (somente no caso da conta sem senha)</em></td></tr>
+</tbody></table>
+<p>Substitua <code>3306</code> por <code>13306</code> se essa for a porta configurada. O prefixo <code>jdbc:mysql:</code> pressupõe que o driver e o servidor sejam compatíveis; se o XAMPP usar MariaDB e surgir uma incompatibilidade, verifique a versão do servidor e o suporte do driver/Flyway antes de alterar o contrato de testes.</p>
+<h3>Passo D: executar os testes corretamente</h3>
+<p>Na aba <strong>Main</strong>, selecione como <strong>Base directory</strong> a pasta <code>source/restaurante-soap</code>, que contém o <code>pom.xml</code> agregador. Confira o <strong>JDK 17</strong> na aba <strong>JRE</strong>. No campo <strong>Goals</strong>, informe <strong>somente</strong>:</p>
+<pre><code class="language-text">-pl :infraestrutura -am test</code></pre>
+<p><strong>Não escreva <code>mvn</code> no campo Goals:</strong> a IDE já chama o Maven. No PowerShell, fora do Eclipse, a forma equivalente é <code>mvn -pl :infraestrutura -am test</code> executada a partir da pasta agregadora, com as variáveis disponibilizadas naquele processo.</p>
+<p>Para executar apenas o teste real em uma segunda rodada, altere temporariamente o campo <strong>Goals</strong> para:</p>
+<pre><code class="language-text">-pl :infraestrutura -am test -Dtest=MySqlLocalTest -Dsurefire.failIfNoSpecifiedTests=false</code></pre>
+<h3>Passo E: interpretar os resultados e conferir no phpMyAdmin</h3>
+<table><thead><tr><th>Saída do teste MySqlLocalTest</th><th>Interpretação</th></tr></thead><tbody>
+<tr><td><code>Skipped: 1</code></td><td>A variável <code>MYSQL_TEST_URL</code> está ausente ou não corresponde ao padrão exigido; a conexão não foi testada.</td></tr>
+<tr><td><code>Errors: 1</code> ou <code>Failures: 1</code></td><td>A execução ocorreu, mas houve erro de conexão, autenticação, permissão, migração ou regra; leia a exceção completa.</td></tr>
+<tr><td><code>Tests run: 1, Failures: 0, Errors: 0, Skipped: 0</code></td><td>O teste de integração executou e passou contra o banco configurado.</td></tr>
+</tbody></table>
+<p>Depois de uma execução aprovada, selecione <code>restaurante_teste</code> no phpMyAdmin e consulte:</p>
+<pre><code class="language-sql">SELECT * FROM flyway_schema_history;
+SELECT * FROM mesa;
+SELECT * FROM categoria;
+SELECT * FROM produto;
+SELECT * FROM pedido;
+SELECT * FROM item_pedido;</code></pre>
+<p><strong>Atenção:</strong> <code>MySqlLocalTest</code> cria dados e <strong>não os remove</strong>. Rode somente no banco <code>restaurante_teste</code>, nunca nos bancos <code>restaurante_soap</code> ou <code>restaurante_rest</code>.</p>
+</section>
+<section>
+<h2 id="codigo">4. Faça o passo a passo</h2>
+<h3 id="passo-1">Passo 1: Localizar o ponto de trabalho no Eclipse</h3>
+<p>No <em>Project Explorer</em>, selecione o projeto <code>infraestrutura</code>. Confira os arquivos que
+                vieram da aula anterior e localize o caminho da primeira edição abaixo. Os diretórios são relativos à
+                pasta do laboratório, já importada na IDE.</p>
+<article class="etapa-arquivo" data-path="source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/RestauranteBancoTest.java">
+<h3 id="passo-2">Passo 2: Criar <code>RestauranteBancoTest.java</code></h3>
+<p><strong>Caminho na pasta do laboratório:</strong>
+<code>source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/RestauranteBancoTest.java</code>.
+                </p>
+<ol>
+<li>Selecione o projeto <code>infraestrutura</code> e a pasta <code>src/test/java</code>. Se ela não
+                        aparecer, use <strong>New → Source Folder</strong> para criá-la.</li>
+<li>No pacote <code>br.edu.soa.restaurante.infraestrutura</code>, crie o arquivo. Se o pacote ainda
+                        não existir, use <strong>New → Package</strong> com esse nome.</li>
+<li>Selecione o pacote e use <strong>File → New → Other… → General → File</strong>. Informe
+                        <code>RestauranteBancoTest.java</code> e finalize. Confira a pasta de destino
+                        <code>infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura</code>.</li>
+</ol>
+<p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com
+                    <strong>Ctrl+S</strong>.</p>
+<pre><code class="language-java">// Finalidade: Verificar os cenários desta etapa por asserções automatizadas.
+package br.edu.soa.restaurante.infraestrutura;
+
+import br.edu.soa.restaurante.aplicacao.*;
+import br.edu.soa.restaurante.dominio.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.concurrent.*;
+import javax.sql.DataSource;
+
+class RestauranteBancoTest {
+    Restaurante api; JdbcRepositorio repo; DataSource ds; Mesa mesa; Categoria categoria; Produto produto;
+    @BeforeEach void preparar() {
+        ds=Banco.configurar("jdbc:h2:mem:"+UUID.randomUUID()+";MODE=MySQL;DB_CLOSE_DELAY=-1","sa","");
+        repo=new JdbcRepositorio(ds);api=new Restaurante(repo);
+        mesa=api.salvarMesa(0,2);categoria=api.salvarCategoria(0,"Massas","Artesanais",true);
+        produto=api.salvarProduto(0,categoria.id(),"Carbonara","Ovos, queijo e guanciale","assets/carbonara.svg",new BigDecimal("55.00"),"Serve 1 pessoa",true);
+    }
+    // Cenário: cadastros econsultas.
+    @Test void cadastrosEConsultas() {
+        assertEquals(2,api.consultarMesa(mesa.id()).numero());
+        assertEquals("Massas",api.consultarCategoria(categoria.id()).nome());
+        assertEquals(new BigDecimal("55.00"),api.consultarProduto(produto.id()).preco());
+        assertEquals(1,api.listarProdutosPorCategoria(categoria.id()).size());
+        assertEquals(1,api.cardapio().categorias().size());
+    }
+    // Cenário: numero duplicado.
+    @Test void numeroDuplicado() { assertEquals("DUPLICADO",assertThrows(Falha.class,() -&gt; api.salvarMesa(0,2)).codigo()); }
+    // Cenário: categoria inexistente.
+    @Test void categoriaInexistente() { assertThrows(Falha.class,() -&gt; api.salvarProduto(0,999,"Suco","","",BigDecimal.TEN,"Copo",true)); }
+    // Cenário: abrir pedido ocupa mesa eassocia.
+    @Test void abrirPedidoOcupaMesaEAssocia() {
+        Pedido p=api.abrirPedido(mesa.id());assertEquals(mesa.id(),p.mesaId());
+        assertEquals(SituacaoMesa.OCUPADA,api.consultarMesa(mesa.id()).situacao());
+        assertEquals("MESA_OCUPADA",assertThrows(Falha.class,() -&gt; api.abrirPedido(mesa.id())).codigo());
+    }
+    // Cenário: subtotal etotal servidor.
+    @Test void subtotalETotalServidor() {
+        Pedido p=api.abrirPedido(mesa.id());p=api.adicionarItem(p.id(),produto.id(),2);
+        assertEquals(new BigDecimal("110.00"),p.itens().get(0).subtotal());assertEquals(new BigDecimal("110.00"),p.total());
+    }
+    // Cenário: conta exemplo149.
+    @Test void contaExemplo149() {
+        Produto suco=api.salvarProduto(0,categoria.id(),"Suco","","",new BigDecimal("12.00"),"Copo",true);
+        Produto pudim=api.salvarProduto(0,categoria.id(),"Pudim","","",new BigDecimal("15.00"),"Fatia",true);
+        Pedido p=api.abrirPedido(mesa.id());api.adicionarItem(p.id(),produto.id(),2);api.adicionarItem(p.id(),suco.id(),2);
+        assertEquals(new BigDecimal("149.00"),api.adicionarItem(p.id(),pudim.id(),1).total());
+    }
+    // Cenário: quantidade eremocao.
+    @Test void quantidadeERemocao() {
+        Pedido p=api.adicionarItem(api.abrirPedido(mesa.id()).id(),produto.id(),1);long item=p.itens().get(0).id();
+        assertEquals(new BigDecimal("165.00"),api.atualizarQuantidadeItem(p.id(),item,3).total());
+        assertEquals(new BigDecimal("0.00"),api.removerItem(p.id(),item).total());
+    }
+    // Cenário: identidade epreco historico por inclusao.
+    @Test void identidadeEPrecoHistoricoPorInclusao() {
+        Pedido p=api.adicionarItem(api.abrirPedido(mesa.id()).id(),produto.id(),1);long item=p.itens().get(0).id();
+        api.salvarProduto(produto.id(),categoria.id(),"Carbonara nova","","",new BigDecimal("60.00"),"1 pessoa",true);
+        p=api.adicionarItem(p.id(),produto.id(),1);
+        assertNotEquals(item,p.itens().get(1).id());assertEquals(new BigDecimal("115.00"),p.total());
+        p=api.atualizarQuantidadeItem(p.id(),item,2);assertEquals(new BigDecimal("170.00"),p.total());
+        assertEquals("Carbonara",p.itens().get(0).nomeProduto());
+    }
+    // Cenário: fechar libera mesa eimpede alteracao.
+    @Test void fecharLiberaMesaEImpedeAlteracao() {
+        Pedido p=api.adicionarItem(api.abrirPedido(mesa.id()).id(),produto.id(),1);
+        assertEquals(SituacaoPedido.FECHADO,api.fecharPedido(p.id()).situacao());
+        assertEquals(SituacaoMesa.LIVRE,api.consultarMesa(mesa.id()).situacao());
+        assertEquals("PEDIDO_FECHADO",assertThrows(Falha.class,() -&gt; api.adicionarItem(p.id(),produto.id(),1)).codigo());
+        assertThrows(Falha.class,() -&gt; api.removerItem(p.id(),p.itens().get(0).id()));
+        assertThrows(Falha.class,() -&gt; api.atualizarQuantidadeItem(p.id(),p.itens().get(0).id(),2));
+        assertThrows(Falha.class,() -&gt; api.cancelarPedido(p.id()));
+        assertNotEquals(p.id(),api.abrirPedido(mesa.id()).id());
+    }
+    // Cenário: cancelar preserva historico.
+    @Test void cancelarPreservaHistorico() {
+        Pedido p=api.abrirPedido(mesa.id());api.cancelarPedido(p.id());assertEquals(SituacaoMesa.LIVRE,api.consultarMesa(mesa.id()).situacao());
+        assertEquals("PEDIDO_CANCELADO",assertThrows(Falha.class,() -&gt; api.cancelarPedido(p.id())).codigo());
+    }
+    // Cenário: vazio somente pode ser cancelado.
+    @Test void vazioSomentePodeSerCancelado() { Pedido p=api.abrirPedido(mesa.id());assertThrows(Falha.class,() -&gt; api.fecharPedido(p.id())); }
+    // Cenário: indisponivel nao entra em pedido.
+    @Test void indisponivelNaoEntraEmPedido() {
+        api.salvarProduto(produto.id(),categoria.id(),produto.nome(),"","",produto.preco(),produto.porcao(),false);
+        Pedido p=api.abrirPedido(mesa.id());assertEquals("PRODUTO_INDISPONIVEL",assertThrows(Falha.class,() -&gt; api.adicionarItem(p.id(),produto.id(),1)).codigo());
+        assertEquals(1,api.cardapio().produtos().size());assertFalse(api.cardapio().produtos().get(0).disponivel());
+    }
+    // Cenário: categoria inativa sai do cardapio enao aceita itens.
+    @Test void categoriaInativaSaiDoCardapioENaoAceitaItens() {
+        api.salvarCategoria(categoria.id(),categoria.nome(),"",false);assertTrue(api.cardapio().produtos().isEmpty());
+        Pedido p=api.abrirPedido(mesa.id());assertThrows(Falha.class,() -&gt; api.adicionarItem(p.id(),produto.id(),1));
+    }
+    // Cenário: exclusao preserva historico.
+    @Test void exclusaoPreservaHistorico() {
+        Pedido p=api.adicionarItem(api.abrirPedido(mesa.id()).id(),produto.id(),1);api.fecharPedido(p.id());
+        assertEquals("REFERENCIADO",assertThrows(Falha.class,() -&gt; api.excluirProduto(produto.id())).codigo());
+        assertThrows(Falha.class,() -&gt; api.excluirCategoria(categoria.id()));assertThrows(Falha.class,() -&gt; api.excluirMesa(mesa.id()));
+    }
+    // Cenário: item de outro pedido nao pode ser alterado.
+    @Test void itemDeOutroPedidoNaoPodeSerAlterado() {
+        Pedido p=api.adicionarItem(api.abrirPedido(mesa.id()).id(),produto.id(),1);
+        Pedido outro=api.abrirPedido(api.salvarMesa(0,3).id());
+        assertThrows(Falha.class,() -&gt; api.removerItem(outro.id(),p.itens().get(0).id()));assertEquals(1,api.consultarPedido(p.id()).itens().size());
+    }
+    // Cenário: rollback unidade de trabalho.
+    @Test void rollbackUnidadeDeTrabalho() {
+        assertThrows(IllegalStateException.class,() -&gt; repo.transacao(s -&gt; {s.salvarMesa(0,99);throw new IllegalStateException("Simulação");}));
+        assertEquals(1,api.listarMesas().size());
+    }
+    // Cenário: concorrencia nao abre dois pedidos.
+    @Test void concorrenciaNaoAbreDoisPedidos() throws Exception {
+        ExecutorService pool=Executors.newFixedThreadPool(2);CountDownLatch inicio=new CountDownLatch(1);
+        Callable&lt;Boolean&gt; abrir=() -&gt; {inicio.await();try {api.abrirPedido(mesa.id());return true;}catch(Falha e) {return false;}};
+        try {var a=pool.submit(abrir);var b=pool.submit(abrir);inicio.countDown();assertNotEquals(a.get(15,TimeUnit.SECONDS),b.get(15,TimeUnit.SECONDS));assertEquals(1,api.listarPedidos().size());}
+        finally {pool.shutdownNow();}
+    }
+    // Cenário: falha de conexao nao expoe detalhes.
+    @Test void falhaDeConexaoNaoExpoeDetalhes() {
+        org.h2.jdbcx.JdbcDataSource indisponivel=new org.h2.jdbcx.JdbcDataSource();indisponivel.setURL("jdbc:h2:mem:ausente;IFEXISTS=TRUE");
+        Falha f=assertThrows(Falha.class,() -&gt; new Restaurante(new JdbcRepositorio(indisponivel)).listarMesas());
+        assertEquals("PERSISTENCIA",f.codigo());assertFalse(f.getMessage().contains("jdbc:"));
+    }
+}
+</code></pre>
+<p><strong>Confira:</strong> o arquivo pertence ao projeto <code>infraestrutura</code>, no caminho
+                    indicado e com o conteúdo completo desta etapa.</p>
+<details class="leitura-codigo" data-leitura-arquivo="source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/RestauranteBancoTest.java">
+<summary>Entenda cada parte de RestauranteBancoTest.java</summary>
+<p><strong>Módulo</strong> <code>infraestrutura</code> · <strong>Pacote</strong>
+<code>br.edu.soa.restaurante.infraestrutura</code> · <strong>Fontes</strong>
+<code>src/test/java</code>.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Parte</th>
+<th scope="col">O que faz e por que importa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>@BeforeEach e DataSource de teste</code></th>
+<td>Preparam um banco H2 para o cenário, aplicam a migração e montam Restaurante com
+                                    JdbcRepositorio.</td>
+</tr>
+<tr>
+<th scope="row"><code>cadastros, quantidades e totais</code></th>
+<td>Conferem consultas, duplicidade, associação à mesa e cálculo de subtotal e total
+                                    persistidos.</td>
+</tr>
+<tr>
+<th scope="row"><code>histórico e estados finais</code></th>
+<td>Exercitam nome e preço da inclusão, cancelamento, fechamento, liberação da mesa e
+                                    recusa de alterações posteriores.</td>
+</tr>
+<tr>
+<th scope="row"><code>rollbackUnidadeDeTrabalho e concorrenciaNaoAbreDoisPedidos</code>
+</th>
+<td>Induzem uma falha no meio da transação e uma disputa pela mesa. Os resultados
+                                    conferem reversão e unicidade do pedido aberto.</td>
+</tr>
+<tr>
+<th scope="row"><code>falhaDeConexaoNaoExpoeDetalhes</code></th>
+<td>Verifica a mensagem pública controlada quando o acesso à persistência falha.</td>
+</tr>
+</tbody>
+</table>
+</details>
+</article>
+<article class="etapa-arquivo" data-path="source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/ErrosMySqlTest.java">
+<h3 id="passo-3">Passo 3: Criar <code>ErrosMySqlTest.java</code></h3>
+<p><strong>Caminho na pasta do laboratório:</strong>
+<code>source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/ErrosMySqlTest.java</code>.
+                </p>
+<ol>
+<li>Selecione o projeto <code>infraestrutura</code> e a pasta <code>src/test/java</code>. Se ela não
+                        aparecer, use <strong>New → Source Folder</strong> para criá-la.</li>
+<li>No pacote <code>br.edu.soa.restaurante.infraestrutura</code>, crie o arquivo. Se o pacote ainda
+                        não existir, use <strong>New → Package</strong> com esse nome.</li>
+<li>Selecione o pacote e use <strong>File → New → Other… → General → File</strong>. Informe
+                        <code>ErrosMySqlTest.java</code> e finalize. Confira a pasta de destino
+                        <code>infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura</code>.</li>
+</ol>
+<p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com
+                    <strong>Ctrl+S</strong>.</p>
+<pre><code class="language-java">// Finalidade: Verificar os cenários desta etapa por asserções automatizadas.
+package br.edu.soa.restaurante.infraestrutura;
+
+import java.sql.SQLException;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class ErrosMySqlTest {
+    // Cenário: distingue duplicado de chave estrangeira no mesmo sql state.
+    @Test void distingueDuplicadoDeChaveEstrangeiraNoMesmoSqlState() {
+        assertEquals("DUPLICADO",JdbcRepositorio.falhaSql(new SQLException("Detalhe privado","23000",1062)).codigo());
+        for (int codigo : new int[]{1451,1452})
+            assertEquals("REFERENCIADO",JdbcRepositorio.falhaSql(new SQLException("Detalhe privado","23000",codigo)).codigo());
+    }
+    // Cenário: lock timeout edeadlock pedem nova tentativa.
+    @Test void lockTimeoutEDeadlockPedemNovaTentativa() {
+        for (int codigo : new int[]{1205,1213})
+            assertEquals("CONCORRENCIA",JdbcRepositorio.falhaSql(new SQLException("Detalhe privado","HY000",codigo)).codigo());
+    }
+}
+</code></pre>
+<p><strong>Confira:</strong> o arquivo pertence ao projeto <code>infraestrutura</code>, no caminho
+                    indicado e com o conteúdo completo desta etapa.</p>
+<details class="leitura-codigo" data-leitura-arquivo="source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/ErrosMySqlTest.java">
+<summary>Entenda cada parte de ErrosMySqlTest.java</summary>
+<p><strong>Módulo</strong> <code>infraestrutura</code> · <strong>Pacote</strong>
+<code>br.edu.soa.restaurante.infraestrutura</code> · <strong>Fontes</strong>
+<code>src/test/java</code>.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Parte</th>
+<th scope="col">O que faz e por que importa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>SQLException simulada</code></th>
+<td>Permite controlar SQLState e código do fornecedor sem iniciar o servidor MySQL.</td>
+</tr>
+<tr>
+<th scope="row"><code>1062, 1451 e 1452</code></th>
+<td>Verificam que duplicidade e restrições de chave estrangeira recebem códigos
+                                    diferentes, mesmo quando compartilham SQLState.</td>
+</tr>
+<tr>
+<th scope="row"><code>1205 e 1213</code></th>
+<td>Exercitam a tradução de espera por bloqueio e impasse para o código CONCORRENCIA.
+                                </td>
+</tr>
+</tbody>
+</table>
+</details>
+</article>
+<article class="etapa-arquivo" data-path="source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/MySqlLocalTest.java">
+<h3 id="passo-4">Passo 4: Criar <code>MySqlLocalTest.java</code></h3>
+<p><strong>Caminho na pasta do laboratório:</strong>
+<code>source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/MySqlLocalTest.java</code>.
+                </p>
+<ol>
+<li>Selecione o projeto <code>infraestrutura</code> e a pasta <code>src/test/java</code>. Se ela não
+                        aparecer, use <strong>New → Source Folder</strong> para criá-la.</li>
+<li>No pacote <code>br.edu.soa.restaurante.infraestrutura</code>, crie o arquivo. Se o pacote ainda
+                        não existir, use <strong>New → Package</strong> com esse nome.</li>
+<li>Selecione o pacote e use <strong>File → New → Other… → General → File</strong>. Informe
+                        <code>MySqlLocalTest.java</code> e finalize. Confira a pasta de destino
+                        <code>infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura</code>.</li>
+</ol>
+<p>Os comentários do código explicam os blocos e podem ser copiados junto com o arquivo. Salve com
+                    <strong>Ctrl+S</strong>.</p>
+<pre><code class="language-java">// Finalidade: Verificar os cenários desta etapa por asserções automatizadas.
+package br.edu.soa.restaurante.infraestrutura;
+
+import br.edu.soa.restaurante.aplicacao.Restaurante;
+import java.math.BigDecimal;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+import static org.junit.jupiter.api.Assertions.*;
+
+/** Opt-in: usa apenas banco de teste explícito no MySQL localhost. Não apaga tabelas. */
+@EnabledIfEnvironmentVariable(named="MYSQL_TEST_URL",matches="jdbc:mysql://localhost:(?:3306|13306)/restaurante_teste(?:\\?.*)?")
+class MySqlLocalTest {
+    // Cenário: persiste conta no my sql real.
+    @Test void persisteContaNoMySqlReal() {
+        var ds=Banco.configurar(System.getenv("MYSQL_TEST_URL"),System.getenv("MYSQL_TEST_USER"),System.getenv().getOrDefault("MYSQL_TEST_PASSWORD", ""));
+        var api=new Restaurante(new JdbcRepositorio(ds));
+        var usados=api.listarMesas().stream().map(m -&gt; m.numero()).collect(java.util.stream.Collectors.toSet());
+        int numero=java.util.stream.IntStream.range(1000,10000).filter(n -&gt; !usados.contains(n)).findFirst().orElseThrow();
+        var mesa=api.salvarMesa(0,numero);
+        var cat=api.salvarCategoria(0,"Teste MySQL","Dados de integração",true);
+        var produto=api.salvarProduto(0,cat.id(),"Carbonara de teste","","",new BigDecimal("55.00"),"1 pessoa",true);
+        var pedido=api.adicionarItem(api.abrirPedido(mesa.id()).id(),produto.id(),2);
+        assertEquals(new BigDecimal("110.00"),pedido.total());
+        api.fecharPedido(pedido.id());
+        var outraInstancia=new Restaurante(new JdbcRepositorio(ds));
+        assertEquals(new BigDecimal("110.00"),outraInstancia.consultarPedido(pedido.id()).total());
+        assertEquals(br.edu.soa.restaurante.dominio.SituacaoMesa.LIVRE,outraInstancia.consultarMesa(mesa.id()).situacao());
+    }
+}
+</code></pre><div class="callout"><p><strong>Melhoria para XAMPP sem senha:</strong> na chamada de <code>Banco.configurar</code>, use <code>System.getenv().getOrDefault("MYSQL_TEST_PASSWORD", "")</code>. Assim, quando a variável não existir no Eclipse, o Java fornecerá <code>""</code>, evitando <code>null</code>. Isso <strong>não</strong> elimina a necessidade de configurar <code>MYSQL_TEST_URL</code> e <code>MYSQL_TEST_USER</code>.</p><p>A anotação <code>@EnabledIfEnvironmentVariable</code> permanece intencionalmente ativa: é uma trava que impede a execução acidental no banco errado. <code>Skipped: 1</code> significa que ela não foi satisfeita.</p></div>
+<p><strong>Confira:</strong> o arquivo pertence ao projeto <code>infraestrutura</code>, no caminho
+                    indicado e com o conteúdo completo desta etapa.</p>
+<details class="leitura-codigo" data-leitura-arquivo="source/restaurante-soap/infraestrutura/src/test/java/br/edu/soa/restaurante/infraestrutura/MySqlLocalTest.java">
+<summary>Entenda cada parte de MySqlLocalTest.java</summary>
+<p><strong>Módulo</strong> <code>infraestrutura</code> · <strong>Pacote</strong>
+<code>br.edu.soa.restaurante.infraestrutura</code> · <strong>Fontes</strong>
+<code>src/test/java</code>.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Parte</th>
+<th scope="col">O que faz e por que importa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>@EnabledIfEnvironmentVariable</code></th>
+<td>Habilita o teste quando MYSQL_TEST_URL corresponde ao endereço esperado do banco
+                                    local de testes.</td>
+</tr>
+<tr>
+<th scope="row"><code>Banco.configurar e variáveis MYSQL_TEST_*</code></th>
+<td>Usam a URL e as credenciais do ambiente para preparar a conexão real.</td>
+</tr>
+<tr>
+<th scope="row"><code>persisteContaNoMySqlReal</code></th>
+<td>Cria mesa, categoria e produto, registra uma venda de 110,00 e fecha a conta.</td>
+</tr>
+<tr>
+<th scope="row"><code>nova instância de Restaurante</code></th>
+<td>Reconsulta o pedido e a mesa no banco para conferir o total histórico e o estado
+                                    LIVRE.</td>
+</tr>
+</tbody>
+</table>
+</details>
+</article>
+<h3 id="passo-5">Passo 5: Verificar pelo Maven no Eclipse</h3>
+<ol>
+<li>Use <strong>File → Save All</strong>.</li>
+<li>No projeto <code>restaurante-soap</code>, clique com o botão direito e escolha <strong>Run As →
+                        Maven build…</strong>. Use um nome identificável, como <code>Verificar aula 32</code>.</li>
+<li>Confira <strong>Base directory</strong>: selecione o projeto <code>restaurante-soap</code> com
+                    <strong>Browse Workspace…</strong>. Em <strong>Goals</strong>, informe o conteúdo abaixo, sem o
+                    prefixo <code>mvn</code>.</li>
+<li>Na aba <strong>JRE</strong>, confira o JDK 17. Clique em <strong>Apply → Run</strong> e acompanhe a
+                    aba <strong>Console</strong>.</li>
+</ol>
+<pre><code class="language-text">-pl :infraestrutura -am test</code></pre>
+<p><strong>Confira:</strong> a execução deve terminar em <code>BUILD SUCCESS</code>. Leia também os
+                relatórios em <code>target/surefire-reports</code> dos módulos executados e diferencie testes ignorados
+                de aprovados.</p>
+<h3 id="passo-6">Passo 6: Conferir a entrega na IDE</h3>
+<ol>
+<li>Abra os arquivos salvos nos caminhos indicados e compare com a versão desta etapa.</li>
+<li>Leia a aba <strong>Problems</strong> e a saída da verificação. Corrija os erros relacionados aos
+                    projetos desta aula antes de avançar.</li>
+<li>Confira o resultado esperado: Os testes habilitados passam; o relatório distingue o teste MySQL
+                    executado do teste ignorado.</li>
+</ol>
+</section>
+<section>
+<h2 id="resultado">5. Resultado esperado</h2><p><strong>Com XAMPP configurado:</strong> o objetivo adicional é ver <code>MySqlLocalTest</code> com <code>Skipped: 0</code>, <code>Failures: 0</code> e <code>Errors: 0</code>. Se continuar <code>Skipped: 1</code>, revise a variável <code>MYSQL_TEST_URL</code> na configuração Maven realmente executada.</p>
+<p>Os testes habilitados passam; o relatório distingue o teste MySQL executado do teste ignorado.</p>
+<p>Um resultado ignorado em MySqlLocalTest indica que a condição de execução não foi habilitada. Declare
+                MySQL real como verificado somente depois de executá-lo com o banco de teste configurado.</p>
+<details>
+<summary>Estrutura de diretórios acumulada até esta aula</summary>
+<p>Os caminhos partem da pasta do laboratório. <code>docs</code> e <code>diagramas</code> permanecem na
+                    raiz; <code>target</code> e o cache Maven são gerados pelas ferramentas e não estão detalhados nesta
+                    árvore.</p>
+<pre><code class="language-text">laboratorio-restaurante-soa/
+├── banco/
+│   └── criar-bancos-mysql.sql
+├── diagramas/
+│   ├── componentes.md
+│   └── entidades.md
+├── docs/
+│   └── camadas.md
+├── pom.xml
+├── scripts/
+│   └── maven.ps1
+└── source/
+    └── restaurante-soap/
+        ├── aplicacao/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   └── java/
+        │       │       └── br/
+        │       │           └── edu/
+        │       │               └── soa/
+        │       │                   └── restaurante/
+        │       │                       └── aplicacao/
+        │       │                           ├── Falha.java
+        │       │                           ├── Repositorio.java
+        │       │                           └── Restaurante.java
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── aplicacao/
+        │                                   └── RestauranteTest.java
+        ├── dominio/
+        │   ├── pom.xml
+        │   └── src/
+        │       └── main/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── dominio/
+        │                                   ├── Categoria.java
+        │                                   ├── ItemPedido.java
+        │                                   ├── Mesa.java
+        │                                   ├── Pedido.java
+        │                                   ├── Produto.java
+        │                                   ├── SituacaoMesa.java
+        │                                   └── SituacaoPedido.java
+        ├── infraestrutura/
+        │   ├── pom.xml
+        │   └── src/
+        │       ├── main/
+        │       │   ├── java/
+        │       │   │   └── br/
+        │       │   │       └── edu/
+        │       │   │           └── soa/
+        │       │   │               └── restaurante/
+        │       │   │                   └── infraestrutura/
+        │       │   │                       ├── Banco.java
+        │       │   │                       ├── Credenciais.java
+        │       │   │                       └── JdbcRepositorio.java
+        │       │   └── resources/
+        │       │       └── db/
+        │       │           └── migration/
+        │       │               └── V1__restaurante.sql
+        │       └── test/
+        │           └── java/
+        │               └── br/
+        │                   └── edu/
+        │                       └── soa/
+        │                           └── restaurante/
+        │                               └── infraestrutura/
+        │                                   ├── ErrosMySqlTest.java
+        │                                   ├── MySqlLocalTest.java
+        │                                   └── RestauranteBancoTest.java
+        └── pom.xml</code></pre>
+</details>
+<details>
+<summary>Se a verificação não der certo</summary>
+<ul>
+<li>Leia a mensagem específica na <strong>Console</strong> ou na aba <strong>Problems</strong>;
+                        confira o projeto, o caminho do arquivo e o pacote.</li>
+<li>Depois de mudar POMs, use <strong>Maven → Update Project…</strong>. Confira se cada módulo
+                        listado já possui seu POM.</li>
+<li>No Maven build, confira <strong>Base directory</strong>, <strong>Goals</strong> e o JDK 17. Em
+                        erro de download, confira a conexão e o repositório informado.</li>
+<li>Em problema de execução, diferencie configuração do processo, conexão com o banco, rota/contrato
+                        e regra de negócio. Consulte a <a href="erros.html">aula de diagnóstico</a>.</li>
+</ul>
+</details>
+</section>
+<section>
+<h2 id="checkpoint">6. Confira e continue</h2>
+<ul>
+<li>Salvei os arquivos indicados nos projetos e caminhos desta etapa.</li>
+<li>Os testes habilitados passam; o relatório distingue o teste MySQL executado do teste ignorado.</li>
+<li>Consigo explicar os pontos do código ou da atividade destacados nesta aula.</li>
+<li>Distingui o build automático das verificações que exigem servidor, banco ou interação manual.</li>
+</ul><button aria-pressed="false" class="concluir" data-aula="testes-banco" type="button">Marcar aula como
+                concluída</button>
+<p>Depois, avance para <a href="contrato-xsd.html">Escrever os tipos e mensagens XSD</a>.</p>
+</section>
+<details class="base">
+<summary>Fundamentação e leitura complementar</summary>
+<div aria-labelledby="fundamentacao" class="callout referencias-aula">
+<h3 id="fundamentacao" tabindex="-1">Fundamentação nos PDFs fornecidos</h3>
+<p>Teste as consequências de concorrência e falhas transacionais, não apenas métodos isolados. O
+                    comportamento em H2 e o comportamento no MySQL real são evidências distintas; um teste opt-in
+                    ignorado não prova a segunda.</p>
+<ul>
+<li data-referencia="clean-testes"><a href="../docs/referencias.html#leitura-clean-testes">[R03]
+                            Robert C. Martin — Arquitetura Limpa: o guia do artesão para estrutura e design de
+                            software</a>. Cap. 28: o limite teste e testabilidade. <strong>Páginas 323–327 do
+                            PDF</strong>.</li>
+<li data-referencia="jpa-concorrencia"><a href="../docs/referencias.html#leitura-jpa-concorrencia">[R08] Hébert Coelho — JPA Eficaz:
+                            as melhores práticas de persistência de dados em Java</a>. Cap. 8, §8.4: versionamento e
+                        locks. <strong>Páginas 159–164 do PDF</strong>.</li>
+</ul>
+<p><strong>Confira na leitura:</strong> O que um teste em H2 não permite afirmar sobre locks e códigos
+                    de erro do MySQL?</p>
+<p class="foot">A página é contada no arquivo PDF desde a capa. <a href="../docs/referencias.html#criterios">Critérios, adaptações e atualização dos exemplos</a>.
+                </p>
+</div>
+</details>
+<nav aria-label="Aulas anterior e seguinte" class="links"><a href="infraestrutura-credenciais.html">←
+                Implementar credenciais externas</a><a href="contrato-xsd.html">Escrever os tipos e mensagens XSD →</a>
+</nav>
+</main>
+</body>
+</html>
