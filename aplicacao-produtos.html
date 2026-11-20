@@ -106,6 +106,10 @@ public final class Restaurante {
         } catch (IllegalArgumentException ignored) { }
         throw Falha.invalido(&quot;Imagem deve ser recurso em assets/ ou URL HTTPS sem credenciais.&quot;);
     }
+    // Consulta todos os produtos pela porta de persistência erro da aula 45 
+    public List&lt;Produto&gt; listarProdutos() {
+        return repositorio.transacao(Repositorio.Sessao::produtos);
+    }
 }
 </code></pre><p><strong>Confira:</strong> o arquivo pertence ao projeto <code>aplicacao</code>, no caminho indicado e com o conteúdo completo desta etapa.</p>
 <details class="leitura-codigo" data-leitura-arquivo="source/restaurante-soap/aplicacao/src/main/java/br/edu/soa/restaurante/aplicacao/Restaurante.java"><summary>Entenda cada parte de Restaurante.java</summary>
